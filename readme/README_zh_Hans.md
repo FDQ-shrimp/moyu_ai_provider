@@ -252,7 +252,7 @@ test_01/
 
 ## 12. 许可
 
-项目 License 暂未确定。在作者（`manifest.yaml > author: FDQ-shrimp`）
+项目 License 暂未确定。在作者（`manifest.yaml > author: fdq-shrimp`）
 正式声明之前，请将本仓库视作 **保留所有权利**。如需二次分发，请先
 联系作者。后续会补充 `LICENSE` 文件。
 
@@ -260,6 +260,6 @@ test_01/
 
 ## 13. 维护者
 
-- 作者字段：`FDQ-shrimp`（见 `manifest.yaml`）。
+- 作者字段：`fdq-shrimp`（见 `manifest.yaml`）。
 - 本插件为社区性质的魔芋AI 集成，并非魔芋AI 官方运营。
   使用本插件即代表你同意遵循魔芋AI 自身的服务条款与隐私政策。

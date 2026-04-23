@@ -261,7 +261,7 @@ Version follows `manifest.yaml > version`. Bump it before every release.
 
 The license for this plugin has not been finalised yet. Pending the author's
 decision, treat this repository as **All rights reserved** by its author
-(`manifest.yaml > author: FDQ-shrimp`). If you intend to redistribute the
+(`manifest.yaml > author: fdq-shrimp`). If you intend to redistribute the
 code, please contact the author first.
 
 A dedicated `LICENSE` file will be added in a future revision.
@@ -270,7 +270,7 @@ A dedicated `LICENSE` file will be added in a future revision.
 
 ## 13. Author / maintainer
 
-- Plugin author field: `FDQ-shrimp` (see `manifest.yaml`).
+- Plugin author field: `fdq-shrimp` (see `manifest.yaml`).
 - This plugin is a community integration with the Moyu AI service and is
   not operated by Moyu AI. Users must comply with Moyu AI's own terms of
   service and privacy policy when using the plugin.

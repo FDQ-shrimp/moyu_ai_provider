@@ -1,6 +1,6 @@
 version: 0.0.1
 type: plugin
-author: FDQ-shrimp
+author: fdq-shrimp
 name: moyu_ai_provider
 label:
   en_US: Moyu AI

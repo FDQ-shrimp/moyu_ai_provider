@@ -112,7 +112,7 @@ from the Dify UI and uninstall the plugin.
 
 ## 8. Maintainer contact
 
-- Plugin author (per `manifest.yaml`): `FDQ-shrimp`.
+- Plugin author (per `manifest.yaml`): `fdq-shrimp`.
 - The plugin author is a community contributor and is **not affiliated with
   or endorsed by Moyu AI**.
 - For plugin-specific issues (installation, packaging, availability of
