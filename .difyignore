@@ -1,0 +1,49 @@
+# ===========================================================
+# .difyignore
+# Files / folders that must NOT be shipped inside the .difypkg.
+# Keep this list strict: anything listed here will be excluded
+# from the packaged artifact uploaded to Dify.
+# ===========================================================
+
+# --- Local debug / secrets (MUST stay out of the package) ---
+.env
+.env.*
+!.env.example
+
+# --- Python caches & build artifacts ---
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.tox/
+build/
+dist/
+
+# --- Development-only folders ---
+tools/
+scripts/
+tests/
+docs/
+
+# --- Already-built plugin packages ---
+*.difypkg
+
+# --- VCS & IDE ---
+.git/
+.gitignore
+.gitattributes
+.idea/
+.vscode/
+
+# --- Local reports / logs ---
+*.log
+probe_report.json
+
+# --- OS noise ---
+.DS_Store
+Thumbs.db

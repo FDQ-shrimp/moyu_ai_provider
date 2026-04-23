@@ -1,0 +1,18 @@
+model: jimeng_ti2v_v30_pro
+label:
+  en_US: jimeng_ti2v_v30_pro
+  zh_Hans: jimeng_ti2v_v30_pro
+model_type: llm
+features:
+- agent-thought
+model_properties:
+  mode: chat
+  context_size: 128000
+parameter_rules:
+- name: temperature
+  use_template: temperature
+- name: top_p
+  use_template: top_p
+- name: max_tokens
+  use_template: max_tokens
+  default: 4096

@@ -1,0 +1,12 @@
+# Runtime dependencies for the Moyu AI Dify model-provider plugin.
+# NOTE:
+#   - `dify_plugin` provides the OAI-compatible base model and the plugin runner.
+#   - `requests` is used by helper scripts under `scripts/` (not shipped in the
+#     .difypkg, but listed here so `pip install -r requirements.txt` works for
+#     contributors).
+#   - `python-dotenv` is ONLY used by main.py to load `.env` during local
+#     remote-debug runs. In a packaged install Dify does not provide a `.env`
+#     file, and main.py handles that case gracefully.
+dify_plugin>=0.7.1
+requests>=2.31.0
+python-dotenv>=1.0.1

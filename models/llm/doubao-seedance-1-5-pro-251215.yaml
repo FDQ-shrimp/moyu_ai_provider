@@ -1,0 +1,18 @@
+model: doubao-seedance-1-5-pro-251215
+label:
+  en_US: doubao-seedance-1-5-pro-251215
+  zh_Hans: doubao-seedance-1-5-pro-251215
+model_type: llm
+features:
+- agent-thought
+model_properties:
+  mode: chat
+  context_size: 128000
+parameter_rules:
+- name: temperature
+  use_template: temperature
+- name: top_p
+  use_template: top_p
+- name: max_tokens
+  use_template: max_tokens
+  default: 4096
