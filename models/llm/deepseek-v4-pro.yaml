@@ -1,7 +1,7 @@
-model: kling-v2-master
+model: deepseek-v4-pro
 label:
-  en_US: kling-v2-master
-  zh_Hans: kling-v2-master
+  en_US: deepseek-v4-pro
+  zh_Hans: deepseek-v4-pro
 model_type: llm
 features:
 - agent-thought

@@ -1,7 +1,7 @@
-model: gemini-embedding-001
+model: grok-4-1-fast-non-reasoning
 label:
-  en_US: gemini-embedding-001
-  zh_Hans: gemini-embedding-001
+  en_US: grok-4-1-fast-non-reasoning
+  zh_Hans: grok-4-1-fast-non-reasoning
 model_type: llm
 features:
 - agent-thought

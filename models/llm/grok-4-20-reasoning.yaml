@@ -1,7 +1,7 @@
-model: gemini-embedding-2-preview
+model: grok-4-20-reasoning
 label:
-  en_US: gemini-embedding-2-preview
-  zh_Hans: gemini-embedding-2-preview
+  en_US: grok-4-20-reasoning
+  zh_Hans: grok-4-20-reasoning
 model_type: llm
 features:
 - agent-thought

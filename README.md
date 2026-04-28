@@ -1,6 +1,6 @@
 # Moyu AI — Dify Model Provider Plugin
 
-> English README. 中文版请参考 [`readme/README_zh_Hans.md`](readme/README_zh_Hans.md).
+> Simplified Chinese README available at [`readme/README_zh_Hans.md`](readme/README_zh_Hans.md).
 
 A Dify **model provider plugin** that lets any Dify workspace call the
 [Moyu AI](https://www.moyu.info/) hosted LLM catalogue through a single
@@ -51,7 +51,7 @@ You have two options:
    **Local file**.
 3. Upload `test_01.difypkg`.
 4. After installation, open **Settings → Model Providers**.
-5. Find **Moyu AI / 魔芋AI** in the list and click **Set up**.
+5. Find **Moyu AI** in the list and click **Set up**.
 
 ### Option B — install from the Dify Marketplace
 

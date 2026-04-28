@@ -1,7 +1,7 @@
-model: gpt-5.4-mini
+model: deepseek-v4-flash
 label:
-  en_US: gpt-5.4-mini
-  zh_Hans: gpt-5.4-mini
+  en_US: deepseek-v4-flash
+  zh_Hans: deepseek-v4-flash
 model_type: llm
 features:
 - agent-thought
