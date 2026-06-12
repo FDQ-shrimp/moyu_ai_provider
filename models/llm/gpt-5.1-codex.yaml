@@ -1,7 +1,7 @@
-model: gpt-4o-2024-08-06
+model: gpt-5.1-codex
 label:
-  en_US: gpt-4o-2024-08-06
-  zh_Hans: gpt-4o-2024-08-06
+  en_US: gpt-5.1-codex
+  zh_Hans: gpt-5.1-codex
 model_type: llm
 features:
 - agent-thought

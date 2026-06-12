@@ -14,6 +14,30 @@ DEFAULT_CONTEXT_SIZE = 128000
 DEFAULT_MAX_TOKENS = 4096
 TIMEOUT_SECONDS = 30
 
+# Keywords indicating a model accepts image INPUT (i.e. vision/multimodal models).
+# These models get `features: [vision, agent-thought]` so Dify shows the image
+# upload button in the LLM node. Pure image-OUTPUT models (t2i, t2v) that only
+# produce images from text prompts do NOT need the vision flag.
+VISION_INPUT_KEYWORDS = [
+    "vl",          # vision-language: qwen3-vl, qwen-vl, glm-vl, …
+    "vision",      # explicit "vision" in model id
+    "i2i",         # image-to-image: jimeng_i2i, …
+    "i2v",         # image-to-video: jimeng_i2v, wan2.x-i2v, doubao-seedance-i2v, …
+    "r2v",         # reference-to-video: happyhorse-1.0-r2v (accepts image reference input)
+    "multimodal",  # generic multimodal tag
+    "image-01",    # minimax hailuo-image-01 (supports image input)
+    "image01",
+    "gpt-4o",      # all GPT-4o variants are multimodal
+    "gpt-4-vision",
+    "claude-3",    # claude-3.x are all multimodal
+    "claude-opus", # claude opus series are multimodal
+    "claude-sonnet",
+    "claude-haiku",
+    "claude-fable",  # claude fable series are multimodal
+    "gemini",      # all Gemini models accept image input
+    "kling",       # Kling (快影) video models support image-to-video input
+]
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -178,6 +202,19 @@ def infer_context_size(model_id: str) -> int:
     return DEFAULT_CONTEXT_SIZE
 
 
+def infer_features(model_id: str) -> list[str]:
+    """Return the Dify feature list for a model.
+
+    Models that accept image INPUT get the `vision` feature so that Dify
+    shows an image-upload button in the LLM node. Pure text-only models get
+    only `agent-thought`.
+    """
+    lowered = model_id.lower()
+    if any(kw in lowered for kw in VISION_INPUT_KEYWORDS):
+        return ["vision", "agent-thought"]
+    return ["agent-thought"]
+
+
 def render_model_yaml(model_id: str) -> dict[str, Any]:
     context_size = infer_context_size(model_id)
     return {
@@ -187,7 +224,7 @@ def render_model_yaml(model_id: str) -> dict[str, Any]:
             "zh_Hans": to_label(model_id),
         },
         "model_type": "llm",
-        "features": ["agent-thought"],
+        "features": infer_features(model_id),
         "model_properties": {
             "mode": "chat",
             "context_size": context_size,

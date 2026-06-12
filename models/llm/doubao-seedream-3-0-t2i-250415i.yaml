@@ -1,7 +1,7 @@
-model: grok-4.1
+model: doubao-seedream-3-0-t2i-250415i
 label:
-  en_US: grok-4.1
-  zh_Hans: grok-4.1
+  en_US: doubao-seedream-3-0-t2i-250415i
+  zh_Hans: doubao-seedream-3-0-t2i-250415i
 model_type: llm
 features:
 - agent-thought

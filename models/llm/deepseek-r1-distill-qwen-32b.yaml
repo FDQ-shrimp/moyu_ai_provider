@@ -1,7 +1,7 @@
-model: grok-4.1-fast
+model: DeepSeek-R1-Distill-Qwen-32B
 label:
-  en_US: grok-4.1-fast
-  zh_Hans: grok-4.1-fast
+  en_US: DeepSeek-R1-Distill-Qwen-32B
+  zh_Hans: DeepSeek-R1-Distill-Qwen-32B
 model_type: llm
 features:
 - agent-thought

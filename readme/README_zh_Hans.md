@@ -3,7 +3,7 @@
 > 中文 README。英文版见仓库根目录 [`README.md`](../README.md)。
 
 本插件以 **模型供应商插件（Model Provider Plugin）** 的形式接入 Dify，
-将 [魔芋AI](https://www.moyu.info/) 平台上聚合的大语言模型通过一个
+将 [魔芋AI](https://www.moyu.info/) 平台上聚合的 140+ 款模型通过一个
 OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 API Key，
 其他工作（模型列表、请求格式、流式输出、工具调用）都由插件负责。
 
@@ -12,9 +12,17 @@ OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 
 ## 1. 功能概览
 
 - 在 Dify 工作区中注册一个名为 **魔芋AI / Moyu AI** 的模型供应商。
-- 预置 100+ 个 LLM 模型 YAML 定义，覆盖 GPT、Claude、Gemini、Qwen、Kimi、
-  GLM、Grok、Doubao、Moonshot、Jimeng、Kling、Minimax、Veo、Sora、Flux
-  等系列（完整列表见 `models/llm/*.yaml`）。
+- 预置 **140+ 个模型 YAML 定义**，覆盖：
+  - **文本 / LLM**：GPT、Claude、Gemini、Qwen、Kimi、GLM、Grok、DeepSeek、
+    Doubao、Moonshot 等系列
+  - **视觉 / 多模态**（支持图片输入）：GPT-4o、Claude（全系列）、
+    Gemini（全系列）、Qwen-VL、Kling、即梦 i2i/i2v、Wan i2v、Minimax Hailuo
+    Image、HappyHorse i2v/r2v 等——已标注 Dify `vision` 特性，LLM 节点会显示
+    图片上传按钮
+  - **图像生成**（文生图）：GPT-Image-2、FLUX.2-dev、Doubao Seedream、
+    即梦 t2i、Z-Image-Turbo 等
+  - **视频生成**（文生视频 / 图生视频）：Veo 3、Kling、Wan、即梦 t2v、
+    Doubao Seedance、HappyHorse 等
 - 使用 Dify 官方 `OAICompatLargeLanguageModel` 基类，天然支持流式输出、
   工具调用、Token 用量统计、错误归一化。
 - 凭据表单只有一项：用户填 `api_key`，其余全部由插件内部处理。
@@ -28,15 +36,20 @@ OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 
 
 ## 2. 支持的模型类型
 
-| 模型类型 | 状态 |
-|----------|------|
-| `llm`（对话补全，含流式、工具调用） | 已支持 |
-| `text-embedding` | 暂未支持，后续规划中 |
-| `rerank` | 暂无计划 |
-| `speech2text` / `tts` | 暂无计划 |
+所有模型统一注册为 `model_type: llm`，因为魔芋AI 通过单一的
+OpenAI 兼容 `POST /v1/chat/completions` 端点暴露全部模型。
 
-当前所有模型的调用都走
-`POST https://www.moyu.info/v1/chat/completions`。
+| 分类 | 典型模型 | Dify 特性标记 |
+|------|----------|--------------|
+| 文本 / LLM | GPT、Claude、Gemini、Qwen、DeepSeek、Kimi… | `agent-thought` |
+| 视觉 / 多模态（接受图片输入） | GPT-4o、Claude（全系列）、Gemini（全系列）、Qwen-VL、Kling、即梦 i2i/i2v、Wan i2v、Minimax Hailuo Image… | `vision` + `agent-thought` |
+| 图像生成（文生图） | GPT-Image-2、FLUX.2-dev、Doubao Seedream、即梦 t2i、Z-Image-Turbo… | `agent-thought` |
+| 视频生成（文生视频 / 图生视频） | Veo 3、Kling、Wan、即梦 t2v、Doubao Seedance、HappyHorse… | 图生视频：`vision`；文生视频：`agent-thought` |
+
+> **关于 Embedding 模型**：魔芋AI 平台上的 embedding 模型（如
+> `text-embedding-v4`、`gemini-embedding-*`）也通过同一聊天接口暴露，
+> 本版本将其列为 `llm` 条目方便发现；原生 `text_embedding` 类型支持
+> 在后续版本规划中。
 
 ---
 
@@ -245,8 +258,10 @@ test_01/
 
 版本号以 `manifest.yaml > version` 为准，每次发布前都要手动 bump。
 
-- `0.0.1` — 初始发布候选：100+ LLM 模型、流式输出、工具调用、
+- `0.0.1` — 初始发布候选：80 个 LLM 模型、流式输出、工具调用、
   preflight + 测试套件。
+- `0.0.2` — 模型目录更新：140+ 个模型，新增视觉/多模态、图像生成、
+  视频生成类模型；为接受图片输入的模型自动添加 `vision` 特性标记。
 
 ---
 

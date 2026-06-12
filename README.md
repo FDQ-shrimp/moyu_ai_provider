@@ -3,7 +3,7 @@
 > Simplified Chinese README available at [`readme/README_zh_Hans.md`](readme/README_zh_Hans.md).
 
 A Dify **model provider plugin** that lets any Dify workspace call the
-[Moyu AI](https://www.moyu.info/) hosted LLM catalogue through a single
+[Moyu AI](https://www.moyu.info/) hosted model catalogue through a single
 OpenAI-compatible endpoint. Users only need to enter their own Moyu AI
 API Key — everything else (model list, request shape, streaming, tool calls)
 is handled by the plugin.
@@ -13,9 +13,17 @@ is handled by the plugin.
 ## 1. Features
 
 - Registers **Moyu AI** as a first-class model provider in any Dify workspace.
-- Ships 100+ predefined LLM model YAMLs covering GPT / Claude / Gemini /
-  Qwen / Kimi / GLM / Grok / Doubao / Moonshot / Jimeng / Kling / Minimax /
-  Veo / Sora / Flux and more (see `models/llm/*.yaml` for the full list).
+- Ships **140+ predefined model YAMLs** covering:
+  - **Text / LLM**: GPT / Claude / Gemini / Qwen / Kimi / GLM / Grok / DeepSeek /
+    Doubao / Moonshot and more
+  - **Vision / Multimodal** (accept image input): GPT-4o / Claude (all series) /
+    Gemini (all series) / Qwen-VL / Jimeng i2i / Kling / Wan i2v / Minimax
+    Hailuo Image / HappyHorse i2v and more — marked with Dify's `vision` feature
+    so the image upload button appears in LLM nodes
+  - **Image generation** (text-to-image): GPT-Image-2 / FLUX.2 / Doubao Seedream /
+    Jimeng t2i / Z-Image-Turbo and more
+  - **Video generation** (text-to-video / image-to-video): Veo / Kling / Wan /
+    Jimeng t2v / Doubao Seedance / HappyHorse and more
 - Uses Dify's official `OAICompatLargeLanguageModel` base class, so streaming,
   tool calls, token usage reporting and error normalisation work out of the box.
 - Single-field credential UI: the user only fills in `api_key`.
@@ -28,15 +36,20 @@ is handled by the plugin.
 
 ## 2. Supported model types
 
-| Model type | Status |
-|------------|--------|
-| `llm` (chat completions, streaming, tool-calling) | supported |
-| `text-embedding` | not yet — planned |
-| `rerank` | not planned |
-| `speech2text` / `tts` | not planned |
+All models are registered as `model_type: llm` because Moyu AI exposes them
+through a single OpenAI-compatible `POST /v1/chat/completions` endpoint.
 
-All currently shipped models run through
-`POST https://www.moyu.info/v1/chat/completions`.
+| Category | Examples | Dify feature flag |
+|----------|----------|-------------------|
+| Text / LLM | GPT, Claude, Gemini, Qwen, DeepSeek, Kimi… | `agent-thought` |
+| Vision / Multimodal (image input) | GPT-4o, Claude (all), Gemini (all), Qwen-VL, Kling, Jimeng i2i/i2v, Wan i2v, Minimax Hailuo Image… | `vision` + `agent-thought` |
+| Image generation (text-to-image) | GPT-Image-2, FLUX.2-dev, Doubao Seedream, Jimeng t2i, Z-Image-Turbo… | `agent-thought` |
+| Video generation (t2v / i2v) | Veo 3, Kling, Wan t2v, Jimeng t2v, Doubao Seedance, HappyHorse… | `vision` (i2v) or `agent-thought` (t2v) |
+
+> **Note on `text-embedding` models**: Moyu AI exposes some embedding models
+> (e.g. `text-embedding-v4`, `gemini-embedding-*`) through the same chat
+> endpoint. They are included as `llm` entries for discoverability; native
+> `text_embedding` type support is planned for a future version.
 
 ---
 
@@ -252,8 +265,12 @@ See [`privacy.md`](privacy.md) for a user-facing privacy statement.
 
 Version follows `manifest.yaml > version`. Bump it before every release.
 
-- `0.0.1` — initial release candidate: 100+ LLM models, streaming,
+- `0.0.1` — initial release candidate: 80 LLM models, streaming,
   tool-calling, preflight + test suite.
+- `0.0.2` — model catalogue update: 140+ models including new vision/multimodal,
+  image-generation and video-generation models; `vision` feature flag added to
+  models that accept image input (GPT-4o, Claude, Gemini, Qwen-VL, Kling,
+  Jimeng i2i/i2v, Wan i2v, Minimax Hailuo Image, HappyHorse i2v/r2v, etc.).
 
 ---
 

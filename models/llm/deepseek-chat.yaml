@@ -1,7 +1,7 @@
-model: GPT-4.1
+model: deepseek-chat
 label:
-  en_US: GPT-4.1
-  zh_Hans: GPT-4.1
+  en_US: deepseek-chat
+  zh_Hans: deepseek-chat
 model_type: llm
 features:
 - agent-thought

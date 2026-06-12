@@ -1,9 +1,10 @@
-model: gemini-3-pro-image-preview
+model: gemini-3-pro-image-preview(按次)
 label:
-  en_US: gemini-3-pro-image-preview
-  zh_Hans: gemini-3-pro-image-preview
+  en_US: gemini-3-pro-image-preview(按次)
+  zh_Hans: gemini-3-pro-image-preview(按次)
 model_type: llm
 features:
+- vision
 - agent-thought
 model_properties:
   mode: chat

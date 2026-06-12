@@ -1,0 +1,19 @@
+model: happyhorse-1.0-r2v
+label:
+  en_US: happyhorse-1.0-r2v
+  zh_Hans: happyhorse-1.0-r2v
+model_type: llm
+features:
+- vision
+- agent-thought
+model_properties:
+  mode: chat
+  context_size: 128000
+parameter_rules:
+- name: temperature
+  use_template: temperature
+- name: top_p
+  use_template: top_p
+- name: max_tokens
+  use_template: max_tokens
+  default: 4096
