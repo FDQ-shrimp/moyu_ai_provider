@@ -1,7 +1,7 @@
-model: gemini-3.1-flash-image-preview(按次)
+model: gemini-3.1-flash-image-preview
 label:
-  en_US: gemini-3.1-flash-image-preview(按次)
-  zh_Hans: gemini-3.1-flash-image-preview(按次)
+  en_US: gemini-3.1-flash-image-preview
+  zh_Hans: gemini-3.1-flash-image-preview
 model_type: llm
 features:
 - vision

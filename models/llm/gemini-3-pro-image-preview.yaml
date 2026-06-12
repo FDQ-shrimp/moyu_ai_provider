@@ -1,7 +1,7 @@
-model: gemini-3-pro-image-preview(按次)
+model: gemini-3-pro-image-preview
 label:
-  en_US: gemini-3-pro-image-preview(按次)
-  zh_Hans: gemini-3-pro-image-preview(按次)
+  en_US: gemini-3-pro-image-preview
+  zh_Hans: gemini-3-pro-image-preview
 model_type: llm
 features:
 - vision
