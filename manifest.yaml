@@ -1,4 +1,4 @@
-﻿version: 0.0.2
+﻿version: 0.0.3
 type: plugin
 author: fdq-shrimp
 name: moyu_ai_provider
@@ -20,7 +20,7 @@ plugins:
   models:
     - provider/moyu.yaml
 meta:
-  version: 0.0.2
+  version: 0.0.3
   arch:
     - amd64
     - arm64
