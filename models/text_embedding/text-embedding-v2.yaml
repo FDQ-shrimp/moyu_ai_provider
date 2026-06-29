@@ -1,0 +1,12 @@
+model: text-embedding-v2
+label:
+  en_US: text-embedding-v2
+  zh_Hans: text-embedding-v2
+model_type: text-embedding
+model_properties:
+  context_size: 2048
+  max_chunks: 10
+pricing:
+  input: '0'
+  unit: '0.000001'
+  currency: USD

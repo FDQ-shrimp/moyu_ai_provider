@@ -4,6 +4,7 @@ label:
   zh_Hans: doubao-seed-2-0-lite-260215
 model_type: llm
 features:
+- vision
 - agent-thought
 model_properties:
   mode: chat

@@ -1,4 +1,4 @@
-version: 0.0.4
+version: 0.0.5
 type: plugin
 author: fdq-shrimp
 name: moyu_ai_provider
@@ -6,8 +6,8 @@ label:
   en_US: Moyu AI
   zh_Hans: 魔芋AI
 description:
-  en_US: Moyu AI model provider plugin for Dify. Supports 100+ LLM, vision, image and video generation models that are verified working.
-  zh_Hans: 魔芋AI模型供应商插件，支持在 Dify 中调用 100+ 款文本、视觉、图像及视频生成模型。
+  en_US: Moyu AI model provider plugin for Dify. Supports 100+ verified LLM and vision models, plus text-embedding and rerank models for RAG.
+  zh_Hans: 魔芋AI模型供应商插件，支持在 Dify 中调用 100+ 款文本与视觉大模型，并提供文本向量（Embedding）与重排序（Rerank）模型用于 RAG 检索增强。
 icon: icon.png
 created_at: "2026-04-15T08:03:44.658609186Z"
 resource:
@@ -16,11 +16,13 @@ resource:
     model:
       enabled: true
       llm: true
+      text_embedding: true
+      rerank: true
 plugins:
   models:
     - provider/moyu.yaml
 meta:
-  version: 0.0.4
+  version: 0.0.5
   arch:
     - amd64
     - arm64

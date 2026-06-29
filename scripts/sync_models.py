@@ -18,6 +18,13 @@ TIMEOUT_SECONDS = 30
 # These models get `features: [vision, agent-thought]` so Dify shows the image
 # upload button in the LLM node. Pure image-OUTPUT models (t2i, t2v) that only
 # produce images from text prompts do NOT need the vision flag.
+#
+# This list is evidence-based: every family below was live-probed against
+# `POST /v1/chat/completions` with an image content block. Models that returned
+# an image-decode / image-dimension error (i.e. they tried to read the image)
+# or HTTP 200 are treated as vision-capable; models that explicitly rejected the
+# multi-modal message ("only supports text modality") are listed in
+# TEXT_ONLY_OVERRIDES below.
 VISION_INPUT_KEYWORDS = [
     "vl",          # vision-language: qwen3-vl, qwen-vl, glm-vl, …
     "vision",      # explicit "vision" in model id
@@ -29,14 +36,31 @@ VISION_INPUT_KEYWORDS = [
     "image01",
     "gpt-4o",      # all GPT-4o variants are multimodal
     "gpt-4-vision",
-    "claude-3",    # claude-3.x are all multimodal
-    "claude-opus", # claude opus series are multimodal
-    "claude-sonnet",
-    "claude-haiku",
-    "claude-fable",  # claude fable series are multimodal
-    "gemini",      # all Gemini models accept image input
+    "claude",      # all Claude (3.x / 4.x / fable) accept image input
+    "gemini",      # all Gemini chat models accept image input
     "kling",       # Kling (快影) video models support image-to-video input
+    "doubao-seed", # ByteDance Doubao Seed series (1.6/1.8/2.0) are multimodal
+    "grok-4",      # Grok 4 family accepts image input (probed)
+    "kimi",        # Kimi k2.5 / k2.6 accept image input (probed)
+    "minimax",     # MiniMax M2.5 / M2.7 + Hailuo image accept image input (probed)
+    "qwen-flash",  # Qwen commercial flash/plus/max are multimodal (probed)
+    "qwen-plus",
+    "qwen-max",
+    "qwen3-max",
+    "qwen3.5",     # qwen3.5-flash/plus/35b accept image input (probed)
+    "qwen3.6",     # qwen3.6-flash/plus/max-preview accept image input (probed)
+    "qwen3.7-plus",
 ]
+
+# Models that a keyword above would tag as vision, but which were live-probed
+# and explicitly rejected image input ("only supports text modality" / invalid
+# multi-modal message). Keyed by lowercased model id.
+TEXT_ONLY_OVERRIDES = {
+    "qwen3.7-max",                 # rejects image content blocks (probed http_400)
+    "doubao-1-5-lite-32k-250115",  # legacy Doubao 1.5, text-only
+    "doubao-1-5-pro-32k-250115",   # legacy Doubao 1.5, text-only
+    "glm-5.1",                     # "only supports text modality" (probed)
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -207,9 +231,12 @@ def infer_features(model_id: str) -> list[str]:
 
     Models that accept image INPUT get the `vision` feature so that Dify
     shows an image-upload button in the LLM node. Pure text-only models get
-    only `agent-thought`.
+    only `agent-thought`. Models explicitly probed as text-only are forced
+    back to text even if a keyword would otherwise match them.
     """
     lowered = model_id.lower()
+    if lowered in TEXT_ONLY_OVERRIDES:
+        return ["agent-thought"]
     if any(kw in lowered for kw in VISION_INPUT_KEYWORDS):
         return ["vision", "agent-thought"]
     return ["agent-thought"]

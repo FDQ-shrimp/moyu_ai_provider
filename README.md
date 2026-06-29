@@ -13,19 +13,20 @@ is handled by the plugin.
 ## 1. Features
 
 - Registers **Moyu AI** as a first-class model provider in any Dify workspace.
-- Ships **140+ predefined model YAMLs** covering:
+- Ships **100+ predefined, verified model YAMLs** across three model types:
   - **Text / LLM**: GPT / Claude / Gemini / Qwen / Kimi / GLM / Grok / DeepSeek /
-    Doubao / Moonshot and more
+    Doubao and more
   - **Vision / Multimodal** (accept image input): GPT-4o / Claude (all series) /
-    Gemini (all series) / Qwen-VL / Jimeng i2i / Kling / Wan i2v / Minimax
-    Hailuo Image / HappyHorse i2v and more — marked with Dify's `vision` feature
-    so the image upload button appears in LLM nodes
-  - **Image generation** (text-to-image): GPT-Image-2 / FLUX.2 / Doubao Seedream /
-    Jimeng t2i / Z-Image-Turbo and more
-  - **Video generation** (text-to-video / image-to-video): Veo / Kling / Wan /
-    Jimeng t2v / Doubao Seedance / HappyHorse and more
-- Uses Dify's official `OAICompatLargeLanguageModel` base class, so streaming,
-  tool calls, token usage reporting and error normalisation work out of the box.
+    Gemini (all series) / Qwen-VL & Qwen flash/plus/max / Doubao Seed series /
+    Grok-4 / Kimi / MiniMax / Jimeng i2i / Wan i2v / MiniMax Hailuo Image and
+    more — marked with Dify's `vision` feature so the image upload button
+    appears in LLM nodes
+  - **Text-embedding** (RAG vectors): `text-embedding-v4`, `text-embedding-v2`,
+    `gemini-embedding-2-preview`, `gemini-embedding-001`
+  - **Rerank** (RAG re-ranking): `qwen3-rerank`
+- Uses Dify's official `OAICompatLargeLanguageModel`, `OAICompatEmbeddingModel`
+  and `OAICompatRerankModel` base classes, so streaming, tool calls, batching,
+  token usage reporting and error normalisation work out of the box.
 - Single-field credential UI: the user only fills in `api_key`.
 - Helper scripts for **syncing the model list** from Moyu AI and for
   **probing availability** across all models.
@@ -36,20 +37,27 @@ is handled by the plugin.
 
 ## 2. Supported model types
 
-All models are registered as `model_type: llm` because Moyu AI exposes them
-through a single OpenAI-compatible `POST /v1/chat/completions` endpoint.
+The plugin now registers three native Dify model types, each backed by the
+matching Moyu AI OpenAI-compatible endpoint:
 
-| Category | Examples | Dify feature flag |
-|----------|----------|-------------------|
-| Text / LLM | GPT, Claude, Gemini, Qwen, DeepSeek, Kimi… | `agent-thought` |
-| Vision / Multimodal (image input) | GPT-4o, Claude (all), Gemini (all), Qwen-VL, Kling, Jimeng i2i/i2v, Wan i2v, Minimax Hailuo Image… | `vision` + `agent-thought` |
-| Image generation (text-to-image) | GPT-Image-2, FLUX.2-dev, Doubao Seedream, Jimeng t2i, Z-Image-Turbo… | `agent-thought` |
-| Video generation (t2v / i2v) | Veo 3, Kling, Wan t2v, Jimeng t2v, Doubao Seedance, HappyHorse… | `vision` (i2v) or `agent-thought` (t2v) |
+| Model type | Endpoint | Examples | Dify feature flag |
+|------------|----------|----------|-------------------|
+| `llm` (text) | `POST /v1/chat/completions` | GPT, Claude, Gemini, Qwen, DeepSeek, Kimi, GLM, Grok, Doubao… | `agent-thought` |
+| `llm` (vision / multimodal, image input) | `POST /v1/chat/completions` | GPT-4o, Claude (all), Gemini (all), Qwen-VL & Qwen flash/plus/max, Doubao Seed (1.6/1.8/2.0), Grok-4, Kimi k2.5/k2.6, MiniMax M2.5/M2.7, Jimeng i2i/i2v, Wan i2v, MiniMax Hailuo Image… | `vision` + `agent-thought` |
+| `llm` (image / video generation) | `POST /v1/chat/completions` | Jimeng t2i/t2v, Wan t2v/i2v, Veo 3 (where exposed via chat) | `agent-thought` / `vision` |
+| `text-embedding` | `POST /v1/embeddings` | `text-embedding-v4` (1024), `text-embedding-v2` (1536), `gemini-embedding-2-preview` (3072), `gemini-embedding-001` | — |
+| `rerank` | `POST /v1/rerank` | `qwen3-rerank` | — |
 
-> **Note on `text-embedding` models**: Moyu AI exposes some embedding models
-> (e.g. `text-embedding-v4`, `gemini-embedding-*`) through the same chat
-> endpoint. They are included as `llm` entries for discoverability; native
-> `text_embedding` type support is planned for a future version.
+> The `vision` feature flags above are **evidence-based**: every multimodal
+> family was live-probed by sending an image content block to
+> `/v1/chat/completions`. Models that explicitly reject image input
+> (e.g. legacy Doubao 1.5, GLM-5.1, qwen3.7-max) are intentionally kept
+> text-only.
+
+> **Native file / video understanding (Advanced Inputs)**: declaring Dify's
+> `document` / `video` / `audio` features depends on whether the Moyu relay
+> passes through file blocks to the upstream model. This is pending
+> confirmation with the Moyu platform and will be enabled in a later version.
 
 ---
 
@@ -217,9 +225,15 @@ test_01/
 │   ├── moyu.yaml                 # Provider UI + credential schema
 │   └── moyu.py                   # Provider-level credential validator
 ├── models/
-│   └── llm/
-│       ├── llm.py                # OAI-compatible LLM adapter
-│       └── *.yaml                # Predefined model declarations
+│   ├── llm/
+│   │   ├── llm.py                # OAI-compatible LLM adapter
+│   │   └── *.yaml                # Predefined LLM declarations
+│   ├── text_embedding/
+│   │   ├── text_embedding.py     # OAI-compatible embedding adapter
+│   │   └── *.yaml                # Predefined embedding declarations
+│   └── rerank/
+│       ├── rerank.py             # OAI-compatible (Jina-style) rerank adapter
+│       └── *.yaml                # Predefined rerank declarations
 ├── scripts/
 │   ├── sync_models.py            # Pull Moyu's /v1/models into local YAMLs
 │   ├── probe_all.py              # Availability report across all models
@@ -271,6 +285,16 @@ Version follows `manifest.yaml > version`. Bump it before every release.
   image-generation and video-generation models; `vision` feature flag added to
   models that accept image input (GPT-4o, Claude, Gemini, Qwen-VL, Kling,
   Jimeng i2i/i2v, Wan i2v, Minimax Hailuo Image, HappyHorse i2v/r2v, etc.).
+- `0.0.3` / `0.0.4` — catalogue pruned to verified-working models; manifest
+  encoding fixes (no-BOM UTF-8, corrected Chinese metadata).
+- `0.0.5` — native capability upgrade:
+  - **VISION backfill** — 27 additional multimodal models relabeled with the
+    `vision` feature based on live image-input probing (Doubao Seed series,
+    Grok-4, Kimi k2.5/k2.6, MiniMax M2.5/M2.7, Qwen flash/plus/max & 3.5/3.6).
+  - **Text-embedding** model type added (`text-embedding-v4/v2`,
+    `gemini-embedding-2-preview/001`) via `OAICompatEmbeddingModel`.
+  - **Rerank** model type added (`qwen3-rerank`) via `OAICompatRerankModel`,
+    with a `top_n` guard for Moyu's `/v1/rerank` contract.
 
 ---
 

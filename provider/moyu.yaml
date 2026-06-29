@@ -21,6 +21,8 @@ help:
     zh_Hans: https://www.moyu.info/
 supported_model_types:
   - llm
+  - text-embedding
+  - rerank
 configurate_methods:
   - predefined-model
 provider_credential_schema:
@@ -41,8 +43,16 @@ models:
   llm:
     predefined:
       - "models/llm/*.yaml"
+  text_embedding:
+    predefined:
+      - "models/text_embedding/*.yaml"
+  rerank:
+    predefined:
+      - "models/rerank/*.yaml"
 extra:
   python:
     provider_source: provider/moyu.py
     model_sources:
       - "models/llm/llm.py"
+      - "models/text_embedding/text_embedding.py"
+      - "models/rerank/rerank.py"

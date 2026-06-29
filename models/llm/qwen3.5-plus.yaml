@@ -4,6 +4,7 @@ label:
   zh_Hans: qwen3.5-plus
 model_type: llm
 features:
+- vision
 - agent-thought
 model_properties:
   mode: chat

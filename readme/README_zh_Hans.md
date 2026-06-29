@@ -3,28 +3,29 @@
 > 中文 README。英文版见仓库根目录 [`README.md`](../README.md)。
 
 本插件以 **模型供应商插件（Model Provider Plugin）** 的形式接入 Dify，
-将 [魔芋AI](https://www.moyu.info/) 平台上聚合的 140+ 款模型通过一个
-OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 API Key，
-其他工作（模型列表、请求格式、流式输出、工具调用）都由插件负责。
+将 [魔芋AI](https://www.moyu.info/) 平台上聚合的 100+ 款模型（文本、视觉、
+向量 Embedding、重排序 Rerank）通过 OpenAI 兼容接口对接到 Dify 工作区。
+终端用户只需要填一次 API Key，其他工作（模型列表、请求格式、流式输出、
+工具调用）都由插件负责。
 
 ---
 
 ## 1. 功能概览
 
 - 在 Dify 工作区中注册一个名为 **魔芋AI / Moyu AI** 的模型供应商。
-- 预置 **140+ 个模型 YAML 定义**，覆盖：
+- 预置 **100+ 个经实测验证的模型 YAML 定义**，覆盖三种模型类型：
   - **文本 / LLM**：GPT、Claude、Gemini、Qwen、Kimi、GLM、Grok、DeepSeek、
-    Doubao、Moonshot 等系列
+    Doubao 等系列
   - **视觉 / 多模态**（支持图片输入）：GPT-4o、Claude（全系列）、
-    Gemini（全系列）、Qwen-VL、Kling、即梦 i2i/i2v、Wan i2v、Minimax Hailuo
-    Image、HappyHorse i2v/r2v 等——已标注 Dify `vision` 特性，LLM 节点会显示
-    图片上传按钮
-  - **图像生成**（文生图）：GPT-Image-2、FLUX.2-dev、Doubao Seedream、
-    即梦 t2i、Z-Image-Turbo 等
-  - **视频生成**（文生视频 / 图生视频）：Veo 3、Kling、Wan、即梦 t2v、
-    Doubao Seedance、HappyHorse 等
-- 使用 Dify 官方 `OAICompatLargeLanguageModel` 基类，天然支持流式输出、
-  工具调用、Token 用量统计、错误归一化。
+    Gemini（全系列）、Qwen-VL 及 Qwen flash/plus/max、Doubao Seed 系列、
+    Grok-4、Kimi、MiniMax、即梦 i2i/i2v、Wan i2v、MiniMax Hailuo Image 等
+    ——已标注 Dify `vision` 特性，LLM 节点会显示图片上传按钮
+  - **文本向量 Embedding**（用于 RAG 检索）：`text-embedding-v4`、
+    `text-embedding-v2`、`gemini-embedding-2-preview`、`gemini-embedding-001`
+  - **重排序 Rerank**（用于 RAG 重排）：`qwen3-rerank`
+- 使用 Dify 官方 `OAICompatLargeLanguageModel`、`OAICompatEmbeddingModel`、
+  `OAICompatRerankModel` 基类，天然支持流式输出、工具调用、批量嵌入、
+  Token 用量统计、错误归一化。
 - 凭据表单只有一项：用户填 `api_key`，其余全部由插件内部处理。
 - 附带两个运维脚本：
   - 从魔芋AI 拉取模型列表并生成 YAML；
@@ -36,20 +37,24 @@ OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 
 
 ## 2. 支持的模型类型
 
-所有模型统一注册为 `model_type: llm`，因为魔芋AI 通过单一的
-OpenAI 兼容 `POST /v1/chat/completions` 端点暴露全部模型。
+插件现在原生注册三种 Dify 模型类型，分别对接魔芋AI 对应的
+OpenAI 兼容端点：
 
-| 分类 | 典型模型 | Dify 特性标记 |
-|------|----------|--------------|
-| 文本 / LLM | GPT、Claude、Gemini、Qwen、DeepSeek、Kimi… | `agent-thought` |
-| 视觉 / 多模态（接受图片输入） | GPT-4o、Claude（全系列）、Gemini（全系列）、Qwen-VL、Kling、即梦 i2i/i2v、Wan i2v、Minimax Hailuo Image… | `vision` + `agent-thought` |
-| 图像生成（文生图） | GPT-Image-2、FLUX.2-dev、Doubao Seedream、即梦 t2i、Z-Image-Turbo… | `agent-thought` |
-| 视频生成（文生视频 / 图生视频） | Veo 3、Kling、Wan、即梦 t2v、Doubao Seedance、HappyHorse… | 图生视频：`vision`；文生视频：`agent-thought` |
+| 模型类型 | 端点 | 典型模型 | Dify 特性标记 |
+|----------|------|----------|--------------|
+| `llm`（文本） | `POST /v1/chat/completions` | GPT、Claude、Gemini、Qwen、DeepSeek、Kimi、GLM、Grok、Doubao… | `agent-thought` |
+| `llm`（视觉/多模态，图片输入） | `POST /v1/chat/completions` | GPT-4o、Claude（全系列）、Gemini（全系列）、Qwen-VL 及 Qwen flash/plus/max、Doubao Seed（1.6/1.8/2.0）、Grok-4、Kimi k2.5/k2.6、MiniMax M2.5/M2.7、即梦 i2i/i2v、Wan i2v、MiniMax Hailuo Image… | `vision` + `agent-thought` |
+| `llm`（图像/视频生成） | `POST /v1/chat/completions` | 即梦 t2i/t2v、Wan t2v/i2v 等（经聊天接口暴露的） | `agent-thought` / `vision` |
+| `text-embedding` | `POST /v1/embeddings` | `text-embedding-v4`（1024 维）、`text-embedding-v2`（1536 维）、`gemini-embedding-2-preview`（3072 维）、`gemini-embedding-001` | — |
+| `rerank` | `POST /v1/rerank` | `qwen3-rerank` | — |
 
-> **关于 Embedding 模型**：魔芋AI 平台上的 embedding 模型（如
-> `text-embedding-v4`、`gemini-embedding-*`）也通过同一聊天接口暴露，
-> 本版本将其列为 `llm` 条目方便发现；原生 `text_embedding` 类型支持
-> 在后续版本规划中。
+> 上述 `vision` 标记均为**实测得出**：每个多模态系列都通过向
+> `/v1/chat/completions` 发送图片内容块进行了实测。明确拒绝图片输入的
+> 模型（如旧版 Doubao 1.5、GLM-5.1、qwen3.7-max）已刻意保持纯文本。
+
+> **原生文件/视频理解（Advanced Inputs）**：是否声明 Dify 的
+> `document` / `video` / `audio` 特性，取决于魔芋中转层是否会把文件块
+> 透传给上游模型。该项正在与魔芋平台确认，将在后续版本启用。
 
 ---
 
@@ -210,9 +215,15 @@ test_01/
 │   ├── moyu.yaml                 # 供应商 UI + 凭据 schema
 │   └── moyu.py                   # 供应商级别凭据校验
 ├── models/
-│   └── llm/
-│       ├── llm.py                # OAI 兼容 LLM 适配器
-│       └── *.yaml                # 预置模型声明
+│   ├── llm/
+│   │   ├── llm.py                # OAI 兼容 LLM 适配器
+│   │   └── *.yaml                # 预置 LLM 声明
+│   ├── text_embedding/
+│   │   ├── text_embedding.py     # OAI 兼容 Embedding 适配器
+│   │   └── *.yaml                # 预置 Embedding 声明
+│   └── rerank/
+│       ├── rerank.py             # OAI 兼容（Jina 风格）Rerank 适配器
+│       └── *.yaml                # 预置 Rerank 声明
 ├── scripts/
 │   ├── sync_models.py            # 拉取魔芋AI /v1/models 并生成 YAML
 │   ├── probe_all.py              # 批量探活 + 报告
@@ -262,6 +273,16 @@ test_01/
   preflight + 测试套件。
 - `0.0.2` — 模型目录更新：140+ 个模型，新增视觉/多模态、图像生成、
   视频生成类模型；为接受图片输入的模型自动添加 `vision` 特性标记。
+- `0.0.3` / `0.0.4` — 目录裁剪为实测可用模型；修复清单编码问题
+  （无 BOM 的 UTF-8、修正中文元数据乱码）。
+- `0.0.5` — 原生能力升级：
+  - **VISION 回填** —— 基于图片输入实测，为 27 个多模态模型补充 `vision`
+    特性（Doubao Seed 系列、Grok-4、Kimi k2.5/k2.6、MiniMax M2.5/M2.7、
+    Qwen flash/plus/max 与 3.5/3.6 等）。
+  - **新增文本向量 Embedding 模型类型**（`text-embedding-v4/v2`、
+    `gemini-embedding-2-preview/001`），基于 `OAICompatEmbeddingModel`。
+  - **新增重排序 Rerank 模型类型**（`qwen3-rerank`），基于
+    `OAICompatRerankModel`，并针对魔芋 `/v1/rerank` 的 `top_n` 约束做了兜底。
 
 ---
 
