@@ -52,9 +52,12 @@ OpenAI 兼容端点：
 > `/v1/chat/completions` 发送图片内容块进行了实测。明确拒绝图片输入的
 > 模型（如旧版 Doubao 1.5、GLM-5.1、qwen3.7-max）已刻意保持纯文本。
 
-> **原生文件/视频理解（Advanced Inputs）**：是否声明 Dify 的
-> `document` / `video` / `audio` 特性，取决于魔芋中转层是否会把文件块
-> 透传给上游模型。该项正在与魔芋平台确认，将在后续版本启用。
+> **原生文件/视频理解（Advanced Inputs）**：**Gemini 2.5 系列**
+> （`gemini-2.5-pro`、`gemini-2.5-flash`、`gemini-2.5-flash-lite`）已声明
+> `document` 与 `video` 特性——经实测，魔芋中转层会把 PDF（`file`）和
+> `video_url` 内容块转发给上游 Gemini（HTTP 200）。其他系列暂不声明，
+> 因为中转层要么拒绝该内容块、要么崩溃（如 Claude 的 `file` → 500），
+> 待与魔芋平台进一步确认后再加。
 
 ---
 
@@ -283,6 +286,8 @@ test_01/
     `gemini-embedding-2-preview/001`），基于 `OAICompatEmbeddingModel`。
   - **新增重排序 Rerank 模型类型**（`qwen3-rerank`），基于
     `OAICompatRerankModel`，并针对魔芋 `/v1/rerank` 的 `top_n` 约束做了兜底。
+  - **Advanced Inputs** —— 经实测 PDF（`file`）与 `video_url` 可透传，
+    为 Gemini 2.5 系列声明 `document` + `video` 特性。
 
 ---
 

@@ -54,10 +54,14 @@ matching Moyu AI OpenAI-compatible endpoint:
 > (e.g. legacy Doubao 1.5, GLM-5.1, qwen3.7-max) are intentionally kept
 > text-only.
 
-> **Native file / video understanding (Advanced Inputs)**: declaring Dify's
-> `document` / `video` / `audio` features depends on whether the Moyu relay
-> passes through file blocks to the upstream model. This is pending
-> confirmation with the Moyu platform and will be enabled in a later version.
+> **Native file / video understanding (Advanced Inputs)**: the **Gemini 2.5
+> series** (`gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-flash-lite`)
+> declares the `document` and `video` features — the Moyu relay was
+> live-probed to forward PDF (`file`) and `video_url` blocks to upstream
+> Gemini (HTTP 200). Other families are intentionally left without these
+> flags because the relay either rejected the block or crashed
+> (e.g. Claude `file` → 500); they may be added after further confirmation
+> with the Moyu platform.
 
 ---
 
@@ -295,6 +299,8 @@ Version follows `manifest.yaml > version`. Bump it before every release.
     `gemini-embedding-2-preview/001`) via `OAICompatEmbeddingModel`.
   - **Rerank** model type added (`qwen3-rerank`) via `OAICompatRerankModel`,
     with a `top_n` guard for Moyu's `/v1/rerank` contract.
+  - **Advanced Inputs** — Gemini 2.5 series declares `document` + `video`
+    after live-probing PDF (`file`) and `video_url` passthrough via the relay.
 
 ---
 

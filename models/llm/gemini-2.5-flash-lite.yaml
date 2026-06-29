@@ -5,6 +5,8 @@ label:
 model_type: llm
 features:
 - vision
+- document
+- video
 - agent-thought
 model_properties:
   mode: chat

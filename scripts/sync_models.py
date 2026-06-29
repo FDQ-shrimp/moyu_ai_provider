@@ -62,6 +62,19 @@ TEXT_ONLY_OVERRIDES = {
     "glm-5.1",                     # "only supports text modality" (probed)
 }
 
+# Richer input modalities (Dify "Advanced Inputs") that the Moyu chat relay was
+# live-probed to forward to the upstream model. Keyed by lowercased model id ->
+# extra Dify features. Only models where the relay returned 200 (i.e. accepted
+# and forwarded the block) are listed; models that crashed the relay (Claude
+# `file` -> 500 panic) or rejected the format are intentionally omitted.
+ADVANCED_INPUT_FEATURES = {
+    # Gemini 2.5 accepted document (PDF `file` block), video (`video_url`) and
+    # audio (`input_audio`) via the relay; we declare document + video here.
+    "gemini-2.5-pro": ["document", "video"],
+    "gemini-2.5-flash": ["document", "video"],
+    "gemini-2.5-flash-lite": ["document", "video"],
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -235,11 +248,18 @@ def infer_features(model_id: str) -> list[str]:
     back to text even if a keyword would otherwise match them.
     """
     lowered = model_id.lower()
-    if lowered in TEXT_ONLY_OVERRIDES:
-        return ["agent-thought"]
-    if any(kw in lowered for kw in VISION_INPUT_KEYWORDS):
-        return ["vision", "agent-thought"]
-    return ["agent-thought"]
+    features: list[str] = []
+    is_vision = lowered not in TEXT_ONLY_OVERRIDES and any(
+        kw in lowered for kw in VISION_INPUT_KEYWORDS
+    )
+    if is_vision:
+        features.append("vision")
+    # Append probed Advanced-Input modalities (document / video / audio).
+    for extra in ADVANCED_INPUT_FEATURES.get(lowered, []):
+        if extra not in features:
+            features.append(extra)
+    features.append("agent-thought")
+    return features
 
 
 def render_model_yaml(model_id: str) -> dict[str, Any]:
