@@ -75,9 +75,8 @@ privacy policy. These disclosures are also documented in `PRIVACY.md`.
   development scripts, logs, bundled executables, unregistered models, or
   rerank files. SHA256:
   `0CAB3B74ABF50B05026BE51D28174E4903AF94A5A1007F73984CEF36A190247E`.
-- Dify Cloud: a preview package built from the same runtime implementation was
-  uploaded, installed, and tested successfully with the China/overseas site
-  selector. The official `0.0.6` package will be rechecked before submission.
+- Dify Cloud: the official `0.0.6` package was uploaded, installed, and tested
+  successfully with the China/overseas site selector.
 
 ## Reviewer notes
 
