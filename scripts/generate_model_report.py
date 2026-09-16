@@ -44,7 +44,7 @@ def main() -> int:
     lines.append("# 魔芋AI 模型可用性报告")
     lines.append("")
     lines.append(f"> 生成时间：{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}  ")
-    lines.append("> 探活端点：`POST https://www.moyu.info/v1/chat/completions`  ")
+    lines.append("> 探活端点：`POST https://www.moyu.cn/v1/chat/completions`  ")
     lines.append("> 探活请求：`{\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}], \"max_tokens\":1, \"stream\":false}`  ")
     lines.append("> 超时：30s × 最多 4 次重试")
     lines.append("")

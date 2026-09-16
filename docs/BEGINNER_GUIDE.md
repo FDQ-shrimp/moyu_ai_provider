@@ -1,5 +1,10 @@
 # 零基础上线 Dify Marketplace — GitHub Desktop 完整教程
 
+> **历史文档提示：** 本文对应早期 `0.0.1` 发布流程，目录名、模型数量、
+> 包名和 Marketplace 表单均已过期。准备 `0.0.6` 时请使用
+> [`SUBMISSION_GUIDE.md`](SUBMISSION_GUIDE.md) 与
+> [`PR_BODY.md`](PR_BODY.md)，不要照本文执行发布操作。
+
 > 适用人群：有 GitHub 账号，但从没真正使用过 Git / GitHub。
 > 本教程 **全程用图形界面**（GitHub Desktop 这款官方免费 GUI 工具），
 > 不需要你打任何 git 命令。

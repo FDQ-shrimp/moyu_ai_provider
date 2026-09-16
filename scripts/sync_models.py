@@ -7,7 +7,7 @@ from typing import Any
 import requests
 import yaml
 
-BASE_URL = "https://www.moyu.info/v1"
+BASE_URL = "https://www.moyu.cn/v1"
 MODEL_LIST_PATH = "/models"
 CHAT_COMPLETIONS_PATH = "/chat/completions"
 DEFAULT_CONTEXT_SIZE = 128000

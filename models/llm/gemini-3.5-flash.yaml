@@ -1,9 +1,12 @@
-model: GLM-5
+model: gemini-3.5-flash
 label:
-  en_US: GLM-5 (China only)
-  zh_Hans: GLM-5（仅国内站）
+  en_US: gemini-3.5-flash
+  zh_Hans: gemini-3.5-flash
 model_type: llm
 features:
+- vision
+- document
+- video
 - agent-thought
 model_properties:
   mode: chat

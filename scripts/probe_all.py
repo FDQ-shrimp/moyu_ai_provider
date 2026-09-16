@@ -15,7 +15,7 @@ from typing import Any
 
 import requests
 
-BASE_URL = "https://www.moyu.info/v1"
+BASE_URL = "https://www.moyu.cn/v1"
 TIMEOUT = 30
 RETRIES = 4
 

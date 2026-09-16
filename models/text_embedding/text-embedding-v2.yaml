@@ -1,7 +1,7 @@
 model: text-embedding-v2
 label:
-  en_US: text-embedding-v2
-  zh_Hans: text-embedding-v2
+  en_US: text-embedding-v2 (China only)
+  zh_Hans: text-embedding-v2（仅国内站）
 model_type: text-embedding
 model_properties:
   context_size: 2048

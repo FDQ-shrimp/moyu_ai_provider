@@ -1,13 +1,14 @@
-model: GLM-5
+model: claude-opus-5
 label:
-  en_US: GLM-5 (China only)
-  zh_Hans: GLM-5（仅国内站）
+  en_US: claude-opus-5
+  zh_Hans: claude-opus-5
 model_type: llm
 features:
+- vision
 - agent-thought
 model_properties:
   mode: chat
-  context_size: 128000
+  context_size: 200000
 parameter_rules:
 - name: temperature
   use_template: temperature

@@ -3,8 +3,9 @@ Moyu AI rerank adapter.
 
 Moyu exposes a Jina-compatible `POST /v1/rerank` endpoint (verified live for
 qwen3-rerank: it returns `results[].relevance_score`), which is exactly the
-shape Dify's `OAICompatRerankModel` speaks. We therefore only need to point
-the base class at Moyu's endpoint and normalise the credential dict shape.
+shape Dify's `OAICompatRerankModel` speaks. We therefore only need to select
+the configured Moyu endpoint (with the domestic endpoint as a fallback) and
+normalise the credential dict shape.
 
 This module never reads `.env`; the `api_key` comes from the provider
 credential form in `provider/moyu.yaml`.
@@ -27,7 +28,7 @@ if not logger.handlers:
 class MoyuRerankModel(OAICompatRerankModel):
     """Adapter for the Moyu AI Jina-compatible rerank endpoint."""
 
-    BASE_URL = "https://www.moyu.info/v1"
+    BASE_URL = "https://www.moyu.cn/v1"
 
     def _invoke(
         self,
@@ -65,9 +66,11 @@ class MoyuRerankModel(OAICompatRerankModel):
         """Return a copy of `credentials` normalised for the OAI base class.
 
         `OAICompatRerankModel` reads `endpoint_url` and posts to
-        `<endpoint_url>/rerank`, so we set it to Moyu's `/v1` base URL.
+        `<endpoint_url>/rerank`. A configured endpoint is preserved so
+        domestic and overseas keys are sent to the site that issued them.
         """
         patched = dict(credentials or {})
         patched["api_key"] = (patched.get("api_key") or "").strip()
-        patched["endpoint_url"] = cls.BASE_URL
+        endpoint_url = str(patched.get("endpoint_url") or "").strip()
+        patched["endpoint_url"] = (endpoint_url or cls.BASE_URL).rstrip("/")
         return patched

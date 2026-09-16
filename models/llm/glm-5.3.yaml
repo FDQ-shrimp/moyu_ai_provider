@@ -1,7 +1,7 @@
-model: GLM-5
+model: glm-5.3
 label:
-  en_US: GLM-5 (China only)
-  zh_Hans: GLM-5（仅国内站）
+  en_US: glm-5.3
+  zh_Hans: glm-5.3
 model_type: llm
 features:
 - agent-thought

@@ -1,7 +1,7 @@
 model: DeepSeek-V3-0324
 label:
-  en_US: DeepSeek-V3-0324
-  zh_Hans: DeepSeek-V3-0324
+  en_US: DeepSeek-V3-0324 (China only)
+  zh_Hans: DeepSeek-V3-0324（仅国内站）
 model_type: llm
 features:
 - agent-thought

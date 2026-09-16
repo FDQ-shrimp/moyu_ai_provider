@@ -1,9 +1,10 @@
-model: GLM-5
+model: doubao-seed-2-1-pro-260628
 label:
-  en_US: GLM-5 (China only)
-  zh_Hans: GLM-5（仅国内站）
+  en_US: doubao-seed-2-1-pro-260628
+  zh_Hans: doubao-seed-2-1-pro-260628
 model_type: llm
 features:
+- vision
 - agent-thought
 model_properties:
   mode: chat

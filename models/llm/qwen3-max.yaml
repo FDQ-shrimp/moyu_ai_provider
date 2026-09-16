@@ -1,7 +1,7 @@
 model: qwen3-max
 label:
-  en_US: qwen3-max
-  zh_Hans: qwen3-max
+  en_US: qwen3-max (China only)
+  zh_Hans: qwen3-max（仅国内站）
 model_type: llm
 features:
 - vision

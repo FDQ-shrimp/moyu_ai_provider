@@ -1,7 +1,7 @@
-model: GLM-5
+model: deepseek-v4-flash-0731
 label:
-  en_US: GLM-5 (China only)
-  zh_Hans: GLM-5（仅国内站）
+  en_US: deepseek-v4-flash-0731
+  zh_Hans: deepseek-v4-flash-0731
 model_type: llm
 features:
 - agent-thought

@@ -3,8 +3,8 @@ label:
   en_US: Moyu AI
   zh_Hans: 魔芋AI
 description:
-  en_US: Access Moyu AI hosted LLM models.
-  zh_Hans: 通过魔芋AI接入多种大语言模型。
+  en_US: Verified models for Moyu AI China and Konjac AI overseas sites. Models labeled China only require the China site.
+  zh_Hans: 提供国内、海外双站实测模型；标注“仅国内站”的模型必须选择国内站。
 icon_small:
   en_US: icon.png
   zh_Hans: icon.png
@@ -17,12 +17,11 @@ help:
     en_US: Get your Moyu AI API Key
     zh_Hans: 获取魔芋AI API Key
   url:
-    en_US: https://www.moyu.info/
-    zh_Hans: https://www.moyu.info/
+    en_US: https://www.moyu.cn/
+    zh_Hans: https://www.moyu.cn/
 supported_model_types:
   - llm
   - text-embedding
-  - rerank
 configurate_methods:
   - predefined-model
 provider_credential_schema:
@@ -39,20 +38,95 @@ provider_credential_schema:
       help:
         en_US: API key generated in Moyu AI console.
         zh_Hans: 在魔芋AI控制台生成的 API Key。
+    - variable: endpoint_url
+      required: false
+      default: https://www.moyu.cn/v1
+      label:
+        en_US: API Key Site
+        zh_Hans: API Key 所属站点
+      type: select
+      options:
+        - value: https://www.moyu.cn/v1
+          label:
+            en_US: China Site
+            zh_Hans: 国内站
+        - value: https://www.konjac.ai/v1
+          label:
+            en_US: Overseas Site
+            zh_Hans: 海外站
+      help:
+        en_US: Select the site that issued this API Key. Models labeled China only require the China site.
+        zh_Hans: 请选择签发此 API Key 的站点；标注“仅国内站”的模型无法在海外站使用。
 models:
   llm:
     predefined:
-      - "models/llm/*.yaml"
+      - "models/llm/minimax-m3.yaml"
+      - "models/llm/claude-fable-5.yaml"
+      - "models/llm/claude-haiku-4-5-20251001.yaml"
+      - "models/llm/claude-opus-4-1-20250805.yaml"
+      - "models/llm/claude-opus-4-20250514.yaml"
+      - "models/llm/claude-opus-4-5-20251101.yaml"
+      - "models/llm/claude-opus-4-6.yaml"
+      - "models/llm/claude-opus-4-7.yaml"
+      - "models/llm/claude-opus-4-8.yaml"
+      - "models/llm/claude-opus-5.yaml"
+      - "models/llm/claude-sonnet-4-20250514.yaml"
+      - "models/llm/claude-sonnet-4-5-20250929.yaml"
+      - "models/llm/claude-sonnet-4-6.yaml"
+      - "models/llm/claude-sonnet-5.yaml"
+      - "models/llm/deepseek-v4-flash.yaml"
+      - "models/llm/deepseek-v4-flash-0731.yaml"
+      - "models/llm/deepseek-v4-pro.yaml"
+      - "models/llm/doubao-seed-2-1-pro-260628.yaml"
+      - "models/llm/gemini-2.5-flash.yaml"
+      - "models/llm/gemini-2.5-flash-image-preview.yaml"
+      - "models/llm/gemini-2.5-flash-lite.yaml"
+      - "models/llm/gemini-2.5-pro.yaml"
+      - "models/llm/gemini-3-flash-preview.yaml"
+      - "models/llm/gemini-3-pro-image-preview.yaml"
+      - "models/llm/gemini-3.1-flash-image-preview.yaml"
+      - "models/llm/gemini-3.1-flash-lite-preview.yaml"
+      - "models/llm/gemini-3.1-pro-preview.yaml"
+      - "models/llm/gemini-3.5-flash.yaml"
+      - "models/llm/gemini-3.6-flash.yaml"
+      - "models/llm/glm-5.1.yaml"
+      - "models/llm/glm-5.2.yaml"
+      - "models/llm/glm-5.3.yaml"
+      - "models/llm/gpt-5.5.yaml"
+      - "models/llm/gpt-5.6-luna.yaml"
+      - "models/llm/gpt-5.6-sol.yaml"
+      - "models/llm/gpt-5.6-terra.yaml"
+      - "models/llm/gpt-6-astra.yaml"
+      - "models/llm/gpt-image-2-per-use.yaml"
+      - "models/llm/kimi-k2.6.yaml"
+      - "models/llm/kimi-k2.7-code.yaml"
+      - "models/llm/kimi-k3.yaml"
+      - "models/llm/qwen3.6-27b.yaml"
+      - "models/llm/qwen3.6-35b-a3b.yaml"
+      - "models/llm/qwen3.6-flash.yaml"
+      - "models/llm/qwen3.6-plus.yaml"
+      - "models/llm/qwen3.7-max.yaml"
+      - "models/llm/qwen3.7-plus.yaml"
+      - "models/llm/qwen3.8-max.yaml"
+      - "models/llm/deepseek-r1-0528.yaml"
+      - "models/llm/deepseek-v3-0324.yaml"
+      - "models/llm/glm-5.yaml"
+      - "models/llm/doubao-seed-2-0-code-preview-260215.yaml"
+      - "models/llm/doubao-seed-2-0-lite-260215.yaml"
+      - "models/llm/doubao-seed-2-0-mini-260215.yaml"
+      - "models/llm/doubao-seed-2-0-pro-260215.yaml"
+      - "models/llm/qwen-plus.yaml"
+      - "models/llm/qwen3-max.yaml"
+      - "models/llm/qwen3-vl-plus.yaml"
   text_embedding:
     predefined:
-      - "models/text_embedding/*.yaml"
-  rerank:
-    predefined:
-      - "models/rerank/*.yaml"
+      - "models/text_embedding/gemini-embedding-001.yaml"
+      - "models/text_embedding/gemini-embedding-2-preview.yaml"
+      - "models/text_embedding/text-embedding-v2.yaml"
+      - "models/text_embedding/text-embedding-v4.yaml"
 extra:
   python:
     provider_source: provider/moyu.py
     model_sources:
       - "models/llm/llm.py"
       - "models/text_embedding/text_embedding.py"
-      - "models/rerank/rerank.py"

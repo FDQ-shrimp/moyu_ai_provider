@@ -1,9 +1,10 @@
-model: GLM-5
+model: qwen3.6-27b
 label:
-  en_US: GLM-5 (China only)
-  zh_Hans: GLM-5（仅国内站）
+  en_US: qwen3.6-27b
+  zh_Hans: qwen3.6-27b
 model_type: llm
 features:
+- vision
 - agent-thought
 model_properties:
   mode: chat

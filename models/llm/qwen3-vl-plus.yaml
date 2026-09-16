@@ -1,7 +1,7 @@
 model: qwen3-vl-plus
 label:
-  en_US: qwen3-vl-plus
-  zh_Hans: qwen3-vl-plus
+  en_US: qwen3-vl-plus (China only)
+  zh_Hans: qwen3-vl-plus（仅国内站）
 model_type: llm
 features:
 - vision

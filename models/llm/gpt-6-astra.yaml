@@ -1,7 +1,7 @@
-model: GLM-5
+model: gpt-6-astra
 label:
-  en_US: GLM-5 (China only)
-  zh_Hans: GLM-5（仅国内站）
+  en_US: gpt-6-astra
+  zh_Hans: gpt-6-astra
 model_type: llm
 features:
 - agent-thought
@@ -9,10 +9,6 @@ model_properties:
   mode: chat
   context_size: 128000
 parameter_rules:
-- name: temperature
-  use_template: temperature
-- name: top_p
-  use_template: top_p
 - name: max_tokens
   use_template: max_tokens
   default: 4096

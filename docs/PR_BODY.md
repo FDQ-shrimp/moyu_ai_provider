@@ -1,118 +1,91 @@
-<!--
-  This file is the ready-to-paste body for the Pull Request you submit to
-  https://github.com/langgenius/dify-plugins
-  When you open the PR, GitHub will auto-load the official template. Select
-  all of that template and replace it with the content below. Then fill in
-  the Repository URL with your own GitHub source-code repo link.
+# Plugin Submission
 
-  The content below already matches the latest official PR template fields.
--->
+## Plugin information
 
-# Plugin Submission Form
+- **Author**: fdq-shrimp
+- **Plugin name**: moyu_ai_provider
+- **Version**: 0.0.6
+- **Source repository**: https://github.com/FDQ-shrimp/moyu_ai_provider
+- **Contact**: fangdaq10@163.com
 
-## 1. Metadata
+## Submission type
 
-- **Plugin Author**: FDQ-shrimp
-- **Plugin Name**: moyu_ai_provider
-- **Repository URL**: https://github.com/FDQ-shrimp/moyu_ai_provider   <!-- ← replace if your source repo lives at a different URL -->
+- [ ] New plugin
+- [x] Version update
 
-## 2. Submission Type
+## What changed
 
-- [x] New plugin submission
-- [ ] Version update for existing plugin
+- Added a fixed API Key Site selector for the China endpoint
+  (`https://www.moyu.cn/v1`) and the overseas endpoint
+  (`https://www.konjac.ai/v1`).
+- Updated the predefined catalog to 58 LLMs and 4 text-embedding models:
+  48 LLMs and 2 embeddings verified on both sites, plus 10 LLMs and
+  2 embeddings clearly labeled as China-only.
+- Disabled rerank registration because `qwen3-rerank` returned
+  `model_not_found` on both sites during verification.
+- Updated the English and Simplified Chinese documentation, privacy disclosure,
+  publisher/contact metadata, and MIT license information.
 
-## 3. Description
+Compatibility note: the visible model catalog has changed and rerank is no
+longer registered. Existing workflows that reference a removed model or rerank
+model may need to select a supported replacement.
 
-Moyu AI (moyu.ai) is a third-party LLM aggregation platform that exposes an
-OpenAI-compatible chat/completions endpoint. This plugin packages that
-platform as a Dify **Model Provider** so Dify users can plug in a Moyu AI
-API key and call the full catalogue of 119 upstream text models
-(OpenAI / Anthropic / Google / DeepSeek / Qwen / Kimi / Grok / …) from any
-LLM node, chatflow or agent.
+## Risk level
 
-**Key facts**
+- [ ] Low risk
+- [x] Medium risk
+- [ ] High risk
 
-- Type: Model Provider plugin (model.llm enabled, OpenAI-compat adapter)
-- Author: community developer — not officially operated by Moyu AI
-- Credentials: a single `api_key` entered in the Dify UI (secret-input),
-  never hard-coded in the package
-- Models: 119 predefined LLM YAMLs, generated directly from Moyu AI's
-  `/v1/models` endpoint so label names match upstream exactly
-- Endpoint: `https://api.moyu.ai/v1` (OpenAI-compatible `chat/completions`)
-- Dependencies: `dify_plugin`, `requests`, `pyyaml` only — `openai` SDK is
-  intentionally not required (the Dify OAI-compat base class is used)
-- Package size: ~213 KB (135 entries, leak-free — scripts/tests/docs/.env
-  excluded via `.difyignore`)
+## Required checks
 
-**Availability report (transparency)**
+- [x] I have read and followed the [Marketplace submission requirements](https://github.com/langgenius/dify-plugins/blob/main/docs/plugin-submission-requirements.md).
+- [x] I have read and comply with the Plugin Developer Agreement.
+- [x] I tested this plugin on Dify Community Edition and Dify Cloud, or documented any limitation below.
+- [x] The final package contains only files needed at runtime.
+- [x] The final package does not contain secrets, local credentials, `.env` files, `.git` directories, virtual environments, caches, logs, or IDE files.
+- [x] The final package does not contain executables or bundled binaries, or I explained why they are required below.
+- [x] The plugin README includes setup steps, usage instructions, required APIs or credentials, connection requirements, and the source repository link.
+- [x] The plugin includes `PRIVACY.md`, and `manifest.yaml` references it.
+- [x] All user-facing text is primarily in English, with localized README files following the [i18n guidance](https://docs.dify.ai/en/develop-plugin/features-and-specs/plugin-types/multilingual-readme).
 
-With the API key used for testing, 76 / 119 models returned `200 OK`, and
-43 returned errors that come from upstream policy — mostly HTTP 429 (rate
-limit on the test key) or HTTP 400 (image / video / TTS models that do not
-speak the `chat/completions` protocol). These 43 YAMLs are intentionally
-kept in the plugin because availability depends on the **user's own**
-account tier and quota, not on the plugin code. A human-readable breakdown
-lives inside the source repo at `docs/MODEL_AVAILABILITY.md`.
+## Security and privacy notes
 
-**Relation to Moyu AI**
+This model-provider plugin sends user-requested inference content to the
+selected third-party service. Depending on the selected model and Dify
+workflow, transmitted content may include prompts, conversation messages,
+embedding input text, tool definitions, and supported multimodal input. The
+API key is sent to the selected service for authentication.
 
-This is a community integration. The plugin talks to Moyu AI's **public**
-OpenAI-compatible API; users must sign up at moyu.ai and supply their own
-API key. No Moyu AI credential or debug token is bundled in the package.
+The provider UI exposes only two fixed HTTPS API sites: `www.moyu.cn` and
+`www.konjac.ai`; it does not expose a free-form endpoint field. The plugin does
+not execute user-controlled code or commands, run SQL, access the local
+filesystem, automate a browser, or proxy arbitrary user-provided URLs. It does
+not persist API keys or inference content itself; credential storage is handled
+by Dify. Data sent to either API site is governed by that service's terms and
+privacy policy. These disclosures are also documented in `PRIVACY.md`.
 
-## 4. Checklist
+## Local validation
 
-- [x] I have read and followed the Publish to Dify Marketplace guidelines
-- [x] I have read and comply with the Plugin Developer Agreement
-- [x] I confirm my plugin works properly on both Dify Community Edition and Cloud Version
-- [x] I confirm my plugin has been thoroughly tested for completeness and functionality
-- [x] My plugin brings new value to Dify
+- `python -m pytest tests -q`: 160 passed.
+- `python scripts/preflight_check.py`: 142 passed, 0 warnings, 0 failed.
+- Dify SDK manifest/provider parsing: 62 predefined models loaded successfully
+  (58 LLMs and 4 text-embedding models).
+- Package inspection: 76 entries; 58 LLM YAMLs and 4 text-embedding YAMLs;
+  exact uppercase `PRIVACY.md`; no `.env`, credential patterns, caches, tests,
+  development scripts, logs, bundled executables, unregistered models, or
+  rerank files. SHA256:
+  `0CAB3B74ABF50B05026BE51D28174E4903AF94A5A1007F73984CEF36A190247E`.
+- Dify Cloud: a preview package built from the same runtime implementation was
+  uploaded, installed, and tested successfully with the China/overseas site
+  selector. The official `0.0.6` package will be rechecked before submission.
 
-## 5. Documentation Checklist
+## Reviewer notes
 
-Please confirm that your plugin README includes all necessary information:
-
-- [x] Step-by-step setup instructions
-- [x] Detailed usage instructions
-- [x] All required APIs and credentials are clearly listed
-- [x] Connection requirements and configuration details
-- [x] Link to the repository for the plugin source code
-
-## 6. Privacy Protection Information
-
-Based on Dify Plugin Privacy Protection
-[Guidelines](https://docs.dify.ai/plugins/publish-plugins/publish-to-dify-marketplace/plugin-privacy-protection-guidelines):
-
-### Data Collection
-
-The plugin itself does **not** collect any personal data. Its only job is
-to relay the chat messages that a Dify user explicitly sends to the Moyu
-AI API, together with the user's API key taken from Dify's encrypted
-credential storage.
-
-However, because the plugin forwards traffic to a third-party service
-(Moyu AI), the following data is unavoidably transmitted to that upstream:
-
-- The API key the user configures in Dify (sent as the `Authorization:
-  Bearer …` header, per OpenAI convention).
-- The chat messages / prompts that the user sends from a Dify LLM node
-  or agent. These may contain whatever content the user decides to put in
-  the prompt, including — depending on the user's own use case — personal
-  or business data.
-- Standard HTTP metadata (User-Agent, timestamps, IP of the Dify runtime
-  that forwards the request).
-
-No analytics, telemetry, third-party trackers, or external logging are
-added by the plugin. The plugin does not persist any of the above on its
-own side; everything happens in-memory during a single request.
-
-For Moyu AI's own data handling practices, users should consult the Moyu
-AI Terms of Service and Privacy Policy directly on their website.
-
-The full privacy statement (including what is collected, how it is used,
-and what is not collected) is included in the plugin package as
-`privacy.md`.
-
-### Privacy Policy
-
-- [x] I confirm that I have prepared and included a privacy policy in my plugin package based on the Plugin Privacy Protection Guidelines
+- Dify Community Edition was not separately tested for this release; the Dify
+  Cloud preview installation and functional test succeeded.
+- The catalog was selected from live checks against both API sites. China-only
+  entries are explicitly labeled in both supported UI languages.
+- Rerank is intentionally disabled in version 0.0.6 because the advertised
+  rerank model was unavailable on both sites during verification.
+- This is an update to the existing Marketplace plugin
+  `fdq-shrimp/moyu_ai_provider`, not a new plugin identity.

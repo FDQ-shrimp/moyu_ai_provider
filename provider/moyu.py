@@ -11,8 +11,9 @@ Responsibilities
     `_invoke`. This avoids penalising users when a specific upstream model
     is temporarily unavailable on the Moyu side.
 
-The user only ever fills one field in the Dify UI: `api_key`, declared in
-`provider/moyu.yaml`. Nothing in this module reads `.env`.
+The Dify UI accepts `api_key` plus a China/overseas site selector declared in
+`provider/moyu.yaml`. Its internal value remains `endpoint_url` for backward
+compatibility with saved credentials. Nothing in this module reads `.env`.
 """
 
 from __future__ import annotations

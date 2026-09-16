@@ -13,12 +13,12 @@ What this script verifies (purely local, no network):
     4. provider/moyu.yaml is coherent:
          - `extra.python.provider_source` file exists
          - every `extra.python.model_sources` file exists
-         - every `models.llm.predefined` glob matches >=1 file
+         - every predefined model glob matches >=1 file
          - `icon_small` / `icon_large` reference existing assets
          - `provider_credential_schema` exposes a field named `api_key`
            as type `secret-input`
-    5. Every model YAML in models/llm/*.yaml has the minimum keys
-       (`model`, `label`, `model_type: llm`, `model_properties.mode`).
+    5. Every LLM, text-embedding and legacy rerank YAML has the minimum keys and
+       the expected `model_type`; LLMs also declare `model_properties.mode`.
     6. `.difyignore` excludes `.env` (prevents debug key leakage).
     7. Source code does not hardcode a REMOTE_INSTALL_KEY or api_key
        literal that could leak via the package.
@@ -89,10 +89,16 @@ REQUIRED_FILES = [
     "provider/moyu.yaml",
     "provider/moyu.py",
     "models/llm/llm.py",
+    "models/text_embedding/text_embedding.py",
+    "models/rerank/rerank.py",
     "main.py",
     "requirements.txt",
     "icon.png",
     ".difyignore",
+    "README.md",
+    "readme/README_zh_Hans.md",
+    "PRIVACY.md",
+    "LICENSE",
 ]
 
 
@@ -135,7 +141,8 @@ def check_manifest(report: Report) -> dict | None:
         return None
 
     for key in ("type", "name", "label", "description", "icon",
-                "version", "plugins", "meta", "author"):
+                "version", "plugins", "meta", "author", "privacy",
+                "repo", "contact"):
         if key in manifest:
             report.ok(f"manifest has `{key}`")
         else:
@@ -157,6 +164,38 @@ def check_manifest(report: Report) -> dict | None:
         report.fail(f"icon file not found on disk: {icon_rel}")
 
     meta = manifest.get("meta") or {}
+    manifest_version = str(manifest.get("version") or "")
+    meta_version = str(meta.get("version") or "")
+    if re.fullmatch(r"\d+\.\d+\.\d+", manifest_version):
+        report.ok(f"manifest version is valid semver: {manifest_version}")
+    else:
+        report.fail(f"manifest version is not valid semver: {manifest_version!r}")
+    if meta_version == manifest_version:
+        report.ok("manifest.version matches meta.version")
+    else:
+        report.fail(
+            f"manifest.version {manifest_version!r} does not match "
+            f"meta.version {meta_version!r}"
+        )
+
+    privacy_rel = manifest.get("privacy")
+    if privacy_rel == "PRIVACY.md" and (ROOT / privacy_rel).is_file():
+        report.ok("manifest privacy points to root PRIVACY.md")
+    else:
+        report.fail("manifest privacy must point to root PRIVACY.md")
+
+    repo_url = str(manifest.get("repo") or "")
+    if repo_url == "https://github.com/FDQ-shrimp/moyu_ai_provider":
+        report.ok("manifest repo points to the public source repository")
+    else:
+        report.fail(f"manifest repo is unexpected: {repo_url!r}")
+
+    contact = str(manifest.get("contact") or "")
+    if re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", contact):
+        report.ok("manifest contact is a valid email address")
+    else:
+        report.fail("manifest contact must be a valid email address")
+
     runner = meta.get("runner") or {}
     entrypoint = runner.get("entrypoint")
     if entrypoint and (ROOT / f"{entrypoint}.py").is_file():
@@ -166,10 +205,17 @@ def check_manifest(report: Report) -> dict | None:
 
     perm = (manifest.get("resource") or {}).get("permission") or {}
     model_perm = perm.get("model") or {}
-    if model_perm.get("enabled") and model_perm.get("llm"):
-        report.ok("resource.permission.model.{enabled,llm} both true")
+    required_permissions = ("enabled", "llm", "text_embedding")
+    missing_permissions = [key for key in required_permissions if not model_perm.get(key)]
+    if not missing_permissions:
+        report.ok("LLM and text-embedding model permissions are enabled")
     else:
-        report.fail("resource.permission.model.enabled or .llm is not true")
+        report.fail(f"model permissions missing or disabled: {missing_permissions}")
+
+    if model_perm.get("rerank") is False:
+        report.ok("rerank permission is disabled because no verified model is available")
+    else:
+        report.fail("rerank permission must be disabled")
 
     return manifest
 
@@ -206,7 +252,7 @@ def check_provider(report: Report) -> dict | None:
     else:
         report.fail("configurate_methods must contain 'predefined-model'")
 
-    # provider_credential_schema must expose exactly api_key as secret-input.
+    # provider_credential_schema must expose the API key and a fixed site selector.
     cred_schema = (provider.get("provider_credential_schema") or {})
     forms = cred_schema.get("credential_form_schemas") or []
     api_key_form = next(
@@ -225,9 +271,48 @@ def check_provider(report: Report) -> dict | None:
         else:
             report.ok("`api_key` field is required")
 
-    # Any field other than api_key should be flagged — a public plugin should
-    # not ask the user for debug variables.
-    extra_vars = [f.get("variable") for f in forms if (f or {}).get("variable") != "api_key"]
+    endpoint_form = next(
+        (f for f in forms if (f or {}).get("variable") == "endpoint_url"), None
+    )
+    if not endpoint_form:
+        report.fail("provider_credential_schema must declare `endpoint_url`")
+    else:
+        report.ok("provider_credential_schema declares `endpoint_url`")
+        if endpoint_form.get("type") != "select":
+            report.fail(
+                "`endpoint_url` field type must be 'select', "
+                f"got {endpoint_form.get('type')!r}"
+            )
+        else:
+            report.ok("`endpoint_url` field uses type `select`")
+        if endpoint_form.get("required"):
+            report.fail("`endpoint_url` must stay optional for existing credentials")
+        else:
+            report.ok("`endpoint_url` is optional for backward compatibility")
+
+        endpoint_values = [
+            (option or {}).get("value")
+            for option in (endpoint_form.get("options") or [])
+        ]
+        expected_endpoint_values = [
+            "https://www.moyu.cn/v1",
+            "https://www.konjac.ai/v1",
+        ]
+        if endpoint_values == expected_endpoint_values:
+            report.ok("`endpoint_url` exposes only the China and overseas sites")
+        else:
+            report.fail(
+                "`endpoint_url` options must be exactly the China and overseas "
+                f"sites, got {endpoint_values!r}"
+            )
+
+    # Any field other than the public API credentials should be flagged.
+    allowed_vars = {"api_key", "endpoint_url"}
+    extra_vars = [
+        f.get("variable")
+        for f in forms
+        if (f or {}).get("variable") not in allowed_vars
+    ]
     if extra_vars:
         report.warn(f"provider credential schema exposes additional fields: {extra_vars}")
 
@@ -258,58 +343,92 @@ def check_provider(report: Report) -> dict | None:
             report.fail(f"extra.python.model_sources missing: {src}")
 
     # Predefined model glob references.
-    predefined = ((provider.get("models") or {}).get("llm") or {}).get("predefined") or []
-    for pattern in predefined:
-        matches = list(ROOT.glob(pattern))
-        if matches:
-            report.ok(f"predefined glob `{pattern}` matched {len(matches)} file(s)")
-        else:
-            report.fail(f"predefined glob `{pattern}` matched 0 files")
+    for model_type in ("llm", "text_embedding"):
+        predefined = (
+            ((provider.get("models") or {}).get(model_type) or {}).get("predefined")
+            or []
+        )
+        if not predefined:
+            report.fail(f"{model_type} has no predefined model glob")
+        for pattern in predefined:
+            matches = list(ROOT.glob(pattern))
+            if matches:
+                report.ok(f"predefined glob `{pattern}` matched {len(matches)} file(s)")
+            else:
+                report.fail(f"predefined glob `{pattern}` matched 0 files")
+
+    if "rerank" in (provider.get("supported_model_types") or []):
+        report.fail("provider must not advertise rerank without a verified model")
+    else:
+        report.ok("provider does not advertise rerank")
+
+    if "rerank" in (provider.get("models") or {}):
+        report.fail("provider.models must not register rerank")
+    else:
+        report.ok("provider.models does not register rerank")
+
+    if "models/rerank/rerank.py" in model_srcs:
+        report.fail("provider model_sources must not load the rerank adapter")
+    else:
+        report.ok("provider model_sources does not load the rerank adapter")
 
     return provider
 
 
 def check_model_yamls(report: Report) -> None:
-    _section("4. models/llm/*.yaml")
-    model_files = sorted((ROOT / "models" / "llm").glob("*.yaml"))
-    if not model_files:
-        report.fail("no model YAML files to validate")
-        return
+    _section("4. Model YAMLs")
+    model_groups = {
+        "llm": (ROOT / "models" / "llm", "llm"),
+        "text_embedding": (ROOT / "models" / "text_embedding", "text-embedding"),
+        "rerank": (ROOT / "models" / "rerank", "rerank"),
+    }
+    required_keys = {"model", "label", "model_type", "model_properties"}
 
-    required_keys = {"model", "label", "model_type"}
-    bad_files = 0
-    for path in model_files:
-        try:
-            data = _load_yaml(path)
-        except yaml.YAMLError as e:
-            report.fail(f"invalid YAML: {path.name}: {e}")
-            bad_files += 1
+    for group, (directory, expected_type) in model_groups.items():
+        model_files = sorted(directory.glob("*.yaml"))
+        if not model_files:
+            report.fail(f"no {group} model YAML files to validate")
             continue
 
-        if not isinstance(data, dict):
-            report.fail(f"{path.name}: root must be a mapping")
-            bad_files += 1
-            continue
+        bad_files = 0
+        for path in model_files:
+            try:
+                data = _load_yaml(path)
+            except yaml.YAMLError as e:
+                report.fail(f"invalid YAML: {path.name}: {e}")
+                bad_files += 1
+                continue
 
-        missing = required_keys - data.keys()
-        if missing:
-            report.fail(f"{path.name}: missing keys {sorted(missing)}")
-            bad_files += 1
-            continue
+            if not isinstance(data, dict):
+                report.fail(f"{path.name}: root must be a mapping")
+                bad_files += 1
+                continue
 
-        if data.get("model_type") != "llm":
-            report.fail(f"{path.name}: model_type must be 'llm'")
-            bad_files += 1
-            continue
+            missing = required_keys - data.keys()
+            if missing:
+                report.fail(f"{path.name}: missing keys {sorted(missing)}")
+                bad_files += 1
+                continue
 
-        mode = ((data.get("model_properties") or {}).get("mode"))
-        if mode != "chat":
-            report.warn(f"{path.name}: model_properties.mode is {mode!r} (expected 'chat')")
+            if data.get("model_type") != expected_type:
+                report.fail(f"{path.name}: model_type must be {expected_type!r}")
+                bad_files += 1
+                continue
 
-    if bad_files == 0:
-        report.ok(f"all {len(model_files)} model YAML files validated")
-    else:
-        report.fail(f"{bad_files} / {len(model_files)} model YAML files have issues")
+            if expected_type == "llm":
+                mode = (data.get("model_properties") or {}).get("mode")
+                if mode != "chat":
+                    report.warn(
+                        f"{path.name}: model_properties.mode is {mode!r} "
+                        "(expected 'chat')"
+                    )
+
+        if bad_files == 0:
+            report.ok(f"all {len(model_files)} {group} model YAML files validated")
+        else:
+            report.fail(
+                f"{bad_files} / {len(model_files)} {group} model YAML files have issues"
+            )
 
 
 def check_difyignore(report: Report) -> None:
@@ -338,6 +457,8 @@ def check_no_hardcoded_secrets(report: Report) -> None:
         ROOT / "main.py",
         ROOT / "provider" / "moyu.py",
         ROOT / "models" / "llm" / "llm.py",
+        ROOT / "models" / "text_embedding" / "text_embedding.py",
+        ROOT / "models" / "rerank" / "rerank.py",
     ]
     # Anything that looks like `sk-<40+ chars>` or a UUID assigned to a key-ish name.
     uuid_pattern = re.compile(
@@ -362,11 +483,23 @@ def check_no_hardcoded_secrets(report: Report) -> None:
 
 def check_readme_privacy(report: Report) -> None:
     _section("7. Release docs")
-    for rel in ("README.md", "readme/README_zh_Hans.md", "privacy.md", "RELEASE_CHECKLIST.md"):
+    for rel in (
+        "README.md",
+        "readme/README_zh_Hans.md",
+        "PRIVACY.md",
+        "LICENSE",
+        "RELEASE_CHECKLIST.md",
+    ):
         if (ROOT / rel).is_file():
             report.ok(f"doc exists: {rel}")
         else:
             report.warn(f"doc missing: {rel}")
+
+    requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8")
+    if "dify_plugin>=0.9.0" in requirements.splitlines():
+        report.ok("dify_plugin minimum version satisfies Marketplace requirements")
+    else:
+        report.fail("requirements.txt must declare dify_plugin>=0.9.0")
 
 
 # ----------------------------------------------------------------------

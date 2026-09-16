@@ -1,7 +1,7 @@
 model: qwen-plus
 label:
-  en_US: qwen-plus
-  zh_Hans: qwen-plus
+  en_US: qwen-plus (China only)
+  zh_Hans: qwen-plus（仅国内站）
 model_type: llm
 features:
 - vision

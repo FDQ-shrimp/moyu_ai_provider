@@ -6,8 +6,9 @@ live for text-embedding-v2/v4 and gemini-embedding-*), so we reuse Dify's
 `OAICompatEmbeddingModel`, which already handles batching, token accounting
 and error normalisation.
 
-Plugin-specific work is limited to pointing the base class at Moyu's endpoint
-and normalising the credential dict shape. This module never reads `.env`;
+Plugin-specific work is limited to selecting the configured Moyu endpoint
+(with the domestic endpoint as a fallback) and normalising the credential
+dict shape. This module never reads `.env`;
 the `api_key` comes from the provider credential form in `provider/moyu.yaml`.
 """
 
@@ -29,7 +30,7 @@ if not logger.handlers:
 class MoyuTextEmbeddingModel(OAICompatEmbeddingModel):
     """Adapter for the Moyu AI OpenAI-compatible embeddings endpoint."""
 
-    BASE_URL = "https://www.moyu.info/v1"
+    BASE_URL = "https://www.moyu.cn/v1"
 
     def _invoke(
         self,
@@ -56,9 +57,12 @@ class MoyuTextEmbeddingModel(OAICompatEmbeddingModel):
         """Return a copy of `credentials` normalised for the OAI base class.
 
         `OAICompatEmbeddingModel` expects `api_key` and `endpoint_url`
-        (the base URL including `/v1`). It appends `embeddings` itself.
+        (the base URL including `/v1`). It appends `embeddings` itself. A
+        configured endpoint is preserved so domestic and overseas keys are
+        sent to the site that issued them.
         """
         patched = dict(credentials or {})
         patched["api_key"] = (patched.get("api_key") or "").strip()
-        patched["endpoint_url"] = cls.BASE_URL
+        endpoint_url = str(patched.get("endpoint_url") or "").strip()
+        patched["endpoint_url"] = (endpoint_url or cls.BASE_URL).rstrip("/")
         return patched

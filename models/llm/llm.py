@@ -14,7 +14,8 @@ this case, `OAICompatLargeLanguageModel`, which handles:
 
 So the plugin-specific work reduces to:
 
-    1. Pointing the base class at Moyu's endpoint (`BASE_URL`).
+    1. Supplying Moyu's current domestic endpoint as the default (`BASE_URL`)
+       while preserving an endpoint selected in the provider credentials.
     2. Normalising the credential dict shape the base class expects
        (`api_key`, `endpoint_url`, `mode`). This is what
        `_patch_credentials` does.
@@ -44,9 +45,9 @@ if not logger.handlers:
 class MoyuLargeLanguageModel(OAICompatLargeLanguageModel):
     """Adapter for the Moyu AI OpenAI-compatible LLM endpoint."""
 
-    # Base URL for Moyu's OpenAI-compatible REST API.
+    # Default base URL for Moyu's OpenAI-compatible REST API.
     # Chat completions live at `<BASE_URL>/chat/completions`.
-    BASE_URL = "https://www.moyu.info/v1"
+    BASE_URL = "https://www.moyu.cn/v1"
 
     def _invoke(
         self,
@@ -100,7 +101,8 @@ class MoyuLargeLanguageModel(OAICompatLargeLanguageModel):
     def _patched_credentials(cls, credentials: dict) -> dict:
         """Return a shallow copy of `credentials` normalised for the OAI base.
 
-        Dify stores what the user typed (`api_key`) in the credential dict.
+        Dify stores what the user typed (`api_key` and optional
+        `endpoint_url`) in the credential dict.
         `OAICompatLargeLanguageModel` expects:
 
             * `api_key`      — the raw bearer token
@@ -118,5 +120,6 @@ class MoyuLargeLanguageModel(OAICompatLargeLanguageModel):
         """In-place version retained for compatibility with tests/tools."""
         api_key = (credentials.get("api_key") or "").strip()
         credentials["api_key"] = api_key
-        credentials["endpoint_url"] = cls.BASE_URL
+        endpoint_url = str(credentials.get("endpoint_url") or "").strip()
+        credentials["endpoint_url"] = (endpoint_url or cls.BASE_URL).rstrip("/")
         credentials["mode"] = "chat"

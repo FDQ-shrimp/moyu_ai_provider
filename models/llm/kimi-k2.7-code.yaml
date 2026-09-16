@@ -1,7 +1,7 @@
-model: GLM-5
+model: kimi-k2.7-code
 label:
-  en_US: GLM-5 (China only)
-  zh_Hans: GLM-5（仅国内站）
+  en_US: kimi-k2.7-code
+  zh_Hans: kimi-k2.7-code
 model_type: llm
 features:
 - agent-thought
