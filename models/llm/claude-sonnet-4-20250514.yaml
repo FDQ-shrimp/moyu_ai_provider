@@ -1,13 +1,14 @@
-model: grok-4.2
+model: claude-sonnet-4-20250514
 label:
-  en_US: grok-4.2
-  zh_Hans: grok-4.2
+  en_US: claude-sonnet-4-20250514
+  zh_Hans: claude-sonnet-4-20250514
 model_type: llm
 features:
+- vision
 - agent-thought
 model_properties:
   mode: chat
-  context_size: 128000
+  context_size: 200000
 parameter_rules:
 - name: temperature
   use_template: temperature

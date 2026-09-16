@@ -3,21 +3,32 @@
 > 中文 README。英文版见仓库根目录 [`README.md`](../README.md)。
 
 本插件以 **模型供应商插件（Model Provider Plugin）** 的形式接入 Dify，
-将 [魔芋AI](https://www.moyu.info/) 平台上聚合的大语言模型通过一个
-OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 API Key，
-其他工作（模型列表、请求格式、流式输出、工具调用）都由插件负责。
+将[魔芋AI 国内站](https://www.moyu.cn/)与
+[Konjac AI 海外站](https://www.konjac.ai/)的精选模型通过 OpenAI 兼容接口
+对接到 Dify 工作区。当前注册 48 个双站实测 LLM、10 个明确标注的国内站
+专属 LLM，以及 4 个 Embedding。
+终端用户填写 API Key，并选择签发该 Key 的站点（国内站或海外站）；插件在
+内部自动匹配 API 基础地址。其他工作（模型列表、请求格式、流式输出、工具
+调用）都由插件负责。
 
 ---
 
 ## 1. 功能概览
 
 - 在 Dify 工作区中注册一个名为 **魔芋AI / Moyu AI** 的模型供应商。
-- 预置 100+ 个 LLM 模型 YAML 定义，覆盖 GPT、Claude、Gemini、Qwen、Kimi、
-  GLM、Grok、Doubao、Moonshot、Jimeng、Kling、Minimax、Veo、Sora、Flux
-  等系列（完整列表见 `models/llm/*.yaml`）。
-- 使用 Dify 官方 `OAICompatLargeLanguageModel` 基类，天然支持流式输出、
-  工具调用、Token 用量统计、错误归一化。
-- 凭据表单只有一项：用户填 `api_key`，其余全部由插件内部处理。
+- 使用明确的模型白名单，覆盖两种模型类型：
+  - **58 个 LLM/兼容聊天模型**：48 个双站共同模型，以及 10 个明确标注
+    “仅国内站”的增强模型
+  - **LLM 系列**：Claude、DeepSeek、Doubao、Gemini、GLM、GPT、Kimi、
+    MiniMax 和 Qwen
+  - **4 个文本向量 Embedding**（用于 RAG 检索）：
+    - 双站可用：`gemini-embedding-001`、`gemini-embedding-2-preview`
+    - 仅国内站：`text-embedding-v2`、`text-embedding-v4`
+- 使用 Dify 官方 `OAICompatLargeLanguageModel` 和
+  `OAICompatEmbeddingModel` 基类，天然支持流式输出、工具调用、批量嵌入、
+  Token 用量统计、错误归一化。
+- 简化的凭据表单：用户填写 `api_key` 并选择国内站或海外站，不显示也不能
+  手动编辑 API 基础地址。
 - 附带两个运维脚本：
   - 从魔芋AI 拉取模型列表并生成 YAML；
   - 批量探活生成模型可用性报告。
@@ -28,15 +39,29 @@ OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 
 
 ## 2. 支持的模型类型
 
-| 模型类型 | 状态 |
-|----------|------|
-| `llm`（对话补全，含流式、工具调用） | 已支持 |
-| `text-embedding` | 暂未支持，后续规划中 |
-| `rerank` | 暂无计划 |
-| `speech2text` / `tts` | 暂无计划 |
+插件现在原生注册两种 Dify 模型类型，分别对接魔芋AI 对应的
+OpenAI 兼容端点：
 
-当前所有模型的调用都走
-`POST https://www.moyu.info/v1/chat/completions`。
+| 模型类型 | 端点 | 典型模型 | Dify 特性标记 |
+|----------|------|----------|--------------|
+| `llm`（文本） | `POST /v1/chat/completions` | Claude、DeepSeek、Doubao、Gemini、GLM、GPT、Kimi、MiniMax、Qwen | 按模型声明 `agent-thought` |
+| `llm`（视觉/多模态） | `POST /v1/chat/completions` | 已验证的 Claude、Gemini、Qwen、Doubao 模型 | 经验证后声明 `vision` |
+| `llm`（图片兼容聊天） | `POST /v1/chat/completions` | `gpt-image-2(按次)` 与部分 Gemini image-preview 模型 | `vision` |
+| `text-embedding` | `POST /v1/embeddings` | 双站：`gemini-embedding-2-preview`（3072 维）、`gemini-embedding-001`；仅国内：`text-embedding-v4`（1024 维）、`text-embedding-v2`（1536 维） | — |
+
+当前不注册 Rerank；`qwen3-rerank` 在本轮验证中于国内、海外两站均返回
+`model_not_found`。
+
+> 上述 `vision` 标记均为**实测得出**：每个多模态系列都通过向
+> `/v1/chat/completions` 发送图片内容块进行了实测。明确拒绝图片输入的
+> 模型（如旧版 Doubao 1.5、GLM-5.1、qwen3.7-max）已刻意保持纯文本。
+
+> **原生文件/视频理解（Advanced Inputs）**：**Gemini 2.5 系列**
+> （`gemini-2.5-pro`、`gemini-2.5-flash`、`gemini-2.5-flash-lite`）已声明
+> `document` 与 `video` 特性——经实测，魔芋中转层会把 PDF（`file`）和
+> `video_url` 内容块转发给上游 Gemini（HTTP 200）。其他系列暂不声明，
+> 因为中转层要么拒绝该内容块、要么崩溃（如 Claude 的 `file` → 500），
+> 待与魔芋平台进一步确认后再加。
 
 ---
 
@@ -46,9 +71,9 @@ OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 
 
 ### 方式 A：从本地 `.difypkg` 文件安装
 
-1. 获取构建好的 `test_01.difypkg`（构建方式见 §5）。
+1. 获取正式发布包 `moyu_ai_provider-0.0.6.difypkg`。
 2. 打开 Dify 工作区 → **插件** → **安装插件** → **本地文件**。
-3. 上传 `test_01.difypkg`。
+3. 上传 `moyu_ai_provider-0.0.6.difypkg`。
 4. 安装成功后进入 **设置 → 模型供应商**。
 5. 在列表中找到 **魔芋AI / Moyu AI**，点击 **设置**。
 
@@ -59,20 +84,23 @@ OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 
 
 ---
 
-## 4. 配置 API Key
+## 4. 配置 API 凭据
 
 在模型供应商卡片出现后：
 
 1. 点击 **魔芋AI** 卡片的 **设置**。
 2. 在凭据表单中粘贴你自己的 **魔芋AI API Key**。
-   - 可在魔芋AI 控制台 <https://www.moyu.info/> 创建。
+   - 国内站 Key 在 <https://www.moyu.cn/> 创建。
+   - 海外站 Key 在 <https://www.konjac.ai/> 创建。
    - Key 会由 Dify 加密保存，插件本身不会写入磁盘。
-3. 点击 **保存**。
-4. 进入 **模型列表**，按需启用要暴露给当前工作区的模型。
+3. 在 **API Key 所属站点** 中选择 **国内站** 或 **海外站**，选择应与创建
+   Key 的站点一致；插件会自动使用对应的 API 地址。
+4. 点击 **保存**。
+5. 进入 **模型列表**，按需启用要暴露给当前工作区的模型。
 
-> **重要说明**：终端用户无需修改 `.env`，也无需动插件源码。仓库中的
-> `.env` 是面向贡献者的本地调试文件（见 §6），已通过 `.difyignore`
-> 从最终 `.difypkg` 打包物中排除。
+> **重要说明**：终端用户无需修改 `.env`，也无需动插件源码。开发者本地
+> 调试时如使用 `.env`（见 §6），该文件会通过 `.difyignore` 从最终
+> `.difypkg` 打包物中排除。
 
 ---
 
@@ -87,11 +115,11 @@ OpenAI 兼容的接口对接到 Dify 工作区。终端用户只需要填一次 
 ### 打包命令（PowerShell）
 
 ```powershell
-# 在项目所在目录的上一级执行
-dify-plugin.exe plugin package .\test_01
+# 在仓库根目录执行
+dify-plugin.exe plugin package . -o .\moyu_ai_provider-0.0.6.difypkg
 ```
 
-命令会在项目同级生成 `test_01.difypkg`。
+命令会在仓库根目录生成 `moyu_ai_provider-0.0.6.difypkg`。
 
 ### 打包前务必先跑：
 
@@ -119,24 +147,16 @@ pip install pytest pyyaml
 
 ### 配置远程调试
 
-1. 把 `.env.example` 复制为 `.env`。
-2. 把 Dify 工作区 **插件 → 调试** 面板给出的值填进去：
-   ```
-   INSTALL_METHOD=remote
-   REMOTE_INSTALL_URL=debug.dify.ai:5003
-   REMOTE_INSTALL_HOST=debug.dify.ai
-   REMOTE_INSTALL_PORT=5003
-   REMOTE_INSTALL_KEY=<你自己的调试 key>
-   ```
-3. 启动：
+1. 按 Dify 工作区 **插件 → 调试** 面板显示的说明配置，并且只把该面板签发的
+   信息保存在本地、未跟踪的 `.env` 文件中。
+2. 启动：
    ```powershell
    python .\main.py
    ```
-4. 本地启动的插件会像被安装过一样出现在 Dify 工作区，源码改动重启
+3. 本地启动的插件会像被安装过一样出现在 Dify 工作区，源码改动重启
    `main.py` 即可生效。
 
-> **真实的 `.env` 文件请勿提交到任何仓库。** `.difyignore` 已经把它
-> 从打包中排除，请再把它加进你的 `.gitignore`。
+> **不要把远程调试凭据写进文档或源码。** `.env` 与 `.env.*` 已从发布包中排除。
 
 ### 同步魔芋AI 的模型列表
 
@@ -149,7 +169,7 @@ python .\scripts\sync_models.py --api-key "<你的魔芋API Key>" --clean --prob
 ```
 
 常用参数：`--limit N`、`--timeout 30`、`--probe-retries 2`、
-`--base-url https://www.moyu.info/v1`。
+`--base-url https://www.moyu.cn/v1`。
 
 ### 生成可用性报告
 
@@ -169,12 +189,13 @@ python .\scripts\probe_all.py --api-key "<你的魔芋API Key>"
 - 所有 YAML 可解析；
 - `manifest.yaml` 内的引用（`plugins.models`、`icon`、
   `meta.runner.entrypoint`）都指向真实文件；
-- `provider/moyu.yaml` **仅** 暴露 `api_key` 字段，且类型为 `secret-input`；
+- `provider/moyu.yaml` 将 `api_key` 声明为 `secret-input`，并将
+  `endpoint_url` 限制为国内站、海外站两个固定选项；
 - `extra.python.provider_source` / `model_sources` 的路径都真实存在；
 - 每个模型 YAML 的必填字段齐全；
 - `.difyignore` 包含 `.env`，防止调试 key 泄漏到 `.difypkg`；
 - 源码中没有硬编码的调试 key 或 `sk-…` 字面值；
-- 中英文 README、`privacy.md`、`RELEASE_CHECKLIST.md` 都已就位。
+- 中英文 README、`PRIVACY.md`、`LICENSE`、`RELEASE_CHECKLIST.md` 都已就位。
 
 运行方式：
 
@@ -189,7 +210,7 @@ python .\scripts\preflight_check.py
 ## 8. 目录结构
 
 ```
-test_01/
+moyu_ai_provider/
 ├── manifest.yaml                 # Dify 读取的插件清单
 ├── main.py                       # 插件运行时入口
 ├── icon.png                      # 供应商图标
@@ -197,9 +218,15 @@ test_01/
 │   ├── moyu.yaml                 # 供应商 UI + 凭据 schema
 │   └── moyu.py                   # 供应商级别凭据校验
 ├── models/
-│   └── llm/
-│       ├── llm.py                # OAI 兼容 LLM 适配器
-│       └── *.yaml                # 预置模型声明
+│   ├── llm/
+│   │   ├── llm.py                # OAI 兼容 LLM 适配器
+│   │   └── *.yaml                # 预置 LLM 声明
+│   ├── text_embedding/
+│   │   ├── text_embedding.py     # OAI 兼容 Embedding 适配器
+│   │   └── *.yaml                # 预置 Embedding 声明
+│   └── rerank/
+│       ├── rerank.py             # 保留但当前未注册的旧适配器
+│       └── *.yaml                # 仅作历史参考的旧声明
 ├── scripts/
 │   ├── sync_models.py            # 拉取魔芋AI /v1/models 并生成 YAML
 │   ├── probe_all.py              # 批量探活 + 报告
@@ -210,7 +237,8 @@ test_01/
 ├── .difyignore                   # 打包排除清单
 ├── README.md                     # 英文 README
 ├── readme/README_zh_Hans.md      # 中文 README（本文件）
-├── privacy.md                    # Marketplace 隐私说明
+├── PRIVACY.md                    # Marketplace 隐私说明
+├── LICENSE                       # MIT License
 └── RELEASE_CHECKLIST.md          # 发布前清单
 ```
 
@@ -221,7 +249,7 @@ test_01/
 | 现象 | 可能原因 | 解决方式 |
 |------|----------|----------|
 | `PluginInvokeError: [models] Error: 'endpoint_url'` | 跑的是老版本，`_patch_credentials` 还在用 `openai_api_base`。 | 基于当前源码重新打包，键名已修正为 `endpoint_url`、`api_key`、`mode`。 |
-| `401 Invalid key` | 魔芋AI API Key 错误或已失效。 | 到魔芋AI 控制台重新生成 Key，在 Dify 供应商配置中重新保存。 |
+| `401 Invalid key` | Key 错误、失效，或被发往了不同于签发站点的域名。 | 在 **API Key 所属站点** 中选择与 Key 匹配的国内站或海外站，再重新保存凭据。 |
 | 某模型返回 `503 service_unavailable` | 该模型上游短时不可用。 | 换其他模型；使用 `scripts/probe_all.py` 查看实时可用性。 |
 | 图标不显示 | Dify 页面缓存，或图标路径错误。 | 强制刷新页面；确认 `icon.png` 存在于项目根目录。 |
 | 打包报错 `plugin icon not found` | `manifest.yaml` 的 `icon` 路径不对。 | 确认 `icon.png` 在项目根目录，且 `manifest.yaml` 中写的是 `icon.png`（不带子目录前缀）。 |
@@ -230,14 +258,13 @@ test_01/
 
 ## 10. 安全说明
 
-- 插件仅将用户输入与参数发送到
-  `https://www.moyu.info/v1/chat/completions`，使用用户在 Dify 中配置的
-  API Key。
+- 插件仅将用户输入与参数发送到 **API Key 所属站点** 对应的国内或海外
+  魔芋AI接口，并使用用户在 Dify 中配置的 API Key；凭据界面不开放地址编辑。
 - 插件本身不会持久化 API Key，Key 的加密存储由 Dify 负责。
 - `.env` 仅用于本地调试，已经被 `.difyignore` 从打包中排除；
   `scripts/preflight_check.py` 会强制校验这一点。
 
-面向用户的隐私声明见 [`../privacy.md`](../privacy.md)。
+面向用户的隐私声明见 [`../PRIVACY.md`](../PRIVACY.md)。
 
 ---
 
@@ -245,21 +272,46 @@ test_01/
 
 版本号以 `manifest.yaml > version` 为准，每次发布前都要手动 bump。
 
-- `0.0.1` — 初始发布候选：100+ LLM 模型、流式输出、工具调用、
+- `0.0.1` — 初始发布候选：80 个 LLM 模型、流式输出、工具调用、
   preflight + 测试套件。
+- `0.0.2` — 模型目录更新：140+ 个模型，新增视觉/多模态、图像生成、
+  视频生成类模型；为接受图片输入的模型自动添加 `vision` 特性标记。
+- `0.0.3` / `0.0.4` — 目录裁剪为实测可用模型；修复清单编码问题
+  （无 BOM 的 UTF-8、修正中文元数据乱码）。
+- `0.0.5` — 原生能力升级：
+  - **VISION 回填** —— 基于图片输入实测，为 27 个多模态模型补充 `vision`
+    特性（Doubao Seed 系列、Grok-4、Kimi k2.5/k2.6、MiniMax M2.5/M2.7、
+    Qwen flash/plus/max 与 3.5/3.6 等）。
+  - **新增文本向量 Embedding 模型类型**（`text-embedding-v4/v2`、
+    `gemini-embedding-2-preview/001`），基于 `OAICompatEmbeddingModel`。
+  - **新增重排序 Rerank 模型类型**（`qwen3-rerank`），基于
+    `OAICompatRerankModel`，并针对魔芋 `/v1/rerank` 的 `top_n` 约束做了兜底。
+  - **Advanced Inputs** —— 经实测 PDF（`file`）与 `video_url` 可透传，
+    为 Gemini 2.5 系列声明 `document` + `video` 特性。
+- `0.0.6` — 国内、海外双站版本：
+  - 新增 **API Key 所属站点**选择，固定映射 `https://www.moyu.cn/v1`
+    与 `https://www.konjac.ai/v1`；
+  - 注册模型白名单更新为 48 个双站 LLM、10 个仅国内 LLM、
+    2 个双站 Embedding 和 2 个仅国内 Embedding；
+  - 所有国内专属模型均增加中英文“仅国内站”标识；
+  - 因 `qwen3-rerank` 在双站实测均返回 `model_not_found`，暂时关闭 Rerank。
 
 ---
 
 ## 12. 许可
 
-项目 License 暂未确定。在作者（`manifest.yaml > author: fdq-shrimp`）
-正式声明之前，请将本仓库视作 **保留所有权利**。如需二次分发，请先
-联系作者。后续会补充 `LICENSE` 文件。
+本项目采用 [MIT License](../LICENSE) 开源许可。
+
+Copyright (c) 2026 fdq-shrimp。
 
 ---
 
-## 13. 维护者
+## 13. 发布者、授权与支持
 
-- 作者字段：`fdq-shrimp`（见 `manifest.yaml`）。
-- 本插件为社区性质的魔芋AI 集成，并非魔芋AI 官方运营。
-  使用本插件即代表你同意遵循魔芋AI 自身的服务条款与隐私政策。
+- 发布者及维护者：`fdq-shrimp`（个人发布者）。
+- 技术支持：[fangdaq10@163.com](mailto:fangdaq10@163.com)。
+- 源码与问题反馈：<https://github.com/FDQ-shrimp/moyu_ai_provider>。
+- 本插件已获授权使用“**魔芋AI / Moyu AI**”名称发布此项集成。国内 API
+  服务地址为 <https://www.moyu.cn/>，海外 API 服务地址为
+  <https://www.konjac.ai/>；使用相应服务时仍须遵守该站点自身的服务条款
+  和隐私政策。

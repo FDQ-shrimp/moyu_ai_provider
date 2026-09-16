@@ -1,9 +1,10 @@
-model: GPT-4.1
+model: grok-4-20-non-reasoning
 label:
-  en_US: GPT-4.1
-  zh_Hans: GPT-4.1
+  en_US: grok-4-20-non-reasoning
+  zh_Hans: grok-4-20-non-reasoning
 model_type: llm
 features:
+- vision
 - agent-thought
 model_properties:
   mode: chat

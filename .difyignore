@@ -8,7 +8,6 @@
 # --- Local debug / secrets (MUST stay out of the package) ---
 .env
 .env.*
-!.env.example
 
 # --- Python caches & build artifacts ---
 __pycache__/
@@ -29,6 +28,9 @@ tools/
 scripts/
 tests/
 docs/
+AGENTS.md
+CODEX_HANDOFF.md
+RELEASE_CHECKLIST.md
 
 # --- Already-built plugin packages ---
 *.difypkg
@@ -43,6 +45,7 @@ docs/
 # --- Local reports / logs ---
 *.log
 probe_report.json
+ci_checks.html
 
 # --- OS noise ---
 .DS_Store

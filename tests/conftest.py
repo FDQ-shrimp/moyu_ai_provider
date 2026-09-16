@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import sys
 import types
+from enum import Enum
 from pathlib import Path
 
 # Ensure the project root is on sys.path so `import provider.moyu`,
@@ -45,6 +46,20 @@ def _install_fake_dify_plugin() -> None:
         def validate_credentials(self, *args, **kwargs):  # pragma: no cover
             return None
 
+    class OAICompatEmbeddingModel:
+        def _invoke(self, *args, **kwargs):  # pragma: no cover
+            raise NotImplementedError
+
+        def validate_credentials(self, *args, **kwargs):  # pragma: no cover
+            return None
+
+    class OAICompatRerankModel:
+        def _invoke(self, *args, **kwargs):  # pragma: no cover
+            raise NotImplementedError
+
+        def validate_credentials(self, *args, **kwargs):  # pragma: no cover
+            return None
+
     class DifyPluginEnv:
         pass
 
@@ -57,6 +72,8 @@ def _install_fake_dify_plugin() -> None:
 
     pkg.ModelProvider = ModelProvider
     pkg.OAICompatLargeLanguageModel = OAICompatLargeLanguageModel
+    pkg.OAICompatEmbeddingModel = OAICompatEmbeddingModel
+    pkg.OAICompatRerankModel = OAICompatRerankModel
     pkg.DifyPluginEnv = DifyPluginEnv
     pkg.Plugin = Plugin
     sys.modules["dify_plugin"] = pkg
@@ -93,6 +110,11 @@ def _install_fake_dify_plugin() -> None:
     model_pkg = types.ModuleType("dify_plugin.entities.model")
     model_pkg.__path__ = []
 
+    class EmbeddingInputType(Enum):
+        DOCUMENT = "document"
+
+    model_pkg.EmbeddingInputType = EmbeddingInputType
+
     llm_mod = types.ModuleType("dify_plugin.entities.model.llm")
 
     class LLMResult:  # placeholder
@@ -111,14 +133,32 @@ def _install_fake_dify_plugin() -> None:
     msg_mod.PromptMessage = PromptMessage
     msg_mod.PromptMessageTool = PromptMessageTool
 
+    embedding_mod = types.ModuleType("dify_plugin.entities.model.text_embedding")
+
+    class TextEmbeddingResult:
+        pass
+
+    embedding_mod.TextEmbeddingResult = TextEmbeddingResult
+
+    rerank_mod = types.ModuleType("dify_plugin.entities.model.rerank")
+
+    class RerankResult:
+        pass
+
+    rerank_mod.RerankResult = RerankResult
+
     sys.modules["dify_plugin.entities"] = entities_pkg
     sys.modules["dify_plugin.entities.model"] = model_pkg
     sys.modules["dify_plugin.entities.model.llm"] = llm_mod
     sys.modules["dify_plugin.entities.model.message"] = msg_mod
+    sys.modules["dify_plugin.entities.model.text_embedding"] = embedding_mod
+    sys.modules["dify_plugin.entities.model.rerank"] = rerank_mod
     pkg.entities = entities_pkg
     entities_pkg.model = model_pkg
     model_pkg.llm = llm_mod
     model_pkg.message = msg_mod
+    model_pkg.text_embedding = embedding_mod
+    model_pkg.rerank = rerank_mod
 
 
 _install_fake_dify_plugin()

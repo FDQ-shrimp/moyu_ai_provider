@@ -11,8 +11,9 @@ Design notes
 * Packaged install (end user):
     - The `.env` file is excluded from the .difypkg via `.difyignore`.
     - Dify injects its own runtime env vars; no local file is needed.
-    - The end user only supplies their Moyu AI API Key via the provider
-      credential form (see `provider/moyu.yaml`).
+    - The end user supplies their API Key and selects its China or overseas
+      site; the provider maps that selection to a fixed API Base URL (see
+      `provider/moyu.yaml`).
 
 Therefore this module never references `api_key` or any user credential.
 It only bootstraps the plugin runtime.

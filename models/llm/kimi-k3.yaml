@@ -1,7 +1,7 @@
-model: gpt-4o-mini-2024-07-18
+model: kimi-k3
 label:
-  en_US: gpt-4o-mini-2024-07-18
-  zh_Hans: gpt-4o-mini-2024-07-18
+  en_US: kimi-k3
+  zh_Hans: kimi-k3
 model_type: llm
 features:
 - agent-thought

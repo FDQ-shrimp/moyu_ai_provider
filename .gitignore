@@ -33,5 +33,6 @@ Thumbs.db
 *.difypkg
 
 # === Local scratch / reports that shouldn't be tracked ===
+*.log
 scripts/preflight_report.json
 scripts/probe_report.json

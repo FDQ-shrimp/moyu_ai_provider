@@ -19,6 +19,8 @@ ticked off in order.
 - [ ] `manifest.yaml > version` bumped according to semver (patch / minor / major).
 - [ ] `manifest.yaml > meta.version` matches `manifest.yaml > version`.
 - [ ] `manifest.yaml > author` is the real publisher handle.
+- [ ] `manifest.yaml > privacy`, `repo`, and `contact` point to the current
+      privacy document, public source repository, and support address.
 - [ ] `manifest.yaml > label` (en_US + zh_Hans) and
       `manifest.yaml > description` (en_US + zh_Hans) are accurate.
 - [ ] `manifest.yaml > type` is `plugin`.
@@ -45,23 +47,26 @@ ticked off in order.
       implemented.
 - [ ] `configurate_methods` contains `predefined-model`.
 - [ ] `provider_credential_schema.credential_form_schemas` contains
-      **exactly one** user-facing field: `api_key`, with
-      `type: secret-input` and `required: true`.
+      `api_key` (`secret-input`, required) and the fixed `endpoint_url` site
+      selector (China / overseas) only.
 - [ ] No `.env` variables are ever surfaced to the end-user UI.
 - [ ] `extra.python.provider_source` and every entry in
       `extra.python.model_sources` point at real `.py` files.
-- [ ] `models.llm.predefined` glob matches at least one YAML file.
+- [ ] The explicit LLM and text-embedding allowlist entries each resolve to
+      one YAML file; rerank is not registered while no verified model exists.
+- [ ] The fixed site selector maps only to `https://www.moyu.cn/v1` and
+      `https://www.konjac.ai/v1`.
 
 ---
 
 ## 4. Models catalogue
 
-- [ ] Every file in `models/llm/*.yaml` is valid YAML.
-- [ ] Every model YAML declares `model`, `label`, `model_type: llm`,
-      `model_properties.mode: chat`, and a sensible
+- [ ] Every model YAML under `models/` is valid YAML and declares `model`,
+      `label`, the correct `model_type`, and `model_properties`.
+- [ ] Every LLM YAML declares `model_properties.mode: chat` and a sensible
       `model_properties.context_size`.
 - [ ] Model IDs exactly match the IDs returned by
-      `https://www.moyu.info/v1/models`.
+      `https://www.moyu.cn/v1/models` (or the selected overseas endpoint).
 - [ ] Model YAMLs that are known to be permanently unavailable upstream
       have been removed (run `scripts/probe_all.py`; fold its
       `scripts/probe_report.json` back into a deliberate curation pass).
@@ -91,7 +96,8 @@ ticked off in order.
 - [ ] No file under `main.py`, `provider/`, or `models/` contains a
       hardcoded `REMOTE_INSTALL_KEY` or an `sk-…` literal. The preflight
       script verifies this automatically.
-- [ ] `.env.example` uses placeholders, not a real debug key.
+- [ ] `.env.example` uses placeholders, is excluded from the package, and
+      contains no real debug key.
 
 ---
 
@@ -99,7 +105,9 @@ ticked off in order.
 
 - [ ] `README.md` (English) is complete and matches the current behaviour.
 - [ ] `readme/README_zh_Hans.md` (Chinese) is complete.
-- [ ] `privacy.md` exists and reflects the current data-flow.
+- [ ] `PRIVACY.md` exists and reflects the China/overseas data-flow.
+- [ ] `LICENSE` exists and contains the approved MIT License text.
+- [ ] The publisher, public repository, and support email are accurate.
 - [ ] This `RELEASE_CHECKLIST.md` has been reviewed for this release.
 - [ ] No broken links in any README.
 
@@ -118,9 +126,9 @@ ticked off in order.
 - [ ] Activate the project virtualenv.
 - [ ] Run:
       ```powershell
-      dify-plugin.exe plugin package .\test_01
+      dify-plugin.exe plugin package . -o .\moyu_ai_provider-0.0.6.difypkg
       ```
-- [ ] `test_01.difypkg` is produced next to the project directory.
+- [ ] `moyu_ai_provider-0.0.6.difypkg` is produced in the repository root.
 - [ ] Inspect the archive with a ZIP tool and confirm `.env` is absent.
 
 ---
@@ -130,18 +138,29 @@ ticked off in order.
 Perform this on a Dify workspace that has **no prior installation** of
 this plugin.
 
-1. [ ] **Install plugin → Local file → upload `test_01.difypkg`.**
+1. [ ] **Install plugin → Local file → upload
+       `moyu_ai_provider-0.0.6.difypkg`.**
 2. [ ] In **Settings → Model providers**, confirm that `Moyu AI` appears
        with the correct icon and description in both English and 简体中文.
 3. [ ] Click **Set up**, paste a real Moyu AI API Key, click Save — the
        save succeeds and no error toast appears.
-4. [ ] Enable at least one model (e.g. `gpt-5.4`).
+4. [ ] Enable at least one registered model (e.g. `gpt-5.5`).
 5. [ ] Create a simple Dify **Chatflow** or **LLM node** using that
        model. Send a test prompt ("ping"); confirm the response streams
        back and the run status is `SUCCESS`.
 6. [ ] Disable the model, re-enable it: no errors.
 7. [ ] Delete the provider configuration, re-configure with the same
        API Key: save succeeds.
+
+### Upgrade compatibility
+
+1. [ ] In a separate workspace, install the published `0.0.5` package and
+       save an existing domestic credential.
+2. [ ] Upgrade the plugin to `0.0.6` without deleting that credential.
+3. [ ] Confirm the credential still works when the newly optional site field
+       is absent; the adapter must fall back to the domestic API.
+4. [ ] Edit and save the credential, select each site with a matching test
+       account, and confirm the fixed site selector persists correctly.
 
 ---
 
@@ -150,7 +169,7 @@ this plugin.
 - [ ] Release notes written (link to the bump in `manifest.yaml > version`).
 - [ ] Screenshots of the provider card and model list prepared.
 - [ ] Author contact verified.
-- [ ] Privacy statement (`privacy.md`) reviewed and, if needed, updated.
+- [ ] Privacy statement (`PRIVACY.md`) reviewed and, if needed, updated.
 - [ ] Final upload to the Dify Marketplace.
 
 ---

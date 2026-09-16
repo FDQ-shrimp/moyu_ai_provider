@@ -4,7 +4,7 @@ from typing import Any
 
 import requests
 
-BASE_URL = "https://www.moyu.info/v1"
+BASE_URL = "https://www.moyu.cn/v1"
 MODEL = "gpt-5.3-codex"
 
 

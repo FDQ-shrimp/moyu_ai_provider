@@ -1,9 +1,10 @@
 model: doubao-seed-2-0-mini-260215
 label:
-  en_US: doubao-seed-2-0-mini-260215
-  zh_Hans: doubao-seed-2-0-mini-260215
+  en_US: doubao-seed-2-0-mini-260215 (China only)
+  zh_Hans: doubao-seed-2-0-mini-260215（仅国内站）
 model_type: llm
 features:
+- vision
 - agent-thought
 model_properties:
   mode: chat

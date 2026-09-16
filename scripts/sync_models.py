@@ -7,12 +7,73 @@ from typing import Any
 import requests
 import yaml
 
-BASE_URL = "https://www.moyu.info/v1"
+BASE_URL = "https://www.moyu.cn/v1"
 MODEL_LIST_PATH = "/models"
 CHAT_COMPLETIONS_PATH = "/chat/completions"
 DEFAULT_CONTEXT_SIZE = 128000
 DEFAULT_MAX_TOKENS = 4096
 TIMEOUT_SECONDS = 30
+
+# Keywords indicating a model accepts image INPUT (i.e. vision/multimodal models).
+# These models get `features: [vision, agent-thought]` so Dify shows the image
+# upload button in the LLM node. Pure image-OUTPUT models (t2i, t2v) that only
+# produce images from text prompts do NOT need the vision flag.
+#
+# This list is evidence-based: every family below was live-probed against
+# `POST /v1/chat/completions` with an image content block. Models that returned
+# an image-decode / image-dimension error (i.e. they tried to read the image)
+# or HTTP 200 are treated as vision-capable; models that explicitly rejected the
+# multi-modal message ("only supports text modality") are listed in
+# TEXT_ONLY_OVERRIDES below.
+VISION_INPUT_KEYWORDS = [
+    "vl",          # vision-language: qwen3-vl, qwen-vl, glm-vl, …
+    "vision",      # explicit "vision" in model id
+    "i2i",         # image-to-image: jimeng_i2i, …
+    "i2v",         # image-to-video: jimeng_i2v, wan2.x-i2v, doubao-seedance-i2v, …
+    "r2v",         # reference-to-video: happyhorse-1.0-r2v (accepts image reference input)
+    "multimodal",  # generic multimodal tag
+    "image-01",    # minimax hailuo-image-01 (supports image input)
+    "image01",
+    "gpt-4o",      # all GPT-4o variants are multimodal
+    "gpt-4-vision",
+    "claude",      # all Claude (3.x / 4.x / fable) accept image input
+    "gemini",      # all Gemini chat models accept image input
+    "kling",       # Kling (快影) video models support image-to-video input
+    "doubao-seed", # ByteDance Doubao Seed series (1.6/1.8/2.0) are multimodal
+    "grok-4",      # Grok 4 family accepts image input (probed)
+    "kimi",        # Kimi k2.5 / k2.6 accept image input (probed)
+    "minimax",     # MiniMax M2.5 / M2.7 + Hailuo image accept image input (probed)
+    "qwen-flash",  # Qwen commercial flash/plus/max are multimodal (probed)
+    "qwen-plus",
+    "qwen-max",
+    "qwen3-max",
+    "qwen3.5",     # qwen3.5-flash/plus/35b accept image input (probed)
+    "qwen3.6",     # qwen3.6-flash/plus/max-preview accept image input (probed)
+    "qwen3.7-plus",
+]
+
+# Models that a keyword above would tag as vision, but which were live-probed
+# and explicitly rejected image input ("only supports text modality" / invalid
+# multi-modal message). Keyed by lowercased model id.
+TEXT_ONLY_OVERRIDES = {
+    "qwen3.7-max",                 # rejects image content blocks (probed http_400)
+    "doubao-1-5-lite-32k-250115",  # legacy Doubao 1.5, text-only
+    "doubao-1-5-pro-32k-250115",   # legacy Doubao 1.5, text-only
+    "glm-5.1",                     # "only supports text modality" (probed)
+}
+
+# Richer input modalities (Dify "Advanced Inputs") that the Moyu chat relay was
+# live-probed to forward to the upstream model. Keyed by lowercased model id ->
+# extra Dify features. Only models where the relay returned 200 (i.e. accepted
+# and forwarded the block) are listed; models that crashed the relay (Claude
+# `file` -> 500 panic) or rejected the format are intentionally omitted.
+ADVANCED_INPUT_FEATURES = {
+    # Gemini 2.5 accepted document (PDF `file` block), video (`video_url`) and
+    # audio (`input_audio`) via the relay; we declare document + video here.
+    "gemini-2.5-pro": ["document", "video"],
+    "gemini-2.5-flash": ["document", "video"],
+    "gemini-2.5-flash-lite": ["document", "video"],
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -178,6 +239,29 @@ def infer_context_size(model_id: str) -> int:
     return DEFAULT_CONTEXT_SIZE
 
 
+def infer_features(model_id: str) -> list[str]:
+    """Return the Dify feature list for a model.
+
+    Models that accept image INPUT get the `vision` feature so that Dify
+    shows an image-upload button in the LLM node. Pure text-only models get
+    only `agent-thought`. Models explicitly probed as text-only are forced
+    back to text even if a keyword would otherwise match them.
+    """
+    lowered = model_id.lower()
+    features: list[str] = []
+    is_vision = lowered not in TEXT_ONLY_OVERRIDES and any(
+        kw in lowered for kw in VISION_INPUT_KEYWORDS
+    )
+    if is_vision:
+        features.append("vision")
+    # Append probed Advanced-Input modalities (document / video / audio).
+    for extra in ADVANCED_INPUT_FEATURES.get(lowered, []):
+        if extra not in features:
+            features.append(extra)
+    features.append("agent-thought")
+    return features
+
+
 def render_model_yaml(model_id: str) -> dict[str, Any]:
     context_size = infer_context_size(model_id)
     return {
@@ -187,7 +271,7 @@ def render_model_yaml(model_id: str) -> dict[str, Any]:
             "zh_Hans": to_label(model_id),
         },
         "model_type": "llm",
-        "features": ["agent-thought"],
+        "features": infer_features(model_id),
         "model_properties": {
             "mode": "chat",
             "context_size": context_size,

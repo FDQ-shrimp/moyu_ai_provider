@@ -1,7 +1,7 @@
-model: gpt-4o-2024-11-20
+model: DeepSeek-R1-Distill-Qwen-32B
 label:
-  en_US: gpt-4o-2024-11-20
-  zh_Hans: gpt-4o-2024-11-20
+  en_US: DeepSeek-R1-Distill-Qwen-32B
+  zh_Hans: DeepSeek-R1-Distill-Qwen-32B
 model_type: llm
 features:
 - agent-thought
