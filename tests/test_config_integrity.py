@@ -116,6 +116,7 @@ def test_manifest_is_well_formed():
     assert manifest["privacy"] == "PRIVACY.md"
     assert manifest["repo"] == "https://github.com/FDQ-shrimp/moyu_ai_provider"
     assert manifest["contact"] == "fangdaq10@163.com"
+    assert manifest["network"]["domains"] == ["www.moyu.cn", "www.konjac.ai"]
     assert manifest["label"]["en_US"]
     assert manifest["plugins"]["models"] == ["provider/moyu.yaml"]
     icon = manifest["icon"]

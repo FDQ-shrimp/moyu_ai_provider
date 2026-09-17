@@ -196,6 +196,15 @@ def check_manifest(report: Report) -> dict | None:
     else:
         report.fail("manifest contact must be a valid email address")
 
+    network_domains = ((manifest.get("network") or {}).get("domains") or [])
+    expected_domains = ["www.moyu.cn", "www.konjac.ai"]
+    if network_domains == expected_domains:
+        report.ok("manifest declares only the fixed Moyu and Konjac API domains")
+    else:
+        report.fail(
+            f"manifest network.domains must be {expected_domains!r}, got {network_domains!r}"
+        )
+
     runner = meta.get("runner") or {}
     entrypoint = runner.get("entrypoint")
     if entrypoint and (ROOT / f"{entrypoint}.py").is_file():

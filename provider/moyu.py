@@ -18,12 +18,8 @@ compatibility with saved credentials. Nothing in this module reads `.env`.
 
 from __future__ import annotations
 
-import logging
-
 from dify_plugin import ModelProvider
 from dify_plugin.errors.model import CredentialsValidateFailedError
-
-logger = logging.getLogger(__name__)
 
 
 class MoyuProvider(ModelProvider):
@@ -40,4 +36,3 @@ class MoyuProvider(ModelProvider):
         # per-model availability quirks that can intermittently 5xx, and we
         # do not want the whole provider setup to fail because one model is
         # unhealthy. Real validation happens during the first actual call.
-        logger.debug("moyu provider credentials shape validated (key_len=%d)", len(api_key))
