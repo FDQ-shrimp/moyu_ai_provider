@@ -78,11 +78,9 @@ privacy policy. These disclosures are also documented in `PRIVACY.md`.
   `0B7E2F188108F1A8BB09CF786C4964F4BB12BC7162BA1B4B8A1CDD2CB9545980`.
 - Marketplace Toolkit validation: exit code 0, 0 blocking failures, and 0
   environment/check execution failures.
-- Dify Cloud: the pre-hardening `0.0.6` package with the same runtime behavior
-  was uploaded, installed, and tested successfully with the China/overseas site
-  selector. The final package only adds the fixed-domain manifest declaration
-  and removes a non-functional credential-length debug log; final installation
-  revalidation is pending before Marketplace submission.
+- Dify Cloud: the final `0.0.6` package was uploaded, installed, and tested
+  successfully with the China/overseas site selector after the fixed-domain
+  manifest declaration and credential-log hardening were applied.
 
 ## Reviewer notes
 
