@@ -57,7 +57,8 @@ embedding input text, tool definitions, and supported multimodal input. The
 API key is sent to the selected service for authentication.
 
 The provider UI exposes only two fixed HTTPS API sites: `www.moyu.cn` and
-`www.konjac.ai`; it does not expose a free-form endpoint field. The plugin does
+`www.konjac.ai`, and `manifest.yaml` declares only those two outbound domains;
+it does not expose a free-form endpoint field. The plugin does
 not execute user-controlled code or commands, run SQL, access the local
 filesystem, automate a browser, or proxy arbitrary user-provided URLs. It does
 not persist API keys or inference content itself; credential storage is handled
@@ -67,21 +68,24 @@ privacy policy. These disclosures are also documented in `PRIVACY.md`.
 ## Local validation
 
 - `python -m pytest tests -q`: 160 passed.
-- `python scripts/preflight_check.py`: 142 passed, 0 warnings, 0 failed.
+- `python scripts/preflight_check.py`: 143 passed, 0 warnings, 0 failed.
 - Dify SDK manifest/provider parsing: 62 predefined models loaded successfully
   (58 LLMs and 4 text-embedding models).
 - Package inspection: 76 entries; 58 LLM YAMLs and 4 text-embedding YAMLs;
   exact uppercase `PRIVACY.md`; no `.env`, credential patterns, caches, tests,
   development scripts, logs, bundled executables, unregistered models, or
   rerank files. SHA256:
-  `0CAB3B74ABF50B05026BE51D28174E4903AF94A5A1007F73984CEF36A190247E`.
-- Dify Cloud: the official `0.0.6` package was uploaded, installed, and tested
-  successfully with the China/overseas site selector.
+  `0B7E2F188108F1A8BB09CF786C4964F4BB12BC7162BA1B4B8A1CDD2CB9545980`.
+- Marketplace Toolkit validation: exit code 0, 0 blocking failures, and 0
+  environment/check execution failures.
+- Dify Cloud: the final `0.0.6` package was uploaded, installed, and tested
+  successfully with the China/overseas site selector after the fixed-domain
+  manifest declaration and credential-log hardening were applied.
 
 ## Reviewer notes
 
 - Dify Community Edition was not separately tested for this release; the Dify
-  Cloud preview installation and functional test succeeded.
+  Cloud installation and functional test described above succeeded.
 - The catalog was selected from live checks against both API sites. China-only
   entries are explicitly labeled in both supported UI languages.
 - Rerank is intentionally disabled in version 0.0.6 because the advertised
