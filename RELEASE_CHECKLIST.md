@@ -1,5 +1,9 @@
 # Release Checklist — Moyu AI Dify Model Provider Plugin
 
+Current release: 0.0.8. Offline checks, package audit, dual-site Dify Agent
+Function Calling acceptance and ordinary-chat regression have completed. Marketplace
+submission was authorized on 2026-09-23. No additional real model requests are needed.
+
 Use this checklist before every `.difypkg` build that will be published to
 the Dify Marketplace or distributed to end users. Every item must be
 ticked off in order.
@@ -17,7 +21,8 @@ ticked off in order.
 ## 1. Version & metadata
 
 - [ ] `manifest.yaml > version` bumped according to semver (patch / minor / major).
-- [ ] `manifest.yaml > meta.version` matches `manifest.yaml > version`.
+- [ ] `manifest.yaml > meta.version` is the independent manifest-format version;
+      preserve `0.0.6` in this build. Only top-level release version becomes `0.0.8`.
 - [ ] `manifest.yaml > author` is the real publisher handle.
 - [ ] `manifest.yaml > privacy`, `repo`, and `contact` point to the current
       privacy document, public source repository, and support address.
@@ -115,8 +120,8 @@ ticked off in order.
 
 ## 8. Automated checks (must pass)
 
-- [ ] `python scripts/preflight_check.py` exits with code `0`.
-- [ ] `python -m pytest tests -q` exits with code `0`.
+- [ ] Run tests and preflight through `scripts/run_offline_checks.py` in the
+      isolated Python 3.12 / SDK 0.9.0 environment, both exit `0`.
 - [ ] `scripts/preflight_report.json` shows **zero `failed` entries**.
 
 ---
@@ -126,9 +131,11 @@ ticked off in order.
 - [ ] Activate the project virtualenv.
 - [ ] Run:
       ```powershell
-      dify-plugin.exe plugin package . -o .\moyu_ai_provider-0.0.6.difypkg
+      dify-plugin.exe plugin package <verified-allowlist-stage> -o <new-0.0.8-package>
       ```
-- [ ] `moyu_ai_provider-0.0.6.difypkg` is produced in the repository root.
+- [ ] New 0.0.8 package is at the explicit output path; original 0.0.6 and 0.0.7 packages are unchanged.
+- [ ] Unpack and compare every file against current approved source; include only
+      58 registered LLM YAMLs and 4 embeddings, no historical unregistered YAMLs.
 - [ ] Inspect the archive with a ZIP tool and confirm `.env` is absent.
 
 ---

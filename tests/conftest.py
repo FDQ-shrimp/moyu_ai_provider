@@ -19,6 +19,11 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+# Install before the SDK import below, including when pytest is run directly.
+from tests.offline_safety import block_transports, enable
+
+enable()
+
 
 def _install_fake_dify_plugin() -> None:
     """Install a minimal fake `dify_plugin` package if the real one is missing."""
@@ -162,3 +167,4 @@ def _install_fake_dify_plugin() -> None:
 
 
 _install_fake_dify_plugin()
+block_transports()

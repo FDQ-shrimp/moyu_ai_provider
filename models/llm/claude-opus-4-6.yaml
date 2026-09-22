@@ -4,8 +4,10 @@ label:
   zh_Hans: claude-opus-4-6
 model_type: llm
 features:
-- vision
-- agent-thought
+  - vision
+  - agent-thought
+  - tool-call
+  - stream-tool-call
 model_properties:
   mode: chat
   context_size: 200000

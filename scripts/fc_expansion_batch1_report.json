@@ -1,0 +1,1991 @@
+{
+  "created_utc": "2026-09-21T10:33:59.932252+00:00",
+  "batch": "function_calling_expansion_1",
+  "models": [
+    "claude-fable-5",
+    "claude-sonnet-4-6",
+    "deepseek-v4-pro",
+    "glm-5.3",
+    "gemini-2.5-flash",
+    "gpt-5.5"
+  ],
+  "existing_verified_model_not_retested": "qwen3.6-plus",
+  "python": "3.12.14",
+  "sdk": "0.9.0",
+  "interpreter": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Scripts\\python.exe",
+  "max_attempts": 48,
+  "max_tokens_per_request": 512,
+  "budget": {
+    "china": {
+      "currency": "CNY",
+      "limit": 30
+    },
+    "overseas": {
+      "currency": "USD",
+      "limit": 6
+    },
+    "platform_hard_limit_verified": false
+  },
+  "cost_estimate": null,
+  "cost_note": "Prices and actual charges are not verified; usage is not billing proof.",
+  "credential_source": "anonymous_stdin_line",
+  "automatic_retries": false,
+  "redirects": false,
+  "attempts": [
+    {
+      "number": 1,
+      "model": "claude-fable-5",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 2,
+      "model": "claude-fable-5",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 3,
+      "model": "claude-fable-5",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 4,
+      "model": "claude-fable-5",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 5,
+      "model": "claude-sonnet-4-6",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 6,
+      "model": "claude-sonnet-4-6",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 7,
+      "model": "claude-sonnet-4-6",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 8,
+      "model": "claude-sonnet-4-6",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 9,
+      "model": "deepseek-v4-pro",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 10,
+      "model": "deepseek-v4-pro",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 11,
+      "model": "deepseek-v4-pro",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 12,
+      "model": "deepseek-v4-pro",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 13,
+      "model": "glm-5.3",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 14,
+      "model": "glm-5.3",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 15,
+      "model": "glm-5.3",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 16,
+      "model": "glm-5.3",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 17,
+      "model": "gemini-2.5-flash",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 18,
+      "model": "gemini-2.5-flash",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 19,
+      "model": "gemini-2.5-flash",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 20,
+      "model": "gemini-2.5-flash",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 21,
+      "model": "gpt-5.5",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 22,
+      "model": "gpt-5.5",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 23,
+      "model": "gpt-5.5",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 24,
+      "model": "gpt-5.5",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 25,
+      "model": "claude-fable-5",
+      "site": "china",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 26,
+      "model": "claude-fable-5",
+      "site": "china",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 27,
+      "model": "claude-fable-5",
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 28,
+      "model": "claude-fable-5",
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 29,
+      "model": "claude-sonnet-4-6",
+      "site": "china",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 30,
+      "model": "claude-sonnet-4-6",
+      "site": "china",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 31,
+      "model": "claude-sonnet-4-6",
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 32,
+      "model": "claude-sonnet-4-6",
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 33,
+      "model": "deepseek-v4-pro",
+      "site": "china",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 34,
+      "model": "deepseek-v4-pro",
+      "site": "china",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 35,
+      "model": "deepseek-v4-pro",
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 36,
+      "model": "deepseek-v4-pro",
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 37,
+      "model": "glm-5.3",
+      "site": "china",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 38,
+      "model": "glm-5.3",
+      "site": "china",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 39,
+      "model": "glm-5.3",
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 40,
+      "model": "glm-5.3",
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "transport_error_no_retry",
+      "request_protocol_validated": true,
+      "error_category": "timeout"
+    }
+  ],
+  "results": [
+    {
+      "model": "claude-fable-5",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "64d9d36316911e987374df7b1b0e664bb6c91962dc9c91887125dfefdf8c2a46",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "6819cefa11c0a4ddab219b3a09f1155c1379771cf04fb138479bca3d7f5ec832",
+          "usage": {
+            "prompt_tokens": 421,
+            "completion_tokens": 41,
+            "total_tokens": 462
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "225031848c910e93f85bb0fd9bc1c8d1cf60e8241540e4b6f31a3b634a6107ee",
+          "usage": {
+            "prompt_tokens": 123,
+            "completion_tokens": 3,
+            "total_tokens": 126
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 421,
+            "completion_tokens": 41,
+            "total_tokens": 462
+          },
+          "response_sha256": "6819cefa11c0a4ddab219b3a09f1155c1379771cf04fb138479bca3d7f5ec832",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 123,
+            "completion_tokens": 3,
+            "total_tokens": 126
+          },
+          "response_sha256": "225031848c910e93f85bb0fd9bc1c8d1cf60e8241540e4b6f31a3b634a6107ee",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "claude-fable-5",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "522b062bc9b2c55ce4ffead252aff089bfe15bdf76b6be4b36ea41eca86372d1",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "24e8829b9a91a5b788a4c9b12c4e417c1f2537261dbf2643845e9b21f83e2ecb",
+          "usage": {
+            "prompt_tokens": 421,
+            "completion_tokens": 41,
+            "total_tokens": 462
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "110277181c03efdd27f9d36e5a3e8ab86c32287c84ded2ba4d01135db0b9d44c",
+          "usage": {
+            "prompt_tokens": 123,
+            "completion_tokens": 3,
+            "total_tokens": 126
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 421,
+            "completion_tokens": 41,
+            "total_tokens": 462
+          },
+          "response_sha256": "24e8829b9a91a5b788a4c9b12c4e417c1f2537261dbf2643845e9b21f83e2ecb",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 123,
+            "completion_tokens": 3,
+            "total_tokens": 126
+          },
+          "response_sha256": "110277181c03efdd27f9d36e5a3e8ab86c32287c84ded2ba4d01135db0b9d44c",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "claude-fable-5",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "stream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "40827aa4f721f850761ed0f936d38995f5ea9d62f72bfc91ae4a3411d0f07b41",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 6,
+          "response_sha256": "f94d0766f79e71a9b3859208e03606b0e0699aeb43fb631551f1c06bd9fc6af7",
+          "usage": {
+            "prompt_tokens": 421,
+            "completion_tokens": 18,
+            "total_tokens": 439
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "2fbfb5e78972aaf40a3a1a3dc9a75b486d6ce6502ab6941f6a03e54983512a10",
+          "usage": {
+            "prompt_tokens": 101,
+            "completion_tokens": 1,
+            "total_tokens": 102
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 421,
+            "completion_tokens": 18,
+            "total_tokens": 439
+          },
+          "response_sha256": "f94d0766f79e71a9b3859208e03606b0e0699aeb43fb631551f1c06bd9fc6af7",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 9,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 101,
+            "completion_tokens": 1,
+            "total_tokens": 102
+          },
+          "response_sha256": "2fbfb5e78972aaf40a3a1a3dc9a75b486d6ce6502ab6941f6a03e54983512a10",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 5,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "claude-fable-5",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "stream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "5e664482cb38dd4c020e60516fca0248268396c7a6a83b27a8953da30e0f9687",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 4,
+          "response_sha256": "b861be38a1c925976b158f0cd7f4a5599490a6017bd993e80cc3e46bc2fc3b0e",
+          "usage": {
+            "prompt_tokens": 426,
+            "completion_tokens": 91,
+            "total_tokens": 517
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "46867239ea734fb9f62de4fe2058f38ddf5df165aed67f46872c199fc2065ca7",
+          "usage": {
+            "prompt_tokens": 119,
+            "completion_tokens": 1,
+            "total_tokens": 120
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 426,
+            "completion_tokens": 91,
+            "total_tokens": 517
+          },
+          "response_sha256": "b861be38a1c925976b158f0cd7f4a5599490a6017bd993e80cc3e46bc2fc3b0e",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 13,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 119,
+            "completion_tokens": 1,
+            "total_tokens": 120
+          },
+          "response_sha256": "46867239ea734fb9f62de4fe2058f38ddf5df165aed67f46872c199fc2065ca7",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 5,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "claude-sonnet-4-6",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "b542711d2d2efd75768b8a4388fd2fdbffb7f5b187090482ade13261d2e43139",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "abf6b4b7ed46910b2ccbf7d0d80547896608ba3d2bf8e962792ed12744d96457",
+          "usage": {
+            "prompt_tokens": 632,
+            "completion_tokens": 38,
+            "total_tokens": 670
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "cb1a78db57774986eccd101b578fcf4d5a0ef6ab5c6e2430b07bc236e8f554ed",
+          "usage": {
+            "prompt_tokens": 125,
+            "completion_tokens": 5,
+            "total_tokens": 130
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 632,
+            "completion_tokens": 38,
+            "total_tokens": 670
+          },
+          "response_sha256": "abf6b4b7ed46910b2ccbf7d0d80547896608ba3d2bf8e962792ed12744d96457",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 125,
+            "completion_tokens": 5,
+            "total_tokens": 130
+          },
+          "response_sha256": "cb1a78db57774986eccd101b578fcf4d5a0ef6ab5c6e2430b07bc236e8f554ed",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "claude-sonnet-4-6",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "6807b0e03353d92ee24d8e4bdc11e9da3824867e4e73ff11dc9b176a4820636c",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "81a01922dacd8940fe70ed07733c07dedd430139d268a27716db729e5cfa8227",
+          "usage": {
+            "prompt_tokens": 632,
+            "completion_tokens": 38,
+            "total_tokens": 670
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "cd1404da06a72418cae22b8be0c96bb84b5644e2981e8bb2f35099090403cee5",
+          "usage": {
+            "prompt_tokens": 125,
+            "completion_tokens": 5,
+            "total_tokens": 130
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 632,
+            "completion_tokens": 38,
+            "total_tokens": 670
+          },
+          "response_sha256": "81a01922dacd8940fe70ed07733c07dedd430139d268a27716db729e5cfa8227",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 125,
+            "completion_tokens": 5,
+            "total_tokens": 130
+          },
+          "response_sha256": "cd1404da06a72418cae22b8be0c96bb84b5644e2981e8bb2f35099090403cee5",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "claude-sonnet-4-6",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "stream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "9da5ed25e6987175ab73adb97d5737ce2f34a6e2f045945b92bbe4f603407788",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 3,
+          "response_sha256": "32e42f1f3b4f9a575d9af8bb6389d86533c4e68f527888157443a1b12ee1dcfa",
+          "usage": {
+            "prompt_tokens": 606,
+            "completion_tokens": 57,
+            "total_tokens": 663
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "61b3cc77aeacb6d81141fb785f986052f2274e2e76117a05ed9f5cb2d9fc4ba6",
+          "usage": {
+            "prompt_tokens": 92,
+            "completion_tokens": 1,
+            "total_tokens": 93
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 606,
+            "completion_tokens": 57,
+            "total_tokens": 663
+          },
+          "response_sha256": "32e42f1f3b4f9a575d9af8bb6389d86533c4e68f527888157443a1b12ee1dcfa",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 6,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 92,
+            "completion_tokens": 1,
+            "total_tokens": 93
+          },
+          "response_sha256": "61b3cc77aeacb6d81141fb785f986052f2274e2e76117a05ed9f5cb2d9fc4ba6",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 5,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "claude-sonnet-4-6",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "stream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "b9f1d6d12f471c6cdeb003b8276feabd83d0b9b8f85f14be2746b128bc22cace",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 4,
+          "response_sha256": "d7371305f0d38a6215dbd088c7cf631767f5368ca76fe3a1d125a60198841d71",
+          "usage": {
+            "prompt_tokens": 632,
+            "completion_tokens": 18,
+            "total_tokens": 650
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "27816bfd343196a817401fa11e8d168e68aee50ca5f02c4324eecdaddeeee24f",
+          "usage": {
+            "prompt_tokens": 125,
+            "completion_tokens": 5,
+            "total_tokens": 130
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 632,
+            "completion_tokens": 18,
+            "total_tokens": 650
+          },
+          "response_sha256": "d7371305f0d38a6215dbd088c7cf631767f5368ca76fe3a1d125a60198841d71",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 7,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 125,
+            "completion_tokens": 5,
+            "total_tokens": 130
+          },
+          "response_sha256": "27816bfd343196a817401fa11e8d168e68aee50ca5f02c4324eecdaddeeee24f",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 5,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "8e66a0165ccddf27e7011f43d9137f490897fd0aebe6f8d2e913febf1bd8030e",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "66d635f65d0ccdb5590568328075b65c23464743cd83156f5d553038681d2347",
+          "usage": {
+            "prompt_tokens": 397,
+            "total_tokens": 485,
+            "completion_tokens": 88
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "f1ff40be4b2f3801c69b5d8d2a55c4b4872d3ec6e89483e5c2b116bee937dcd7",
+          "usage": {
+            "prompt_tokens": 107,
+            "total_tokens": 125,
+            "completion_tokens": 18
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 397,
+            "completion_tokens": 88,
+            "total_tokens": 485
+          },
+          "response_sha256": "66d635f65d0ccdb5590568328075b65c23464743cd83156f5d553038681d2347",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 107,
+            "completion_tokens": 18,
+            "total_tokens": 125
+          },
+          "response_sha256": "f1ff40be4b2f3801c69b5d8d2a55c4b4872d3ec6e89483e5c2b116bee937dcd7",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "fd75e2ae8ff6409b642b6392e31704ba949bde09fbdc3bf0a91677e581bd28b7",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "68fa95257de6a89fba7e712b782bd42667ab09ec191e1006124acf6e5b4460e1",
+          "usage": {
+            "prompt_tokens": 397,
+            "completion_tokens": 81,
+            "total_tokens": 478
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "d4b75b64d7a238a1986041ab6631abb0af3754673d966ce837226754e00b75e9",
+          "usage": {
+            "prompt_tokens": 185,
+            "completion_tokens": 23,
+            "total_tokens": 208
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 397,
+            "completion_tokens": 81,
+            "total_tokens": 478
+          },
+          "response_sha256": "68fa95257de6a89fba7e712b782bd42667ab09ec191e1006124acf6e5b4460e1",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 185,
+            "completion_tokens": 23,
+            "total_tokens": 208
+          },
+          "response_sha256": "d4b75b64d7a238a1986041ab6631abb0af3754673d966ce837226754e00b75e9",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "stream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "8367943490658df920af4ca6dde87d89c0b4057c5d127bbcb3a3095680db9dd2",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 4,
+          "response_sha256": "64e9a4b4d4eefc91013abd940938a7b46db5711e54d43fd249eb507308a1c1cb",
+          "usage": {
+            "prompt_tokens": 397,
+            "total_tokens": 479,
+            "completion_tokens": 82
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "21fc30905afe91fce60e1f5dcc01475c7c4dd89fe2484697a97ab48864c31f9e",
+          "usage": {
+            "prompt_tokens": 211,
+            "total_tokens": 246,
+            "completion_tokens": 35
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 397,
+            "completion_tokens": 82,
+            "total_tokens": 479
+          },
+          "response_sha256": "64e9a4b4d4eefc91013abd940938a7b46db5711e54d43fd249eb507308a1c1cb",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 21,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 211,
+            "completion_tokens": 35,
+            "total_tokens": 246
+          },
+          "response_sha256": "21fc30905afe91fce60e1f5dcc01475c7c4dd89fe2484697a97ab48864c31f9e",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 23,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "stream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "aa328c2184ca9ad93fad1874840b67b07d7d1e4675333b282e3c80e9f0f5f438",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 6,
+          "response_sha256": "f380b2e83f8a6096f4a08c0d5c85959d6bccd0020a7919ccdbbeae9940e422a1",
+          "usage": {
+            "prompt_tokens": 397,
+            "completion_tokens": 72,
+            "total_tokens": 469
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "60be36122b48e1bc1dc5e63901b0cc681ae23fdb316dc7e304612dcc36a001ff",
+          "usage": {
+            "prompt_tokens": 203,
+            "completion_tokens": 60,
+            "total_tokens": 263
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 397,
+            "completion_tokens": 72,
+            "total_tokens": 469
+          },
+          "response_sha256": "f380b2e83f8a6096f4a08c0d5c85959d6bccd0020a7919ccdbbeae9940e422a1",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 21,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 203,
+            "completion_tokens": 60,
+            "total_tokens": 263
+          },
+          "response_sha256": "60be36122b48e1bc1dc5e63901b0cc681ae23fdb316dc7e304612dcc36a001ff",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 61,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "glm-5.3",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "c15762028b33c631ef3eb429bff61145037c38265094c27e0bfd461e0a2a336b",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "168c172eee8d97c6f8d73941e8148c87acdecb8ade98deaf8c3bdfb0f1fde7b7",
+          "usage": {
+            "prompt_tokens": 200,
+            "total_tokens": 248,
+            "completion_tokens": 48
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "a787584ea7a74c26a1d5543e8e320048f7de066c9dc5ab0002bc3d0681b7a7c6",
+          "usage": {
+            "completion_tokens": 17,
+            "prompt_tokens": 65,
+            "total_tokens": 82
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 200,
+            "completion_tokens": 48,
+            "total_tokens": 248
+          },
+          "response_sha256": "168c172eee8d97c6f8d73941e8148c87acdecb8ade98deaf8c3bdfb0f1fde7b7",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 65,
+            "completion_tokens": 17,
+            "total_tokens": 82
+          },
+          "response_sha256": "a787584ea7a74c26a1d5543e8e320048f7de066c9dc5ab0002bc3d0681b7a7c6",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "glm-5.3",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "7a04ba9768446eef03f5c994c5de6587a40aa70d9af7490a784753d09161f2f0",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "c182c612a46f9cc2c6c06d2dd53b0e256743fe78ff7b38ff4676d7cf8b868eee",
+          "usage": {
+            "completion_tokens": 48,
+            "prompt_tokens": 200,
+            "total_tokens": 248
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "22fde4df28c4bb1993dc22f1443aaaba4a25efd926b253a56dbd7953e0780276",
+          "usage": {
+            "completion_tokens": 26,
+            "prompt_tokens": 65,
+            "total_tokens": 91
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 200,
+            "completion_tokens": 48,
+            "total_tokens": 248
+          },
+          "response_sha256": "c182c612a46f9cc2c6c06d2dd53b0e256743fe78ff7b38ff4676d7cf8b868eee",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 65,
+            "completion_tokens": 26,
+            "total_tokens": 91
+          },
+          "response_sha256": "22fde4df28c4bb1993dc22f1443aaaba4a25efd926b253a56dbd7953e0780276",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "glm-5.3",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "stream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "b2c49bc5d0d77df121749762d7b0b574a01e9c1226410e7c968e4ad052127d22",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "a23f84cb14e3a84783a655d2650c0d56a237f75257f0a46d5dd830038f383273",
+          "usage": {
+            "prompt_tokens": 200,
+            "completion_tokens": 48,
+            "total_tokens": 248
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "23d1e788bb7f677914b36ea5aa29f5244baa21d4af63b543fbca9ca979329c2a",
+          "usage": {
+            "prompt_tokens": 102,
+            "completion_tokens": 21,
+            "total_tokens": 123
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 200,
+            "completion_tokens": 48,
+            "total_tokens": 248
+          },
+          "response_sha256": "a23f84cb14e3a84783a655d2650c0d56a237f75257f0a46d5dd830038f383273",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 33,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 102,
+            "completion_tokens": 21,
+            "total_tokens": 123
+          },
+          "response_sha256": "23d1e788bb7f677914b36ea5aa29f5244baa21d4af63b543fbca9ca979329c2a",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 20,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "glm-5.3",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "stream",
+      "status": "inconclusive",
+      "reason": "transport_error_no_retry",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "e5b740c8216e93ad7b20f6c9af1864ab9c319789ceaea0d7b0ec7d2e7f7c1286",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "8a5e891585eca92f4667c6c7263b4e950de689ed49ba135c10099a6714aa3418",
+          "usage": {
+            "prompt_tokens": 200,
+            "completion_tokens": 43,
+            "total_tokens": 243
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 200,
+            "completion_tokens": 43,
+            "total_tokens": 243
+          },
+          "response_sha256": "8a5e891585eca92f4667c6c7263b4e950de689ed49ba135c10099a6714aa3418",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 28,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": false,
+          "sdk_output_matches_expected": null,
+          "finish_reason": null,
+          "usage": {
+            "prompt_tokens": null,
+            "completion_tokens": null,
+            "total_tokens": null
+          },
+          "response_sha256": null,
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 0,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "gemini-2.5-flash",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "9136997093d6ae314762299c51b25735a7b639f341ea8aaec8565afcc07be8dd",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "083b50ad5bb30edb0a3522ab1ebcd185cda2e119735f648325638781f8f37b9c",
+          "usage": {
+            "prompt_tokens": 84,
+            "completion_tokens": 16,
+            "total_tokens": 100
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "b0c7126c411a611cc6feed3c2b512766261b341e8b800bef259ac68deb9a3abe",
+          "usage": {
+            "prompt_tokens": 60,
+            "completion_tokens": 1,
+            "total_tokens": 61
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 84,
+            "completion_tokens": 16,
+            "total_tokens": 100
+          },
+          "response_sha256": "083b50ad5bb30edb0a3522ab1ebcd185cda2e119735f648325638781f8f37b9c",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 60,
+            "completion_tokens": 1,
+            "total_tokens": 61
+          },
+          "response_sha256": "b0c7126c411a611cc6feed3c2b512766261b341e8b800bef259ac68deb9a3abe",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "gemini-2.5-flash",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "d8a11ae3a89ddcda8d94cfa71db1913bd8f62ba06a444b26353e093fd9cf7a38",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "9bf22a1a406ba6fa7a2b9142b9857a1dee1cd47c76bbeabc19b92d82dc3665a4",
+          "usage": {
+            "prompt_tokens": 84,
+            "completion_tokens": 16,
+            "total_tokens": 100
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "a5fc8130768da15d89c47ef0a9a5bda76578a5d8e6f2d7e5295732c935815d37",
+          "usage": {
+            "prompt_tokens": 60,
+            "completion_tokens": 1,
+            "total_tokens": 61
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 84,
+            "completion_tokens": 16,
+            "total_tokens": 100
+          },
+          "response_sha256": "9bf22a1a406ba6fa7a2b9142b9857a1dee1cd47c76bbeabc19b92d82dc3665a4",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 60,
+            "completion_tokens": 1,
+            "total_tokens": 61
+          },
+          "response_sha256": "a5fc8130768da15d89c47ef0a9a5bda76578a5d8e6f2d7e5295732c935815d37",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "gemini-2.5-flash",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "stream",
+      "status": "not_run",
+      "reason": "batch_halted_after_systemic_error",
+      "evidence": [],
+      "request_attempts": 0
+    },
+    {
+      "model": "gemini-2.5-flash",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "stream",
+      "status": "not_run",
+      "reason": "batch_halted_after_systemic_error",
+      "evidence": [],
+      "request_attempts": 0
+    },
+    {
+      "model": "gpt-5.5",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "c82b730d136acce31012b4e91fb773c759699ae5787da76407cef2d60592dd81",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "d6c55571c8f2899e00f7e1224e6ee34a44ad5f3f19446001acc9413f3eb87248",
+          "usage": {
+            "prompt_tokens": 157,
+            "completion_tokens": 20,
+            "total_tokens": 177
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "dca8b56a6a8937fd2ad1dcb39335dd5c8b9ed3d938ed8a6e5180f995b158df0f",
+          "usage": {
+            "prompt_tokens": 68,
+            "completion_tokens": 4,
+            "total_tokens": 72
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 157,
+            "completion_tokens": 20,
+            "total_tokens": 177
+          },
+          "response_sha256": "d6c55571c8f2899e00f7e1224e6ee34a44ad5f3f19446001acc9413f3eb87248",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 68,
+            "completion_tokens": 4,
+            "total_tokens": 72
+          },
+          "response_sha256": "dca8b56a6a8937fd2ad1dcb39335dd5c8b9ed3d938ed8a6e5180f995b158df0f",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "gpt-5.5",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "780d8d304e708990dd0dc7d83e8b9b0e3605f468f0cd01dfed0178c5d6553949",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "37a0dcdc8b9b086c8ec7e46329ebdf45f4f656703431936656331bb674d54b82",
+          "usage": {
+            "prompt_tokens": 158,
+            "completion_tokens": 20,
+            "total_tokens": 178
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "d6eef3b7ad264cf2a71979ec6955a363857152341135f4c9f865c3a13d55652f",
+          "usage": {
+            "prompt_tokens": 68,
+            "completion_tokens": 4,
+            "total_tokens": 72
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 158,
+            "completion_tokens": 20,
+            "total_tokens": 178
+          },
+          "response_sha256": "37a0dcdc8b9b086c8ec7e46329ebdf45f4f656703431936656331bb674d54b82",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 68,
+            "completion_tokens": 4,
+            "total_tokens": 72
+          },
+          "response_sha256": "d6eef3b7ad264cf2a71979ec6955a363857152341135f4c9f865c3a13d55652f",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "model": "gpt-5.5",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "stream",
+      "status": "not_run",
+      "reason": "batch_halted_after_systemic_error",
+      "evidence": [],
+      "request_attempts": 0
+    },
+    {
+      "model": "gpt-5.5",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "stream",
+      "status": "not_run",
+      "reason": "batch_halted_after_systemic_error",
+      "evidence": [],
+      "request_attempts": 0
+    }
+  ],
+  "halted": true,
+  "halt_reason": "transport_error_no_retry",
+  "sdk_path": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Lib\\site-packages\\dify_plugin\\__init__.py",
+  "request_attempts": 40
+}

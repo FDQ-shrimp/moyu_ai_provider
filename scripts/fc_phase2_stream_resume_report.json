@@ -1,0 +1,219 @@
+{
+  "created_utc": "2026-09-20T19:12:00.199490+00:00",
+  "model": "qwen3.6-plus",
+  "python": "3.12.14",
+  "sdk": "0.9.0",
+  "interpreter": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Scripts\\python.exe",
+  "max_attempts": 10,
+  "budget": {
+    "china": {
+      "currency": "CNY",
+      "limit": 10
+    },
+    "overseas": {
+      "currency": "USD",
+      "limit": 2
+    },
+    "platform_hard_limit_verified": false,
+    "billing_overrun_risk_accepted_by_user": true
+  },
+  "cost_estimate": null,
+  "cost_note": "Current site prices not verified; usage is not proof of actual charges.",
+  "credential_source": "anonymous_stdin_pipe",
+  "prior_attempts": 6,
+  "parent_report_sha256": "57f8ce5032733a7ea13b9ecffb383b3697ce04b61ac725ce1f98c2a0b7559d72",
+  "cumulative_attempts": 10,
+  "attempts": [
+    {
+      "number": 7,
+      "site": "china",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 8,
+      "site": "china",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 9,
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 10,
+      "site": "overseas",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    }
+  ],
+  "results": [
+    {
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "model": "qwen3.6-plus",
+      "mode": "stream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "b6bba13625127334a391f2f6be19d604668f103d21a62715320cb42e5deaf74b",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 7,
+          "response_sha256": "861ba7056abd6b8783d2402b6b6c9bcffeda11173ba7823af7a4c6a69227e2f0",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 264,
+            "total_tokens": 578
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "f8713b642f0eecfa448279e0dd4dfe9267d7ec9dc793f0b395a01a46e8910dbf",
+          "usage": {
+            "prompt_tokens": 328,
+            "completion_tokens": 57,
+            "total_tokens": 385
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 264,
+            "total_tokens": 578
+          },
+          "response_sha256": "861ba7056abd6b8783d2402b6b6c9bcffeda11173ba7823af7a4c6a69227e2f0",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 74,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 328,
+            "completion_tokens": 57,
+            "total_tokens": 385
+          },
+          "response_sha256": "f8713b642f0eecfa448279e0dd4dfe9267d7ec9dc793f0b395a01a46e8910dbf",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 19,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "model": "qwen3.6-plus",
+      "mode": "stream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "3e04d7517a336c52b78a04ef08c1c94f5809fb910c3bf760cc186c77643d4ca2",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 6,
+          "response_sha256": "a1ea654c11b67e055fcc7c93e19523d6a3ca59e889b5a09ab8b638638adb3d8b",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 129,
+            "total_tokens": 443
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "e17541dccb196f0c411d07350c9f0210ccaccbf98dbf166a5c96f78840417ab4",
+          "usage": {
+            "prompt_tokens": 193,
+            "completion_tokens": 40,
+            "total_tokens": 233
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 129,
+            "total_tokens": 443
+          },
+          "response_sha256": "a1ea654c11b67e055fcc7c93e19523d6a3ca59e889b5a09ab8b638638adb3d8b",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 34,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 193,
+            "completion_tokens": 40,
+            "total_tokens": 233
+          },
+          "response_sha256": "e17541dccb196f0c411d07350c9f0210ccaccbf98dbf166a5c96f78840417ab4",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 15,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "request_attempts": 2
+    }
+  ],
+  "sdk_path": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Lib\\site-packages\\dify_plugin\\__init__.py"
+}

@@ -17,7 +17,7 @@ So the plugin-specific work reduces to:
     1. Supplying Moyu's current domestic endpoint as the default (`BASE_URL`)
        while preserving an endpoint selected in the provider credentials.
     2. Normalising the credential dict shape the base class expects
-       (`api_key`, `endpoint_url`, `mode`). This is what
+       (`api_key`, `endpoint_url`, `mode`, `function_calling_type`). This is what
        `_patch_credentials` does.
 
 Important: this module never reads `.env`. The `api_key` it receives comes
@@ -27,9 +27,13 @@ from the user-facing provider credential form defined in
 
 from __future__ import annotations
 
+import json
 import logging
 from collections.abc import Generator
+from copy import copy
 from typing import Optional, Union
+
+from requests import Response
 
 from dify_plugin import OAICompatLargeLanguageModel
 from dify_plugin.config.logger_format import plugin_logger_handler
@@ -93,6 +97,26 @@ class MoyuLargeLanguageModel(OAICompatLargeLanguageModel):
         patched = self._patched_credentials(credentials)
         super().validate_credentials(model, patched)
 
+    def _handle_generate_response(
+        self,
+        model: str,
+        credentials: dict,
+        response: Response,
+        prompt_messages: list[PromptMessage],
+    ) -> LLMResult:
+        # SDK 0.9.0 indexes message["content"], although a tool-only reply
+        # can omit it. Normalize only that shape; SDK still parses tool calls,
+        # usage and errors. Keep the original transport response unchanged.
+        if credentials.get("function_calling_type") == "tool_call":
+            payload = response.json()
+            message = payload["choices"][0].get("message", {})
+            if isinstance(message, dict) and message.get("tool_calls") and "content" not in message:
+                message["content"] = ""
+                response = copy(response)
+                response._content = json.dumps(payload).encode("utf-8")
+                response.encoding = "utf-8"
+        return super()._handle_generate_response(model, credentials, response, prompt_messages)
+
     # ---------------------------------------------------------------------
     # Credential normalisation
     # ---------------------------------------------------------------------
@@ -108,6 +132,7 @@ class MoyuLargeLanguageModel(OAICompatLargeLanguageModel):
             * `api_key`      — the raw bearer token
             * `endpoint_url` — full base URL including `/v1`
             * `mode`         — "chat" for chat-completion models
+            * `function_calling_type` — modern tools/tool_calls wire protocol
 
         We never mutate the caller's dict (avoids leaking state across calls).
         """
@@ -123,3 +148,7 @@ class MoyuLargeLanguageModel(OAICompatLargeLanguageModel):
         endpoint_url = str(credentials.get("endpoint_url") or "").strip()
         credentials["endpoint_url"] = (endpoint_url or cls.BASE_URL).rstrip("/")
         credentials["mode"] = "chat"
+        # Keep the protocol active even when tools is empty: the final Agent
+        # turn still needs assistant tool_calls and role=tool history.
+        # This transport setting does not advertise any model capability.
+        credentials["function_calling_type"] = "tool_call"

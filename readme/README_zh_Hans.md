@@ -2,6 +2,13 @@
 
 > 中文 README。英文版见仓库根目录 [`README.md`](../README.md)。
 
+> **0.0.8 正式发布版。** 公共精确允许清单中有 41 个
+> 双站模型声明 `tool-call`，其中 37 个声明 `stream-tool-call`，详见
+> `../docs/VERIFIED_TOOL_CAPABILITIES.md`。不声明任何模型支持 `multi-tool-call`。
+> 另有 10 个仅国内模型已取得正向工具证据，但在实现站点专属可见性前，公共 YAML
+> 继续不开放两个工具标签。国内、海外 Dify Agent 人工验收已通过；
+> 部署环境的实际 SDK 版本未在界面中暴露。
+
 本插件以 **模型供应商插件（Model Provider Plugin）** 的形式接入 Dify，
 将[魔芋AI 国内站](https://www.moyu.cn/)与
 [Konjac AI 海外站](https://www.konjac.ai/)的精选模型通过 OpenAI 兼容接口
@@ -25,8 +32,8 @@
     - 双站可用：`gemini-embedding-001`、`gemini-embedding-2-preview`
     - 仅国内站：`text-embedding-v2`、`text-embedding-v4`
 - 使用 Dify 官方 `OAICompatLargeLanguageModel` 和
-  `OAICompatEmbeddingModel` 基类，天然支持流式输出、工具调用、批量嵌入、
-  Token 用量统计、错误归一化。
+  `OAICompatEmbeddingModel` 基类处理协议、批量嵌入、Token 用量统计和错误归一化。
+  原生工具能力只对已明确验证的模型声明，不代表目录内所有模型都支持工具。
 - 简化的凭据表单：用户填写 `api_key` 并选择国内站或海外站，不显示也不能
   手动编辑 API 基础地址。
 - 附带两个运维脚本：
@@ -71,9 +78,9 @@ OpenAI 兼容端点：
 
 ### 方式 A：从本地 `.difypkg` 文件安装
 
-1. 获取正式发布包 `moyu_ai_provider-0.0.6.difypkg`。
+1. 获取正式发布包 `moyu_ai_provider-0.0.8.difypkg`。
 2. 打开 Dify 工作区 → **插件** → **安装插件** → **本地文件**。
-3. 上传 `moyu_ai_provider-0.0.6.difypkg`。
+3. 上传该包，确认安装后的实际插件版本为 `0.0.8`。
 4. 安装成功后进入 **设置 → 模型供应商**。
 5. 在列表中找到 **魔芋AI / Moyu AI**，点击 **设置**。
 
@@ -115,17 +122,20 @@ OpenAI 兼容端点：
 ### 打包命令（PowerShell）
 
 ```powershell
-# 在仓库根目录执行
-dify-plugin.exe plugin package . -o .\moyu_ai_provider-0.0.6.difypkg
+# 在源码仓库根目录用独立环境执行
+& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/local_package.py stage '..\moyu-0.0.8-stage'
+& '..\dify-plugin.exe' plugin package '..\moyu-0.0.8-stage' -o '..\moyu_ai_provider-0.0.8.difypkg'
 ```
 
-命令会在仓库根目录生成 `moyu_ai_provider-0.0.6.difypkg`。
+使用新的暂存目录和输出路径，不覆盖旧版安装包。不要直接打包整个源码目录：
+其中有未注册历史 YAML。暂存脚本只选取实际注册的 58 个 LLM、4 个 Embedding，
+加上运行文件与对外说明。开发脚本位于源码仓库，不随安装包发布。
 
 ### 打包前务必先跑：
 
 ```powershell
-python .\scripts\preflight_check.py
-python -m pytest tests -q
+& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/run_offline_checks.py
+& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/run_offline_checks.py --preflight
 ```
 
 两者都应退出码为 `0`。详情见 §7。
@@ -295,6 +305,9 @@ moyu_ai_provider/
     2 个双站 Embedding 和 2 个仅国内 Embedding；
   - 所有国内专属模型均增加中英文“仅国内站”标识；
   - 因 `qwen3-rerank` 在双站实测均返回 `model_not_found`，暂时关闭 Rerank。
+- `0.0.7` — 本地 Function Calling 现代工具协议修复及首批精确能力声明，未发布市场。
+- `0.0.8` — 完成正式注册模型能力复核：41 个双站模型声明 `tool-call`、37 个声明
+  `stream-tool-call`、0 个声明 `multi-tool-call`；10 个仅国内正向结果继续只记台账。
 
 ---
 

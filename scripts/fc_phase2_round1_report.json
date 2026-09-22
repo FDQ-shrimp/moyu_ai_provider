@@ -1,0 +1,189 @@
+{
+  "created_utc": "2026-09-20T18:58:41.776931+00:00",
+  "model": "qwen3.6-plus",
+  "python": "3.12.14",
+  "sdk": "0.9.0",
+  "interpreter": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Scripts\\python.exe",
+  "max_attempts": 10,
+  "budget": {
+    "china": {
+      "currency": "CNY",
+      "limit": 10
+    },
+    "overseas": {
+      "currency": "USD",
+      "limit": 2
+    },
+    "platform_hard_limit_verified": false,
+    "billing_overrun_risk_accepted_by_user": true
+  },
+  "cost_estimate": null,
+  "cost_note": "Current site prices not verified; usage is not proof of actual charges.",
+  "credential_source": "anonymous_stdin_pipe",
+  "attempts": [
+    {
+      "number": 1,
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 2,
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 3,
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 4,
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 5,
+      "site": "china",
+      "mode": "stream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    },
+    {
+      "number": 6,
+      "site": "china",
+      "mode": "stream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200
+    }
+  ],
+  "results": [
+    {
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "model": "qwen3.6-plus",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "3076660e9834ac60ab49b724e2ab9214d60b1184168f94b3d5daeb9eb88c0e3a",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "03be44f7280fd4430699c8e50f1ea858d86236bd4d077890651fa5ac7b24123d",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 178,
+            "total_tokens": 492
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "d74351c219718b2c1756ef25f883e9c4b2a183c7b690b23276492c113138eb7b",
+          "usage": {
+            "prompt_tokens": 94,
+            "completion_tokens": 206,
+            "total_tokens": 300
+          }
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "model": "qwen3.6-plus",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "802424d15323340eef50aa72ba354f591dc50346729fbfaa425db75afdb947bc",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "31eedb9a6402bb9c2d7990c6be67eaf1d54217ca8ff71bd3e1de68498a04ff6c",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 134,
+            "total_tokens": 448
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "10c84316b7d506585d7c114aed79c301d1e5ea29f2089395efab02a8510cf7ba",
+          "usage": {
+            "prompt_tokens": 94,
+            "completion_tokens": 63,
+            "total_tokens": 157
+          }
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "model": "qwen3.6-plus",
+      "mode": "stream",
+      "status": "inconclusive",
+      "reason": "final_answer_not_confirmed",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "5368e6d793aee665bab1b61ca3bf13cb278f04850a3aaab065b54af71503b97f",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 6,
+          "response_sha256": "95608c041b517532c975bc08dafaa0eb942e9d9abd3ebc472b1c04807340b555",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 138,
+            "total_tokens": 452
+          }
+        }
+      ],
+      "request_attempts": 2
+    },
+    {
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "model": "qwen3.6-plus",
+      "mode": "stream",
+      "status": "not_run",
+      "reason": "paused_after_previous_result",
+      "evidence": [],
+      "request_attempts": 0
+    }
+  ],
+  "sdk_path": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Lib\\site-packages\\dify_plugin\\__init__.py"
+}

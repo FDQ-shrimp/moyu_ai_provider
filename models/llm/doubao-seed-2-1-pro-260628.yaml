@@ -4,8 +4,10 @@ label:
   zh_Hans: doubao-seed-2-1-pro-260628
 model_type: llm
 features:
-- vision
-- agent-thought
+  - vision
+  - agent-thought
+  - tool-call
+  - stream-tool-call
 model_properties:
   mode: chat
   context_size: 128000

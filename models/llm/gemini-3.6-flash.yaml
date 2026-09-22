@@ -4,10 +4,12 @@ label:
   zh_Hans: gemini-3.6-flash
 model_type: llm
 features:
-- vision
-- document
-- video
-- agent-thought
+  - vision
+  - document
+  - video
+  - agent-thought
+  - tool-call
+  - stream-tool-call
 model_properties:
   mode: chat
   context_size: 128000

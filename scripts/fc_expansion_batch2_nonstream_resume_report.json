@@ -1,0 +1,1123 @@
+{
+  "created_utc": "2026-09-21T18:14:37.349318+00:00",
+  "batch": "function_calling_expansion_2_nonstream_resume",
+  "schedule": {
+    "glm-5.2": [
+      "china",
+      "overseas"
+    ],
+    "gpt-5.6-sol": [
+      "china",
+      "overseas"
+    ],
+    "kimi-k2.6": [
+      "china",
+      "overseas"
+    ],
+    "qwen3.6-flash": [
+      "china",
+      "overseas"
+    ],
+    "qwen-plus": [
+      "china"
+    ],
+    "doubao-seed-2-0-pro-260215": [
+      "china"
+    ]
+  },
+  "mode": "nonstream",
+  "python": "3.12.14",
+  "sdk": "0.9.0",
+  "interpreter": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Scripts\\python.exe",
+  "sdk_path": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Lib\\site-packages\\dify_plugin\\__init__.py",
+  "max_attempts": 20,
+  "max_tokens_per_request": 512,
+  "budget_context": "Uses the approved Batch 2 total budgets; not additional budgets.",
+  "automatic_retries": false,
+  "redirects": false,
+  "model_listing": false,
+  "credential_probing": false,
+  "credential_source": "non_echo_stdin_line",
+  "parent_report": "scripts/fc_expansion_batch2_report.json",
+  "parent_report_sha256": "f114bd792daf8062636740f722bb59c775d240a4ab477ea5d6f098c49e14945d",
+  "gemini_retest_report": "scripts/fc_expansion_batch2_gemini25pro_china_nonstream_retest_report.json",
+  "gemini_retest_report_sha256": "07e07b46811777c232317188abfc2259afadc71aacc25ae138b35c72afc9f1a6",
+  "attempts": [
+    {
+      "number": 1,
+      "model": "glm-5.2",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1032
+    },
+    {
+      "number": 2,
+      "model": "glm-5.2",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1187
+    },
+    {
+      "number": 3,
+      "model": "glm-5.2",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1937
+    },
+    {
+      "number": 4,
+      "model": "glm-5.2",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1438
+    },
+    {
+      "number": 5,
+      "model": "gpt-5.6-sol",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 3344
+    },
+    {
+      "number": 6,
+      "model": "gpt-5.6-sol",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1813
+    },
+    {
+      "number": 7,
+      "model": "gpt-5.6-sol",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 8609
+    },
+    {
+      "number": 8,
+      "model": "gpt-5.6-sol",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 3141
+    },
+    {
+      "number": 9,
+      "model": "kimi-k2.6",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1203
+    },
+    {
+      "number": 10,
+      "model": "kimi-k2.6",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 625
+    },
+    {
+      "number": 11,
+      "model": "kimi-k2.6",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1968
+    },
+    {
+      "number": 12,
+      "model": "kimi-k2.6",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1188
+    },
+    {
+      "number": 13,
+      "model": "qwen3.6-flash",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1344
+    },
+    {
+      "number": 14,
+      "model": "qwen3.6-flash",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1187
+    },
+    {
+      "number": 15,
+      "model": "qwen3.6-flash",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1703
+    },
+    {
+      "number": 16,
+      "model": "qwen3.6-flash",
+      "site": "overseas",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 1032
+    },
+    {
+      "number": 17,
+      "model": "qwen-plus",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 938
+    },
+    {
+      "number": 18,
+      "model": "qwen-plus",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 469
+    },
+    {
+      "number": 19,
+      "model": "doubao-seed-2-0-pro-260215",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 3015
+    },
+    {
+      "number": 20,
+      "model": "doubao-seed-2-0-pro-260215",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 2,
+      "outcome": "http_response_received",
+      "request_protocol_validated": true,
+      "http_status": 200,
+      "headers_received": true,
+      "elapsed_to_headers_ms": 3781
+    }
+  ],
+  "results": [
+    {
+      "model": "glm-5.2",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "ff4c1c15ce0e13c6fa45627ead6594e0bcdabde6ef7f7ab8248be9fd345096cd",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "ce7a04c595176f9ce79393d75a5fd80b144b1d525b0c9b2f686cec3395c76402",
+          "usage": {
+            "prompt_tokens": 200,
+            "total_tokens": 243,
+            "completion_tokens": 43
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "c696d03680f8ae34b9fafcf9238c8d66c615dc0307b30a9a971ca426fbb26eeb",
+          "usage": {
+            "completion_tokens": 29,
+            "prompt_tokens": 65,
+            "total_tokens": 94
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 200,
+            "completion_tokens": 43,
+            "total_tokens": 243
+          },
+          "response_sha256": "ce7a04c595176f9ce79393d75a5fd80b144b1d525b0c9b2f686cec3395c76402",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 65,
+            "completion_tokens": 29,
+            "total_tokens": 94
+          },
+          "response_sha256": "c696d03680f8ae34b9fafcf9238c8d66c615dc0307b30a9a971ca426fbb26eeb",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    },
+    {
+      "model": "glm-5.2",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "b57f48efa7543325e70f82e3618970105ddb3375db5cb83bb1b839f54dcb25a1",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "2992abdea6ce3a74eb454ba1a270ac1e538a8b04c4fd0eaf377a72dc3abe1e6f",
+          "usage": {
+            "completion_tokens": 48,
+            "prompt_tokens": 200,
+            "total_tokens": 248
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "ddc3a6c953ee33dd1c45eb96b8448f2cdd421c18360e8b24aa545b0466abc4c1",
+          "usage": {
+            "completion_tokens": 25,
+            "prompt_tokens": 65,
+            "total_tokens": 90
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 200,
+            "completion_tokens": 48,
+            "total_tokens": 248
+          },
+          "response_sha256": "2992abdea6ce3a74eb454ba1a270ac1e538a8b04c4fd0eaf377a72dc3abe1e6f",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 65,
+            "completion_tokens": 25,
+            "total_tokens": 90
+          },
+          "response_sha256": "ddc3a6c953ee33dd1c45eb96b8448f2cdd421c18360e8b24aa545b0466abc4c1",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "ce25676061b96791422e3708ca749fe54ebd6c968f6974314a8e70baaa5cee0e",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "eb3087c55e9afe9f97fa182e6d717ca76fa3035bf355c720fd7326bb366161bf",
+          "usage": {
+            "completion_tokens": 20,
+            "prompt_tokens": 157,
+            "total_tokens": 177
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "d459f64ef1e160d8e6a9f4f48bc017d730ab1385b1c2e2849928808db1882c09",
+          "usage": {
+            "completion_tokens": 4,
+            "prompt_tokens": 68,
+            "total_tokens": 72
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 157,
+            "completion_tokens": 20,
+            "total_tokens": 177
+          },
+          "response_sha256": "eb3087c55e9afe9f97fa182e6d717ca76fa3035bf355c720fd7326bb366161bf",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 68,
+            "completion_tokens": 4,
+            "total_tokens": 72
+          },
+          "response_sha256": "d459f64ef1e160d8e6a9f4f48bc017d730ab1385b1c2e2849928808db1882c09",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "7966b6db2310883aaca94282dcca965180863b061241c2100d37b8a39951a91d",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "bc933a77933e67fa197b494f2f1df5c9415a6c35fd8380aaae85ea66289d1459",
+          "usage": {
+            "prompt_tokens": 75,
+            "completion_tokens": 21,
+            "total_tokens": 96
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "b3c86c40f8a56cbb4095cf1faeb12f5afd608c97be35c95e845315246f86acab",
+          "usage": {
+            "prompt_tokens": 69,
+            "completion_tokens": 5,
+            "total_tokens": 74
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 75,
+            "completion_tokens": 21,
+            "total_tokens": 96
+          },
+          "response_sha256": "bc933a77933e67fa197b494f2f1df5c9415a6c35fd8380aaae85ea66289d1459",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 69,
+            "completion_tokens": 5,
+            "total_tokens": 74
+          },
+          "response_sha256": "b3c86c40f8a56cbb4095cf1faeb12f5afd608c97be35c95e845315246f86acab",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    },
+    {
+      "model": "kimi-k2.6",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "fe4133f4897f7d6d9f96740ba35918d10717f6f6170ad4c4069fe2b866737c0c",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "38b0b32cbf112cde98ec5635cf1495dea4c5396cda8a53fec4ca69b8980ef648",
+          "usage": {
+            "prompt_tokens": 90,
+            "total_tokens": 109,
+            "completion_tokens": 19
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "497fbc57257cf03134eb76397bd298b982c3ac759cd206a344d23a4bbdaf0082",
+          "usage": {
+            "completion_tokens": 2,
+            "prompt_tokens": 80,
+            "total_tokens": 82
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 90,
+            "completion_tokens": 19,
+            "total_tokens": 109
+          },
+          "response_sha256": "38b0b32cbf112cde98ec5635cf1495dea4c5396cda8a53fec4ca69b8980ef648",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 80,
+            "completion_tokens": 2,
+            "total_tokens": 82
+          },
+          "response_sha256": "497fbc57257cf03134eb76397bd298b982c3ac759cd206a344d23a4bbdaf0082",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    },
+    {
+      "model": "kimi-k2.6",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "beddbed95aca8417694dbd3016929471f79e2dcc2c2a0286d1e14fc71e2f6424",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "64b9c7ecd1d9c620088d74ecc0e6269a474e7577969701b97ff07ba1f553ffa8",
+          "usage": {
+            "completion_tokens": 19,
+            "prompt_tokens": 90,
+            "total_tokens": 109
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "465d120cff9d0593b800a38e487fe45f5615be8f5f6472f782b6741a61809563",
+          "usage": {
+            "completion_tokens": 2,
+            "prompt_tokens": 80,
+            "total_tokens": 82
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 90,
+            "completion_tokens": 19,
+            "total_tokens": 109
+          },
+          "response_sha256": "64b9c7ecd1d9c620088d74ecc0e6269a474e7577969701b97ff07ba1f553ffa8",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 80,
+            "completion_tokens": 2,
+            "total_tokens": 82
+          },
+          "response_sha256": "465d120cff9d0593b800a38e487fe45f5615be8f5f6472f782b6741a61809563",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    },
+    {
+      "model": "qwen3.6-flash",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "1ced900885b40b6f4823543cefb2eea7ee9817d04adbe5ef6fc70231d20bcc33",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "4c059b86218057b2408c869ef2322a237307bd8e74901ce85b9fb74cc5a763a9",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 128,
+            "total_tokens": 442
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "5fe2970e74588176d2704af396303709ce19ea67abb8c170db517aa9975ef4d7",
+          "usage": {
+            "prompt_tokens": 94,
+            "completion_tokens": 109,
+            "total_tokens": 203
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 128,
+            "total_tokens": 442
+          },
+          "response_sha256": "4c059b86218057b2408c869ef2322a237307bd8e74901ce85b9fb74cc5a763a9",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 94,
+            "completion_tokens": 109,
+            "total_tokens": 203
+          },
+          "response_sha256": "5fe2970e74588176d2704af396303709ce19ea67abb8c170db517aa9975ef4d7",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    },
+    {
+      "model": "qwen3.6-flash",
+      "site": "overseas",
+      "endpoint": "https://www.konjac.ai/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "18d5f6e073cf3e6cfe4a1a0be5a935842ed42edf418cf62b94fadeca06943f73",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "d624ca7f8fbbfae95c6cc263db42877441ced8afe6356e50f191d5859f19ee05",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 147,
+            "total_tokens": 461
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "cfccc513436bb8e724074018b5001c7f95aa5b35bd2f58fb1fdf1d367ef7fa4c",
+          "usage": {
+            "prompt_tokens": 94,
+            "completion_tokens": 68,
+            "total_tokens": 162
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 314,
+            "completion_tokens": 147,
+            "total_tokens": 461
+          },
+          "response_sha256": "d624ca7f8fbbfae95c6cc263db42877441ced8afe6356e50f191d5859f19ee05",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 94,
+            "completion_tokens": 68,
+            "total_tokens": 162
+          },
+          "response_sha256": "cfccc513436bb8e724074018b5001c7f95aa5b35bd2f58fb1fdf1d367ef7fa4c",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    },
+    {
+      "model": "qwen-plus",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "91350a56faa17008e927d5b961be0e13d0abad8ab3c96c53bc45137e05c2d086",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "04ecffffa2053e04a7bc479f0f841ae72443282bafe5972f797210c1ca41c14d",
+          "usage": {
+            "prompt_tokens": 192,
+            "total_tokens": 216,
+            "completion_tokens": 24
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "969cef58ea6c691c1e53c112d79a0a1789b7107a2752872044ad30f5f3939212",
+          "usage": {
+            "prompt_tokens": 78,
+            "total_tokens": 79,
+            "completion_tokens": 1
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 192,
+            "completion_tokens": 24,
+            "total_tokens": 216
+          },
+          "response_sha256": "04ecffffa2053e04a7bc479f0f841ae72443282bafe5972f797210c1ca41c14d",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": false,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 78,
+            "completion_tokens": 1,
+            "total_tokens": 79
+          },
+          "response_sha256": "969cef58ea6c691c1e53c112d79a0a1789b7107a2752872044ad30f5f3939212",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    },
+    {
+      "model": "doubao-seed-2-0-pro-260215",
+      "site": "china",
+      "endpoint": "https://www.moyu.cn/v1",
+      "mode": "nonstream",
+      "status": "pass",
+      "reason": "single_tool_roundtrip_verified",
+      "tool_protocol_status": "pass",
+      "strict_final_text_status": "pass",
+      "evidence": [
+        {
+          "turn": 1,
+          "structured_upstream_and_sdk_match": true,
+          "tool_id_sha256": "045bd3e3c4cb752d5f361d7a1b73b1e4ab8bb9c7f66e1620461495d9e6cd2737",
+          "local_add_executed": true,
+          "local_result": 5,
+          "tool_fragment_count": 1,
+          "response_sha256": "f3f89e22f512b9161750c263858028e2b71182bbcc3300408062e084cce7df52",
+          "usage": {
+            "completion_tokens": 118,
+            "prompt_tokens": 427,
+            "total_tokens": 545
+          }
+        },
+        {
+          "turn": 2,
+          "history_id_verified_at_send": true,
+          "final_answer_verified": true,
+          "response_sha256": "13eceb207ca28535fa6df115ed749dba376c04c05dae68a1960ed8a5cb4d7cb3",
+          "usage": {
+            "completion_tokens": 37,
+            "prompt_tokens": 135,
+            "total_tokens": 172
+          }
+        }
+      ],
+      "diagnostics": [
+        {
+          "final_answer_present": false,
+          "final_answer_matches": false,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "tool_calls",
+          "usage": {
+            "prompt_tokens": 427,
+            "completion_tokens": 118,
+            "total_tokens": 545
+          },
+          "response_sha256": "f3f89e22f512b9161750c263858028e2b71182bbcc3300408062e084cce7df52",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 1,
+          "request_dispatched": true
+        },
+        {
+          "final_answer_present": true,
+          "final_answer_matches": true,
+          "reasoning_field_present": true,
+          "answer_mapping_unambiguous": true,
+          "sdk_parse_completed": true,
+          "sdk_output_matches_expected": true,
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 135,
+            "completion_tokens": 37,
+            "total_tokens": 172
+          },
+          "response_sha256": "13eceb207ca28535fa6df115ed749dba376c04c05dae68a1960ed8a5cb4d7cb3",
+          "response_hash_scope": "observed_json_payloads_only",
+          "observed_payload_count": 1,
+          "turn": 2,
+          "request_dispatched": true
+        }
+      ],
+      "structured_tool_call_verified": true,
+      "local_add_result": 5,
+      "tool_result_history_validated": true,
+      "final_response_received": true,
+      "strict_final_answer_matches": true,
+      "request_attempts": 2
+    }
+  ],
+  "halted": false,
+  "halt_reason": null,
+  "common_infrastructure_events": [],
+  "request_attempts": 20
+}
