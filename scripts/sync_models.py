@@ -75,6 +75,32 @@ ADVANCED_INPUT_FEATURES = {
     "gemini-2.5-flash-lite": ["document", "video"],
 }
 
+# Exact Function Calling allowlists backed by docs/VERIFIED_TOOL_CAPABILITIES.yaml.
+# Do not infer these capabilities from model names or families. Keeping the
+# merge here prevents a later model-catalogue sync from silently deleting
+# verified flags. China-only models intentionally remain absent because the
+# current provider uses shared public YAMLs for both credentials.
+TOOL_CALL_MODELS = {
+    "MiniMax-M3", "claude-fable-5", "claude-haiku-4-5-20251001",
+    "claude-opus-4-1-20250805", "claude-opus-4-20250514",
+    "claude-opus-4-5-20251101", "claude-opus-4-6", "claude-opus-4-7",
+    "claude-opus-4-8", "claude-sonnet-4-20250514",
+    "claude-sonnet-4-5-20250929", "claude-sonnet-4-6", "claude-sonnet-5",
+    "deepseek-v4-flash", "deepseek-v4-flash-0731", "deepseek-v4-pro",
+    "doubao-seed-2-1-pro-260628", "gemini-2.5-flash",
+    "gemini-2.5-flash-lite", "gemini-3-flash-preview",
+    "gemini-3-pro-image-preview", "gemini-3.1-flash-lite-preview",
+    "gemini-3.1-pro-preview", "gemini-3.5-flash", "gemini-3.6-flash",
+    "glm-5.1", "glm-5.2", "glm-5.3", "gpt-5.5", "gpt-5.6-luna",
+    "gpt-5.6-sol", "gpt-5.6-terra", "kimi-k2.6", "kimi-k2.7-code",
+    "kimi-k3", "qwen3.6-27b", "qwen3.6-35b-a3b", "qwen3.6-flash",
+    "qwen3.6-plus", "qwen3.7-max", "qwen3.7-plus",
+}
+STREAM_TOOL_CALL_MODELS = TOOL_CALL_MODELS - {
+    "MiniMax-M3", "claude-sonnet-4-5-20250929",
+    "gemini-3-pro-image-preview", "kimi-k2.7-code",
+}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -259,6 +285,10 @@ def infer_features(model_id: str) -> list[str]:
         if extra not in features:
             features.append(extra)
     features.append("agent-thought")
+    if model_id in TOOL_CALL_MODELS:
+        features.append("tool-call")
+    if model_id in STREAM_TOOL_CALL_MODELS:
+        features.append("stream-tool-call")
     return features
 
 

@@ -1,0 +1,159 @@
+"""One authorized two-request retest: glm-5.3 overseas streaming tools."""
+from __future__ import annotations
+
+from datetime import datetime, timezone
+import hashlib
+import importlib.metadata
+import json
+import logging
+import os
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+from scripts import verify_fc_expansion as expansion
+
+live = expansion.live
+dify_plugin = expansion.dify_plugin
+MODEL = "glm-5.3"
+SITE = "overseas"
+REPORT = ROOT / "scripts" / "fc_expansion_batch1_glm53_stream_retest_report.json"
+PARENT = ROOT / "scripts" / "fc_expansion_batch1_report.json"
+PARENT_SHA256 = "8bdbe359214af8091aafc1d7fab9880ec5d8c9ee5998fe29387cc18027b2150f"
+LIMIT = 2
+
+
+class Journal:
+    def __init__(self):
+        self.check_parent()
+        parent = json.loads(PARENT.read_bytes())
+        row = next(r for r in parent["results"] if r["model"] == MODEL and r["site"] == SITE
+                   and r["mode"] == "stream")
+        live.require(parent["request_attempts"] == 40 and row["status"] == "inconclusive"
+                     and row["reason"] == "transport_error_no_retry", "unexpected_parent_history")
+        self.path = REPORT
+        self.data = {
+            "created_utc": datetime.now(timezone.utc).isoformat(),
+            "scope": {"model": MODEL, "site": SITE, "endpoint": live.SITES[SITE],
+                      "mode": "stream", "single_tool_only": True},
+            "python": sys.version.split()[0],
+            "sdk": importlib.metadata.version("dify_plugin"),
+            "interpreter": sys.executable,
+            "sdk_path": dify_plugin.__file__,
+            "max_attempts": LIMIT,
+            "automatic_retries": False,
+            "redirects": False,
+            "model_listing": False,
+            "credential_probing": False,
+            "credential_source": "non_echo_stdin_line",
+            "parent_report": "scripts/fc_expansion_batch1_report.json",
+            "parent_report_sha256": PARENT_SHA256,
+            "attempts": [],
+            "result": {"model": MODEL, "site": SITE, "endpoint": live.SITES[SITE],
+                       "mode": "stream", "status": "not_run", "reason": "pending",
+                       "evidence": []},
+        }
+        with REPORT.open("x", encoding="utf-8") as handle:
+            json.dump(self.data, handle, ensure_ascii=False, indent=2)
+
+    @property
+    def total_attempts(self):
+        return len(self.data["attempts"])
+
+    def check_parent(self):
+        live.require(hashlib.sha256(PARENT.read_bytes()).hexdigest() == PARENT_SHA256,
+                     "parent_report_hash_mismatch")
+
+    def save(self):
+        self.data["request_attempts"] = self.total_attempts
+        with REPORT.open("w", encoding="utf-8") as handle:
+            json.dump(self.data, handle, ensure_ascii=False, indent=2)
+
+    def begin_attempt(self, site, stream, turn):
+        self.check_parent()
+        live.require(live.MODEL == MODEL and site == SITE and stream and turn in (1, 2),
+                     "retest_scope_exceeded")
+        live.require(self.total_attempts < LIMIT and turn == self.total_attempts + 1,
+                     "request_cap_or_retry_blocked")
+        item = {"number": self.total_attempts + 1, "model": MODEL, "site": SITE,
+                "mode": "stream", "turn": turn, "outcome": "dispatch_started",
+                "request_protocol_validated": True}
+        self.data["attempts"].append(item)
+        self.save()
+        return item
+
+
+def read_key_line(stream):
+    restore_console = None
+    if stream.isatty():
+        live.require(os.name == "nt", "credentials_require_non_echo_input")
+        import ctypes
+        import msvcrt
+
+        handle = msvcrt.get_osfhandle(stream.fileno())
+        mode = ctypes.c_uint()
+        kernel = ctypes.windll.kernel32
+        live.require(bool(kernel.GetConsoleMode(handle, ctypes.byref(mode))),
+                     "credentials_echo_control_failed")
+        live.require(bool(kernel.SetConsoleMode(handle, mode.value & ~0x0004)),
+                     "credentials_echo_control_failed")
+        restore_console = lambda: kernel.SetConsoleMode(handle, mode.value)
+    try:
+        try:
+            data = json.loads(stream.readline(4097))
+        except (ValueError, TypeError):
+            raise live.Halt("invalid_credential_input") from None
+    finally:
+        if restore_console is not None:
+            restore_console()
+    live.require(isinstance(data, dict) and set(data) == {SITE}, "invalid_credential_input")
+    key = data[SITE]
+    live.require(isinstance(key, str) and 0 < len(key.strip()) <= 512
+                 and "\n" not in key and "\r" not in key, "invalid_credential_input")
+    return key.strip()
+
+
+def main():
+    live.require(sys.argv[1:] == ["--credentials-stdin"], "credentials_stdin_flag_required")
+    live.require(sys.version_info[:2] == (3, 12) and sys.prefix != sys.base_prefix,
+                 "isolated_python312_required")
+    live.require(importlib.metadata.version("dify_plugin") == "0.9.0", "sdk090_required")
+    live.require(not REPORT.exists(), "existing_report_do_not_reset_request_budget")
+    logging.disable(logging.CRITICAL)
+    print("glm-5.3 overseas streaming retest only; one full two-turn flow, maximum 2 requests.")
+    print("No retries, redirects, model listing, credential probing, raw exceptions or responses.")
+    key = None
+    try:
+        key = read_key_line(sys.stdin)
+        journal = Journal()
+        live.MODEL = MODEL
+        live.MAX_TOKENS = expansion.MAX_TOKENS
+        row = journal.data["result"]
+        try:
+            live.check_pair(journal, row, key)
+        except live.Halt as exc:
+            row.update(status="inconclusive", reason=str(exc))
+        except Exception as exc:
+            row.update(status="inconclusive", reason="unexpected_sdk_or_payload_error")
+            row["error_category"] = next((name for cls, name in (
+                (KeyError, "missing_response_field"), (ValueError, "invalid_value_or_payload"),
+                (TypeError, "unexpected_value_type"), (AttributeError, "unexpected_object_shape"))
+                if isinstance(exc, cls)), "other_sdk_error")
+        row["request_attempts"] = journal.total_attempts
+        journal.save()
+        print("Request attempts:", journal.total_attempts)
+        print(MODEL, SITE, "stream", row["status"], row["reason"])
+        print("Sanitized report:", REPORT)
+    finally:
+        key = None
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (KeyboardInterrupt, EOFError):
+        print("Cancelled. No automatic retry.")
+    except live.Halt as exc:
+        print("Stopped:", str(exc))
+        sys.exit(1)

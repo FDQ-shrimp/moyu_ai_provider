@@ -4,7 +4,8 @@ label:
   zh_Hans: MiniMax-M3
 model_type: llm
 features:
-- agent-thought
+  - agent-thought
+  - tool-call
 model_properties:
   mode: chat
   context_size: 128000

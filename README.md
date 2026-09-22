@@ -2,6 +2,13 @@
 
 > Simplified Chinese README available at [`readme/README_zh_Hans.md`](readme/README_zh_Hans.md).
 
+> **0.0.8 release.** The exact
+> public allowlist contains 41 shared models with `tool-call`, including 37 with
+> `stream-tool-call`; see `docs/VERIFIED_TOOL_CAPABILITIES.md`. No model advertises
+> `multi-tool-call`. Ten China-only models have positive tool evidence but keep
+> both public flags disabled until site-specific visibility is available. Manual
+> Dify Agent acceptance passed on both sites; the deployed SDK version was not exposed.
+
 A Dify **model provider plugin** that lets any Dify workspace call the
 [Moyu AI China](https://www.moyu.cn/) and
 [Konjac AI overseas](https://www.konjac.ai/) model catalogues through their
@@ -23,8 +30,9 @@ issued it; the matching API Base URL is selected internally. Everything else
     - Both sites: `gemini-embedding-001`, `gemini-embedding-2-preview`
     - China only: `text-embedding-v2`, `text-embedding-v4`
 - Uses Dify's official `OAICompatLargeLanguageModel` and
-  `OAICompatEmbeddingModel` base classes, so streaming, tool calls, batching,
-  token usage reporting and error normalisation work out of the box.
+  `OAICompatEmbeddingModel` base classes for protocol handling, batching,
+  token usage reporting and error normalisation. Native tool capability is
+  advertised only for explicitly verified models, not every model in the catalog.
 - Simple credential UI: the user enters `api_key` and selects its China or
   overseas site; raw API Base URLs are not shown or editable.
 - Helper scripts for **syncing the model list** from Moyu AI and for
@@ -72,10 +80,10 @@ You have two options:
 
 ### Option A — install from a local `.difypkg` file
 
-1. Obtain the official `moyu_ai_provider-0.0.6.difypkg` release package.
+1. Obtain the official `moyu_ai_provider-0.0.8.difypkg` release package.
 2. In your Dify workspace, go to **Plugins** → **Install plugin** →
    **Local file**.
-3. Upload `moyu_ai_provider-0.0.6.difypkg`.
+3. Upload it and confirm the installed version is `0.0.8`.
 4. After installation, open **Settings → Model Providers**.
 5. Find **Moyu AI** in the list and click **Set up**.
 
@@ -120,17 +128,22 @@ After the provider card appears in Dify:
 ### Build command (PowerShell)
 
 ```powershell
-# From the repository root:
-dify-plugin.exe plugin package . -o .\moyu_ai_provider-0.0.6.difypkg
+# From the source repository root, using the dedicated Python environment:
+& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/local_package.py stage '..\moyu-0.0.8-stage'
+& '..\dify-plugin.exe' plugin package '..\moyu-0.0.8-stage' -o '..\moyu_ai_provider-0.0.8.difypkg'
 ```
 
-The command produces `moyu_ai_provider-0.0.6.difypkg` in the repository root.
+Use a fresh staging directory and a new output path; never overwrite an older package.
+Do not package the source directory directly: it contains unregistered historical
+model YAMLs. The staging helper selects the 58 LLMs and 4 embeddings explicitly
+registered by the provider, plus runtime files and public documentation.
+These developer scripts are in the source repository, not the installed package.
 
 ### Before you package, always run:
 
 ```powershell
-python .\scripts\preflight_check.py
-python -m pytest tests -q
+& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/run_offline_checks.py
+& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/run_offline_checks.py --preflight
 ```
 
 Both must exit with code `0`. See §7 for details.
@@ -309,6 +322,11 @@ Version follows `manifest.yaml > version`. Bump it before every release.
   - clearly labeled every China-only model in English and Chinese;
   - disabled Rerank because `qwen3-rerank` returned `model_not_found` on both
     sites during verification.
+- `0.0.7` — local Function Calling protocol fix and initial exact capability
+  declarations, without Marketplace publication.
+- `0.0.8` — full registered-catalog capability review: 41 shared models expose
+  `tool-call`, 37 expose `stream-tool-call`, none expose `multi-tool-call`; ten
+  China-only positive results remain ledger-only because public YAML is shared.
 
 ---
 

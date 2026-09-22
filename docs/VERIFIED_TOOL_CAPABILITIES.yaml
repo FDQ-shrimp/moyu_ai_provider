@@ -1,0 +1,2154 @@
+record_schema: 3
+scope: single_tool_only
+environment:
+  sdk_version: 0.9.0
+  python_version: 3.12.14
+  test_dates:
+  - '2026-09-21'
+  - '2026-09-22'
+  date_timezone: Asia/Shanghai
+catalog:
+  registered_llm: 58
+  shared: 48
+  china_only: 10
+  public_tool_call: 41
+  public_stream_tool_call: 37
+  public_multi_tool_call: 0
+  china_only_verified: 10
+decision_policy:
+  primary_gate: complete_tool_protocol_roundtrip
+  strict_final_text_is_capability_gate: false
+  strict_final_text_note: Exact final text is retained as instruction-following evidence only. A normal second response with
+    a complete protocol roundtrip is sufficient.
+  multi_tool_call: untested_and_not_approved
+validation_summary:
+  total_requests: 381
+  china_requests: 211
+  overseas_requests: 170
+  recorded_usage:
+    prompt_tokens: 79237
+    completion_tokens: 18956
+    total_tokens: 98193
+    requests_with_numeric_usage: 366
+    requests_without_numeric_usage: 15
+  actual_cost: unknown
+reports:
+  qwen_original:
+    path: scripts/fc_phase2_round1_report.json
+    sha256: 57f8ce5032733a7ea13b9ecffb383b3697ce04b61ac725ce1f98c2a0b7559d72
+  qwen_stream_resume:
+    path: scripts/fc_phase2_stream_resume_report.json
+    sha256: 0dfdea601f90aafe93ed1cbcd33bca4991cecbab8326fd581cc6bda23727b43d
+  batch1:
+    path: scripts/fc_expansion_batch1_report.json
+    sha256: 8bdbe359214af8091aafc1d7fab9880ec5d8c9ee5998fe29387cc18027b2150f
+  glm53_stream_retest:
+    path: scripts/fc_expansion_batch1_glm53_stream_retest_report.json
+    sha256: fbf4e3da3c99e0406f5aca0b03036c69c81556fb195cf63735402145ca865224
+  batch1_stream_remaining:
+    path: scripts/fc_expansion_batch1_stream_remaining_report.json
+    sha256: f7eaee4bcbe5428986dcd91f2ca96f38cda588d4ad5d9a4a1b0fa2cf074f1837
+  batch2:
+    path: scripts/fc_expansion_batch2_report.json
+    sha256: f114bd792daf8062636740f722bb59c775d240a4ab477ea5d6f098c49e14945d
+  batch2_gemini_retest:
+    path: scripts/fc_expansion_batch2_gemini25pro_china_nonstream_retest_report.json
+    sha256: 07e07b46811777c232317188abfc2259afadc71aacc25ae138b35c72afc9f1a6
+  batch2_nonstream_resume:
+    path: scripts/fc_expansion_batch2_nonstream_resume_report.json
+    sha256: b760b4321ea6cac8e1fb4f5a96d02b02157d50dadad382c4305b9fbd15e0f9ce
+  full_remaining:
+    path: scripts/fc_full_remaining_progress_report.json
+    sha256: de7ffb2a73953f5b3b5454a189b5339000cf5c7a6808c66c89a98dd0668c22fa
+allowlists:
+  shared_tool_call:
+  - MiniMax-M3
+  - claude-fable-5
+  - claude-haiku-4-5-20251001
+  - claude-opus-4-1-20250805
+  - claude-opus-4-20250514
+  - claude-opus-4-5-20251101
+  - claude-opus-4-6
+  - claude-opus-4-7
+  - claude-opus-4-8
+  - claude-sonnet-4-20250514
+  - claude-sonnet-4-5-20250929
+  - claude-sonnet-4-6
+  - claude-sonnet-5
+  - deepseek-v4-flash
+  - deepseek-v4-flash-0731
+  - deepseek-v4-pro
+  - doubao-seed-2-1-pro-260628
+  - gemini-2.5-flash
+  - gemini-2.5-flash-lite
+  - gemini-3-flash-preview
+  - gemini-3-pro-image-preview
+  - gemini-3.1-flash-lite-preview
+  - gemini-3.1-pro-preview
+  - gemini-3.5-flash
+  - gemini-3.6-flash
+  - glm-5.1
+  - glm-5.2
+  - glm-5.3
+  - gpt-5.5
+  - gpt-5.6-luna
+  - gpt-5.6-sol
+  - gpt-5.6-terra
+  - kimi-k2.6
+  - kimi-k2.7-code
+  - kimi-k3
+  - qwen3.6-27b
+  - qwen3.6-35b-a3b
+  - qwen3.6-flash
+  - qwen3.6-plus
+  - qwen3.7-max
+  - qwen3.7-plus
+  shared_stream_tool_call:
+  - claude-fable-5
+  - claude-haiku-4-5-20251001
+  - claude-opus-4-1-20250805
+  - claude-opus-4-20250514
+  - claude-opus-4-5-20251101
+  - claude-opus-4-6
+  - claude-opus-4-7
+  - claude-opus-4-8
+  - claude-sonnet-4-20250514
+  - claude-sonnet-4-6
+  - claude-sonnet-5
+  - deepseek-v4-flash
+  - deepseek-v4-flash-0731
+  - deepseek-v4-pro
+  - doubao-seed-2-1-pro-260628
+  - gemini-2.5-flash
+  - gemini-2.5-flash-lite
+  - gemini-3-flash-preview
+  - gemini-3.1-flash-lite-preview
+  - gemini-3.1-pro-preview
+  - gemini-3.5-flash
+  - gemini-3.6-flash
+  - glm-5.1
+  - glm-5.2
+  - glm-5.3
+  - gpt-5.5
+  - gpt-5.6-luna
+  - gpt-5.6-sol
+  - gpt-5.6-terra
+  - kimi-k2.6
+  - kimi-k3
+  - qwen3.6-27b
+  - qwen3.6-35b-a3b
+  - qwen3.6-flash
+  - qwen3.6-plus
+  - qwen3.7-max
+  - qwen3.7-plus
+  tool_call_only:
+  - MiniMax-M3
+  - claude-sonnet-4-5-20250929
+  - gemini-3-pro-image-preview
+  - kimi-k2.7-code
+  shared_no_tool:
+  - claude-opus-5
+  - gemini-2.5-flash-image-preview
+  - gemini-2.5-pro
+  - gemini-3.1-flash-image-preview
+  - gpt-6-astra
+  - gpt-image-2(按次)
+  - qwen3.8-max
+  china_only_verified_not_public:
+  - DeepSeek-R1-0528
+  - DeepSeek-V3-0324
+  - GLM-5
+  - doubao-seed-2-0-code-preview-260215
+  - doubao-seed-2-0-lite-260215
+  - doubao-seed-2-0-mini-260215
+  - doubao-seed-2-0-pro-260215
+  - qwen-plus
+  - qwen3-max
+  - qwen3-vl-plus
+history_events:
+- event: qwen_china_stream_initial_inconclusive
+  report: qwen_original
+  requests:
+  - 5
+  - 6
+  status: inconclusive
+  note: Request 6 remains inconclusive; later resume requests are separate evidence.
+- event: glm53_overseas_stream_initial_inconclusive
+  report: batch1
+  requests:
+  - 39
+  - 40
+  status: inconclusive
+  note: Batch 1 request 40 timed out; controlled retest evidence remains separate.
+- event: gemini25pro_china_two_read_timeouts
+  reports:
+  - batch2
+  - batch2_gemini_retest
+  status: inconclusive
+  note: Two independent China nonstream ReadTimeout results are retained; no third attempt was made.
+models:
+- model_id: MiniMax-M3
+  yaml_path: models/llm/minimax-m3.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  verified_features:
+  - tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: not_exact
+        report: full_remaining
+        requests:
+        - 33
+        - 34
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 35
+        - 36
+  observations:
+  - kind: stream_not_tested
+    note: Both streaming rows were skipped under the earlier strict-text gate; no stream capability is approved.
+- model_id: claude-fable-5
+  yaml_path: models/llm/claude-fable-5.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 1
+        - 2
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 25
+        - 26
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 3
+        - 4
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 27
+        - 28
+- model_id: claude-haiku-4-5-20251001
+  yaml_path: models/llm/claude-haiku-4-5-20251001.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2
+        requests:
+        - 1
+        - 2
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 1
+        - 2
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2
+        requests:
+        - 3
+        - 4
+      stream:
+        status: protocol_pass
+        strict_final_text: not_exact
+        report: full_remaining
+        requests:
+        - 3
+        - 4
+- model_id: claude-opus-4-1-20250805
+  yaml_path: models/llm/claude-opus-4-1-20250805.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 101
+        - 102
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 137
+        - 138
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 103
+        - 104
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 139
+        - 140
+- model_id: claude-opus-4-20250514
+  yaml_path: models/llm/claude-opus-4-20250514.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 173
+        - 174
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 205
+        - 206
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 175
+        - 176
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 207
+        - 208
+- model_id: claude-opus-4-5-20251101
+  yaml_path: models/llm/claude-opus-4-5-20251101.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 37
+        - 38
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 69
+        - 70
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 39
+        - 40
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 71
+        - 72
+- model_id: claude-opus-4-6
+  yaml_path: models/llm/claude-opus-4-6.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2
+        requests:
+        - 5
+        - 6
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 5
+        - 6
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2
+        requests:
+        - 7
+        - 8
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 7
+        - 8
+- model_id: claude-opus-4-7
+  yaml_path: models/llm/claude-opus-4-7.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 177
+        - 178
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 209
+        - 210
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 179
+        - 180
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 211
+        - 212
+- model_id: claude-opus-4-8
+  yaml_path: models/llm/claude-opus-4-8.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 231
+        - 232
+      stream:
+        status: protocol_pass
+        strict_final_text: not_exact
+        report: full_remaining
+        requests:
+        - 263
+        - 264
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 233
+        - 234
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 265
+        - 266
+- model_id: claude-sonnet-4-20250514
+  yaml_path: models/llm/claude-sonnet-4-20250514.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 105
+        - 106
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 141
+        - 142
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 107
+        - 108
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 143
+        - 144
+- model_id: claude-sonnet-4-5-20250929
+  yaml_path: models/llm/claude-sonnet-4-5-20250929.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  verified_features:
+  - tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: not_exact
+        report: batch2
+        requests:
+        - 9
+        - 10
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2
+        requests:
+        - 11
+        - 12
+  observations:
+  - kind: stream_not_tested
+    note: Streaming was not run; nonstream protocol passed while China strict final text was not exact.
+- model_id: claude-sonnet-4-6
+  yaml_path: models/llm/claude-sonnet-4-6.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 5
+        - 6
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 29
+        - 30
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 7
+        - 8
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 31
+        - 32
+- model_id: claude-sonnet-5
+  yaml_path: models/llm/claude-sonnet-5.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 238
+        - 239
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 267
+        - 268
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 240
+        - 241
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 269
+        - 270
+- model_id: deepseek-v4-flash
+  yaml_path: models/llm/deepseek-v4-flash.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2
+        requests:
+        - 13
+        - 14
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 9
+        - 10
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2
+        requests:
+        - 15
+        - 16
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 11
+        - 12
+- model_id: deepseek-v4-flash-0731
+  yaml_path: models/llm/deepseek-v4-flash-0731.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 41
+        - 42
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 73
+        - 74
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 43
+        - 44
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 75
+        - 76
+- model_id: deepseek-v4-pro
+  yaml_path: models/llm/deepseek-v4-pro.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 9
+        - 10
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 33
+        - 34
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 11
+        - 12
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 35
+        - 36
+- model_id: doubao-seed-2-1-pro-260628
+  yaml_path: models/llm/doubao-seed-2-1-pro-260628.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 45
+        - 46
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 77
+        - 78
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 47
+        - 48
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 79
+        - 80
+- model_id: gemini-2.5-flash
+  yaml_path: models/llm/gemini-2.5-flash.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 17
+        - 18
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1_stream_remaining
+        requests:
+        - 1
+        - 2
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 19
+        - 20
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1_stream_remaining
+        requests:
+        - 3
+        - 4
+- model_id: gemini-2.5-flash-lite
+  yaml_path: models/llm/gemini-2.5-flash-lite.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 49
+        - 50
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 81
+        - 82
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 51
+        - 52
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 83
+        - 84
+- model_id: gemini-3-flash-preview
+  yaml_path: models/llm/gemini-3-flash-preview.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 109
+        - 110
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 145
+        - 146
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 111
+        - 112
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 147
+        - 148
+- model_id: gemini-3-pro-image-preview
+  yaml_path: models/llm/gemini-3-pro-image-preview.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  verified_features:
+  - tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 244
+        - 245
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 246
+        - 247
+  observations:
+  - kind: stream_inconclusive
+    report: full_remaining
+    site: china
+    reason: read_timeout
+    note: China streaming turn 1 timed out before the tool roundtrip completed.
+- model_id: gemini-3.1-flash-lite-preview
+  yaml_path: models/llm/gemini-3.1-flash-lite-preview.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 185
+        - 186
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 217
+        - 218
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 187
+        - 188
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 219
+        - 220
+- model_id: gemini-3.1-pro-preview
+  yaml_path: models/llm/gemini-3.1-pro-preview.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 113
+        - 114
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 149
+        - 150
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 115
+        - 116
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 151
+        - 152
+- model_id: gemini-3.5-flash
+  yaml_path: models/llm/gemini-3.5-flash.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 181
+        - 182
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 213
+        - 214
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 183
+        - 184
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 215
+        - 216
+- model_id: gemini-3.6-flash
+  yaml_path: models/llm/gemini-3.6-flash.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 251
+        - 252
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 274
+        - 275
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 253
+        - 254
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 276
+        - 277
+- model_id: glm-5.1
+  yaml_path: models/llm/glm-5.1.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 117
+        - 118
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 153
+        - 154
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 119
+        - 120
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 155
+        - 156
+- model_id: glm-5.2
+  yaml_path: models/llm/glm-5.2.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 1
+        - 2
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 13
+        - 14
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 3
+        - 4
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 15
+        - 16
+- model_id: glm-5.3
+  yaml_path: models/llm/glm-5.3.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 13
+        - 14
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 37
+        - 38
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 15
+        - 16
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: glm53_stream_retest
+        requests:
+        - 1
+        - 2
+  observations:
+  - kind: controlled_retest
+    report: glm53_stream_retest
+    note: Overseas streaming passed in a controlled retest; original Batch 1 request 40 remains inconclusive.
+- model_id: gpt-5.5
+  yaml_path: models/llm/gpt-5.5.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 21
+        - 22
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1_stream_remaining
+        requests:
+        - 5
+        - 6
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1
+        requests:
+        - 23
+        - 24
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch1_stream_remaining
+        requests:
+        - 7
+        - 8
+  observations:
+  - kind: latency_stability
+    report: batch1_stream_remaining
+    request: 6
+    elapsed_to_headers_ms: 57547
+    note: China streaming turn 2 passed but is retained as a latency stability observation.
+- model_id: gpt-5.6-luna
+  yaml_path: models/llm/gpt-5.6-luna.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 121
+        - 122
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 157
+        - 158
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 123
+        - 124
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 159
+        - 160
+- model_id: gpt-5.6-sol
+  yaml_path: models/llm/gpt-5.6-sol.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 5
+        - 6
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 17
+        - 18
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 7
+        - 8
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 19
+        - 20
+- model_id: gpt-5.6-terra
+  yaml_path: models/llm/gpt-5.6-terra.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 53
+        - 54
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 85
+        - 86
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 55
+        - 56
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 87
+        - 88
+- model_id: kimi-k2.6
+  yaml_path: models/llm/kimi-k2.6.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 9
+        - 10
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 21
+        - 22
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 11
+        - 12
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 23
+        - 24
+- model_id: kimi-k2.7-code
+  yaml_path: models/llm/kimi-k2.7-code.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  verified_features:
+  - tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 125
+        - 126
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 127
+        - 128
+  observations:
+  - kind: stream_inconclusive
+    report: full_remaining
+    site: china
+    reason: ambiguous_sdk_answer_mapping
+    note: China streaming completed upstream but retained unresolved SDK answer-mapping ambiguity.
+- model_id: kimi-k3
+  yaml_path: models/llm/kimi-k3.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 57
+        - 58
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 89
+        - 90
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 59
+        - 60
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 91
+        - 92
+- model_id: qwen3.6-27b
+  yaml_path: models/llm/qwen3.6-27b.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 191
+        - 192
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 221
+        - 222
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 193
+        - 194
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 223
+        - 224
+- model_id: qwen3.6-35b-a3b
+  yaml_path: models/llm/qwen3.6-35b-a3b.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 257
+        - 258
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 278
+        - 279
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 259
+        - 260
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 280
+        - 281
+- model_id: qwen3.6-flash
+  yaml_path: models/llm/qwen3.6-flash.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 13
+        - 14
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 25
+        - 26
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 15
+        - 16
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 27
+        - 28
+- model_id: qwen3.6-plus
+  yaml_path: models/llm/qwen3.6-plus.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: qwen_original
+        requests:
+        - 1
+        - 2
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: qwen_stream_resume
+        requests:
+        - 7
+        - 8
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: qwen_original
+        requests:
+        - 3
+        - 4
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: qwen_stream_resume
+        requests:
+        - 9
+        - 10
+- model_id: qwen3.7-max
+  yaml_path: models/llm/qwen3.7-max.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 129
+        - 130
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 165
+        - 166
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 131
+        - 132
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 167
+        - 168
+- model_id: qwen3.7-plus
+  yaml_path: models/llm/qwen3.7-plus.yaml
+  availability: shared
+  public_features:
+  - tool-call
+  - stream-tool-call
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 61
+        - 62
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 93
+        - 94
+    overseas:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 63
+        - 64
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 95
+        - 96
+- model_id: DeepSeek-R1-0528
+  yaml_path: models/llm/deepseek-r1-0528.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 65
+        - 66
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 97
+        - 98
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+- model_id: DeepSeek-V3-0324
+  yaml_path: models/llm/deepseek-v3-0324.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 133
+        - 134
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 169
+        - 170
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+- model_id: GLM-5
+  yaml_path: models/llm/glm-5.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 135
+        - 136
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 171
+        - 172
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+- model_id: doubao-seed-2-0-code-preview-260215
+  yaml_path: models/llm/doubao-seed-2-0-code-preview-260215.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 199
+        - 200
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 225
+        - 226
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+- model_id: doubao-seed-2-0-lite-260215
+  yaml_path: models/llm/doubao-seed-2-0-lite-260215.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 201
+        - 202
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 227
+        - 228
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+- model_id: doubao-seed-2-0-mini-260215
+  yaml_path: models/llm/doubao-seed-2-0-mini-260215.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 261
+        - 262
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 282
+        - 283
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+- model_id: doubao-seed-2-0-pro-260215
+  yaml_path: models/llm/doubao-seed-2-0-pro-260215.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 19
+        - 20
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 31
+        - 32
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+- model_id: qwen-plus
+  yaml_path: models/llm/qwen-plus.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: batch2_nonstream_resume
+        requests:
+        - 17
+        - 18
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 29
+        - 30
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+- model_id: qwen3-max
+  yaml_path: models/llm/qwen3-max.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 67
+        - 68
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 99
+        - 100
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+- model_id: qwen3-vl-plus
+  yaml_path: models/llm/qwen3-vl-plus.yaml
+  availability: china-only
+  public_features: []
+  verified_features:
+  - tool-call
+  - stream-tool-call
+  multi_tool: untested
+  evidence:
+    china:
+      nonstream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 203
+        - 204
+      stream:
+        status: protocol_pass
+        strict_final_text: exact
+        report: full_remaining
+        requests:
+        - 229
+        - 230
+  observations:
+  - kind: public_yaml_withheld
+    note: China-only positive evidence is recorded, but shared public YAML flags are withheld in 0.0.8.
+deferred_shared_models:
+- model_id: claude-opus-5
+  yaml_path: models/llm/claude-opus-5.yaml
+  availability: shared
+  public_features: []
+  report: full_remaining
+  reason: overseas_nonstream_http_500
+  note: Overseas nonstream returned HTTP 500 before a complete roundtrip.
+- model_id: gemini-2.5-flash-image-preview
+  yaml_path: models/llm/gemini-2.5-flash-image-preview.yaml
+  availability: shared
+  public_features: []
+  report: full_remaining
+  reason: no_structured_tool_call_both_sites
+  note: Neither site produced structured tool_calls.
+- model_id: gemini-2.5-pro
+  yaml_path: models/llm/gemini-2.5-pro.yaml
+  availability: shared
+  public_features: []
+  report: batch2_gemini_retest
+  reason: two_china_read_timeouts
+  note: China nonstream had two independent ReadTimeout results; overseas was not run.
+- model_id: gemini-3.1-flash-image-preview
+  yaml_path: models/llm/gemini-3.1-flash-image-preview.yaml
+  availability: shared
+  public_features: []
+  report: full_remaining
+  reason: china_no_structured_tool_call
+  note: China did not produce structured tool_calls; bilateral acceptance is not met.
+- model_id: gpt-6-astra
+  yaml_path: models/llm/gpt-6-astra.yaml
+  availability: shared
+  public_features: []
+  report: full_remaining
+  reason: http_400_both_sites
+  note: Both sites returned HTTP 400 before a complete roundtrip.
+- model_id: gpt-image-2(按次)
+  yaml_path: models/llm/gpt-image-2-per-use.yaml
+  availability: shared
+  public_features: []
+  report: full_remaining
+  reason: http_400_both_sites
+  note: Both sites returned HTTP 400 before a complete roundtrip.
+- model_id: qwen3.8-max
+  yaml_path: models/llm/qwen3.8-max.yaml
+  availability: shared
+  public_features: []
+  report: full_remaining
+  reason: china_incomplete_or_unexpected_finish
+  note: China nonstream ended incompletely; bilateral acceptance is not met.

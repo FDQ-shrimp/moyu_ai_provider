@@ -1,0 +1,72 @@
+{
+  "created_utc": "2026-09-21T18:02:40.337173+00:00",
+  "scope": {
+    "model": "gemini-2.5-pro",
+    "site": "china",
+    "endpoint": "https://www.moyu.cn/v1",
+    "mode": "nonstream",
+    "single_tool_only": true
+  },
+  "python": "3.12.14",
+  "sdk": "0.9.0",
+  "interpreter": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Scripts\\python.exe",
+  "sdk_path": "C:\\Users\\fangd\\Workspace\\CodeX\\Dify\\.venvs\\moyu-fc-sdk090\\Lib\\site-packages\\dify_plugin\\__init__.py",
+  "max_attempts": 2,
+  "automatic_retries": false,
+  "redirects": false,
+  "model_listing": false,
+  "credential_probing": false,
+  "credential_source": "non_echo_stdin_line",
+  "budget_context": "Uses the already approved Batch 2 total budget; not an additional budget.",
+  "parent_report": "scripts/fc_expansion_batch2_report.json",
+  "parent_report_sha256": "f114bd792daf8062636740f722bb59c775d240a4ab477ea5d6f098c49e14945d",
+  "preserved_parent_attempt": 17,
+  "attempts": [
+    {
+      "number": 1,
+      "model": "gemini-2.5-pro",
+      "site": "china",
+      "mode": "nonstream",
+      "turn": 1,
+      "outcome": "transport_error_no_retry",
+      "request_protocol_validated": true,
+      "error_category": "read_timeout",
+      "exception_type": "ReadTimeout",
+      "headers_received": false,
+      "transport_stage": "wait_response_headers",
+      "elapsed_ms": 60218
+    }
+  ],
+  "result": {
+    "model": "gemini-2.5-pro",
+    "site": "china",
+    "endpoint": "https://www.moyu.cn/v1",
+    "mode": "nonstream",
+    "status": "inconclusive",
+    "reason": "transport_error_no_retry",
+    "evidence": [],
+    "diagnostics": [
+      {
+        "final_answer_present": false,
+        "final_answer_matches": false,
+        "reasoning_field_present": false,
+        "answer_mapping_unambiguous": true,
+        "sdk_parse_completed": false,
+        "sdk_output_matches_expected": null,
+        "finish_reason": null,
+        "usage": {
+          "prompt_tokens": null,
+          "completion_tokens": null,
+          "total_tokens": null
+        },
+        "response_sha256": null,
+        "response_hash_scope": "observed_json_payloads_only",
+        "observed_payload_count": 0,
+        "turn": 1,
+        "request_dispatched": true
+      }
+    ],
+    "request_attempts": 1
+  },
+  "request_attempts": 1
+}

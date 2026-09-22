@@ -170,13 +170,12 @@ def check_manifest(report: Report) -> dict | None:
         report.ok(f"manifest version is valid semver: {manifest_version}")
     else:
         report.fail(f"manifest version is not valid semver: {manifest_version!r}")
-    if meta_version == manifest_version:
-        report.ok("manifest.version matches meta.version")
+    # meta.version versions the runtime metadata format, not plugin releases.
+    # Official providers legitimately use different values for these fields.
+    if re.fullmatch(r"\d+\.\d+\.\d+", meta_version):
+        report.ok(f"runtime metadata version is valid independently: {meta_version}")
     else:
-        report.fail(
-            f"manifest.version {manifest_version!r} does not match "
-            f"meta.version {meta_version!r}"
-        )
+        report.fail(f"runtime metadata version is not valid semver: {meta_version!r}")
 
     privacy_rel = manifest.get("privacy")
     if privacy_rel == "PRIVACY.md" and (ROOT / privacy_rel).is_file():

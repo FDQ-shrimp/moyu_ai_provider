@@ -1,0 +1,5 @@
+# Development only; production requirements remain unchanged.
+-r ../requirements.txt
+dify_plugin==0.9.0
+pytest==8.4.2
+PyYAML==6.0.3
