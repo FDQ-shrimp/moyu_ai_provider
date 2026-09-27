@@ -36,7 +36,7 @@ issued it; the matching API Base URL is selected internally. Everything else
   token usage reporting and error normalisation. Native tool capability is
   advertised only for explicitly verified models, not every model in the catalog.
 - Adds **Thinking Control** to 16 verified LLMs. Models with a true on/off
-  protocol show **Thinking mode: 关闭 / 开启**; the two verified GPT models show
+  protocol show **Thinking mode: Off / On**; the two verified GPT models show
   **Reasoning effort: none / low** instead. Controls are visible only for the
   API Key site where that exact model's protocol was verified. See the
   [capability matrix](docs/THINKING_CONTROL_CAPABILITIES.md) for model-level scope.
