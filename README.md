@@ -2,7 +2,9 @@
 
 > Simplified Chinese README available at [`readme/README_zh_Hans.md`](readme/README_zh_Hans.md).
 
-> **0.0.8 release.** The exact
+> **0.0.9 release.** Thinking Control is available for **16 of 58** registered
+> LLMs, with model- and site-specific visibility; unsupported or unconfirmed
+> models do not show a thinking parameter. The exact
 > public allowlist contains 41 shared models with `tool-call`, including 37 with
 > `stream-tool-call`; see `docs/VERIFIED_TOOL_CAPABILITIES.md`. No model advertises
 > `multi-tool-call`. Ten China-only models have positive tool evidence but keep
@@ -33,6 +35,11 @@ issued it; the matching API Base URL is selected internally. Everything else
   `OAICompatEmbeddingModel` base classes for protocol handling, batching,
   token usage reporting and error normalisation. Native tool capability is
   advertised only for explicitly verified models, not every model in the catalog.
+- Adds **Thinking Control** to 16 verified LLMs. Models with a true on/off
+  protocol show **Thinking mode: 关闭 / 开启**; the two verified GPT models show
+  **Reasoning effort: none / low** instead. Controls are visible only for the
+  API Key site where that exact model's protocol was verified. See the
+  [capability matrix](docs/THINKING_CONTROL_CAPABILITIES.md) for model-level scope.
 - Simple credential UI: the user enters `api_key` and selects its China or
   overseas site; raw API Base URLs are not shown or editable.
 - Helper scripts for **syncing the model list** from Moyu AI and for
@@ -80,12 +87,22 @@ You have two options:
 
 ### Option A — install from a local `.difypkg` file
 
-1. Obtain the official `moyu_ai_provider-0.0.8.difypkg` release package.
+1. Obtain the official `moyu_ai_provider-0.0.9.difypkg` release package.
 2. In your Dify workspace, go to **Plugins** → **Install plugin** →
    **Local file**.
-3. Upload it and confirm the installed version is `0.0.8`.
+3. Upload it and confirm the installed version is `0.0.9`.
 4. After installation, open **Settings → Model Providers**.
 5. Find **Moyu AI** in the list and click **Set up**.
+
+After configuring credentials and enabling a supported model, find the
+Thinking mode or Reasoning effort control in the Dify model parameter panel.
+The 16 enabled models are: `qwen3.6-27b`, `qwen3.6-plus`,
+`qwen3.6-35b-a3b`, `qwen3.6-flash`, `qwen3.7-max`, `qwen3.7-plus`,
+`qwen3.8-max`, `glm-5.1`, `glm-5.2`, `kimi-k2.6`, `deepseek-v4-pro`,
+`qwen-plus`, `qwen3-max`, `deepseek-v4-flash`, `gpt-5.5`, and
+`gpt-5.6-luna`. The last three site-scoped groups are: `qwen-plus`,
+`qwen3-max`, and `deepseek-v4-flash` on the China site only; `gpt-5.5` and
+`gpt-5.6-luna` on the overseas site only. All other controls are hidden.
 
 ### Option B — install from the Dify Marketplace
 
@@ -129,8 +146,8 @@ After the provider card appears in Dify:
 
 ```powershell
 # From the source repository root, using the dedicated Python environment:
-& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/local_package.py stage '..\moyu-0.0.8-stage'
-& '..\dify-plugin.exe' plugin package '..\moyu-0.0.8-stage' -o '..\moyu_ai_provider-0.0.8.difypkg'
+& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/local_package.py stage '..\moyu-0.0.9-stage'
+& '..\dify-plugin.exe' plugin package '..\moyu-0.0.9-stage' -o '..\moyu_ai_provider-0.0.9.difypkg'
 ```
 
 Use a fresh staging directory and a new output path; never overwrite an older package.
@@ -327,6 +344,11 @@ Version follows `manifest.yaml > version`. Bump it before every release.
 - `0.0.8` — full registered-catalog capability review: 41 shared models expose
   `tool-call`, 37 expose `stream-tool-call`, none expose `multi-tool-call`; ten
   China-only positive results remain ledger-only because public YAML is shared.
+- `0.0.9` — Thinking Control for 16 exact, site-verified LLMs: a model-specific
+  on/off dropdown or `none/low` reasoning effort where appropriate. Other
+  models remain hidden, including 12 candidates that did not produce a reliable
+  live control contrast. The 0.0.8 Function Calling allowlist remains unchanged
+  at 41 `tool-call` and 37 `stream-tool-call` models.
 
 ---
 

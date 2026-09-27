@@ -18,3 +18,15 @@ parameter_rules:
 - name: max_tokens
   use_template: max_tokens
   default: 4096
+- name: reasoning_effort
+  type: string
+  required: false
+  options:
+  - none
+  - low
+  label:
+    en_US: Reasoning effort
+    zh_Hans: 推理强度
+  help:
+    en_US: Konjac overseas only. Only none and low were verified through this relay.
+    zh_Hans: 仅海外站开放；当前中转仅验证了 none 和 low。

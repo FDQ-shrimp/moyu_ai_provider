@@ -17,3 +17,16 @@ parameter_rules:
 - name: max_tokens
   use_template: max_tokens
   default: 4096
+- name: thinking_mode
+  type: string
+  required: true
+  default: 关闭
+  options:
+  - 关闭
+  - 开启
+  label:
+    en_US: Thinking mode
+    zh_Hans: 思考模式
+  help:
+    en_US: Disabled by default. Select 开启 to enable thinking or 关闭 to disable it.
+    zh_Hans: 默认关闭；选择开启后启用深度思考。

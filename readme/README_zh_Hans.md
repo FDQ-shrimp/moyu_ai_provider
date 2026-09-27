@@ -2,7 +2,8 @@
 
 > 中文 README。英文版见仓库根目录 [`README.md`](../README.md)。
 
-> **0.0.8 正式发布版。** 公共精确允许清单中有 41 个
+> **0.0.9 正式发布版。** 58 个正式 LLM 中，已有 **16 个**按精确型号和站点开放思考控制；
+> 未证实的模型不显示思考参数。公共精确允许清单中有 41 个
 > 双站模型声明 `tool-call`，其中 37 个声明 `stream-tool-call`，详见
 > `../docs/VERIFIED_TOOL_CAPABILITIES.md`。不声明任何模型支持 `multi-tool-call`。
 > 另有 10 个仅国内模型已取得正向工具证据，但在实现站点专属可见性前，公共 YAML
@@ -34,6 +35,10 @@
 - 使用 Dify 官方 `OAICompatLargeLanguageModel` 和
   `OAICompatEmbeddingModel` 基类处理协议、批量嵌入、Token 用量统计和错误归一化。
   原生工具能力只对已明确验证的模型声明，不代表目录内所有模型都支持工具。
+- 16 个已验证模型可在 Dify 模型参数中控制思考：真正支持开关的模型显示
+  **思考模式：关闭／开启**；两款已验证 GPT 显示 **推理强度：none／low**。
+  参数仅在该精确型号已验证的凭据站点显示；完整范围见
+  [`Thinking Control 能力矩阵`](../docs/THINKING_CONTROL_CAPABILITIES.md)。
 - 简化的凭据表单：用户填写 `api_key` 并选择国内站或海外站，不显示也不能
   手动编辑 API 基础地址。
 - 附带两个运维脚本：
@@ -78,11 +83,19 @@ OpenAI 兼容端点：
 
 ### 方式 A：从本地 `.difypkg` 文件安装
 
-1. 获取正式发布包 `moyu_ai_provider-0.0.8.difypkg`。
+1. 获取正式发布包 `moyu_ai_provider-0.0.9.difypkg`。
 2. 打开 Dify 工作区 → **插件** → **安装插件** → **本地文件**。
-3. 上传该包，确认安装后的实际插件版本为 `0.0.8`。
+3. 上传该包，确认安装后的实际插件版本为 `0.0.9`。
 4. 安装成功后进入 **设置 → 模型供应商**。
 5. 在列表中找到 **魔芋AI / Moyu AI**，点击 **设置**。
+
+配置凭据、启用模型后，到 Dify 的模型参数区域查看“思考模式”或“推理强度”。
+本版开放：`qwen3.6-27b`、`qwen3.6-plus`、`qwen3.6-35b-a3b`、
+`qwen3.6-flash`、`qwen3.7-max`、`qwen3.7-plus`、`qwen3.8-max`、
+`glm-5.1`、`glm-5.2`、`kimi-k2.6`、`deepseek-v4-pro`、`qwen-plus`、
+`qwen3-max`、`deepseek-v4-flash`、`gpt-5.5`、`gpt-5.6-luna`。
+其中 `qwen-plus`、`qwen3-max`、`deepseek-v4-flash` 仅国内开放；
+`gpt-5.5`、`gpt-5.6-luna` 仅海外开放。其余型号继续隐藏思考参数。
 
 ### 方式 B：从 Dify Marketplace 安装
 
@@ -123,8 +136,8 @@ OpenAI 兼容端点：
 
 ```powershell
 # 在源码仓库根目录用独立环境执行
-& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/local_package.py stage '..\moyu-0.0.8-stage'
-& '..\dify-plugin.exe' plugin package '..\moyu-0.0.8-stage' -o '..\moyu_ai_provider-0.0.8.difypkg'
+& '..\..\.venvs\moyu-fc-sdk090\Scripts\python.exe' -I -B scripts/local_package.py stage '..\moyu-0.0.9-stage'
+& '..\dify-plugin.exe' plugin package '..\moyu-0.0.9-stage' -o '..\moyu_ai_provider-0.0.9.difypkg'
 ```
 
 使用新的暂存目录和输出路径，不覆盖旧版安装包。不要直接打包整个源码目录：
@@ -308,6 +321,10 @@ moyu_ai_provider/
 - `0.0.7` — 本地 Function Calling 现代工具协议修复及首批精确能力声明，未发布市场。
 - `0.0.8` — 完成正式注册模型能力复核：41 个双站模型声明 `tool-call`、37 个声明
   `stream-tool-call`、0 个声明 `multi-tool-call`；10 个仅国内正向结果继续只记台账。
+- `0.0.9` — 对 16 个精确型号按已验证站点开放思考控制；根据真实协议显示
+  “思考模式：关闭／开启”或“推理强度：none／low”。12 个缺少可靠对照的候选继续隐藏。
+  保留 0.0.8 的 Function Calling 范围：41 个 `tool-call`、37 个
+  `stream-tool-call`，不开放 `multi-tool-call`。
 
 ---
 

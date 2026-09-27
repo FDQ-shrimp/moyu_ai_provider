@@ -19,7 +19,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 BASELINE = ROOT.parent / "moyu_ai_provider-0.0.6.difypkg"
 BASELINE_SHA256 = "0b7e2f188108f1a8bb09cf786c4964f4bb12bc7162ba1b4b8a1cdd2cb9545980"
-RELEASE = "0.0.8"
+RELEASE = "0.0.9"
 TOOL_FLAGS = {"tool-call", "stream-tool-call", "multi-tool-call"}
 TOOL_CALL_MODELS = {
     "MiniMax-M3", "claude-fable-5", "claude-haiku-4-5-20251001",
@@ -41,6 +41,49 @@ STREAM_TOOL_CALL_MODELS = TOOL_CALL_MODELS - {
     "MiniMax-M3", "claude-sonnet-4-5-20250929",
     "gemini-3-pro-image-preview", "kimi-k2.7-code",
 }
+DEFAULT_OFF_THINKING_MODELS = {
+    "qwen3.6-27b", "qwen3.6-plus", "qwen3.6-35b-a3b",
+    "qwen3.6-flash", "qwen3.7-max", "qwen3.7-plus", "qwen3.8-max",
+    "glm-5.1", "glm-5.2", "kimi-k2.6", "qwen-plus", "qwen3-max",
+}
+THINKING_PARAMETER_RULE = {
+    "name": "thinking_mode",
+    "type": "string",
+    "required": True,
+    "default": "关闭",
+    "options": ["关闭", "开启"],
+    "label": {"en_US": "Thinking mode", "zh_Hans": "思考模式"},
+    "help": {
+        "en_US": "Disabled by default. Select 开启 to enable thinking or 关闭 to disable it.",
+        "zh_Hans": "默认关闭；选择开启后启用深度思考。",
+    },
+}
+DEEPSEEK_THINKING_RULE = {
+    "name": "thinking_mode", "type": "string", "required": True,
+    "default": "开启", "options": ["关闭", "开启"],
+    "label": {"en_US": "Thinking mode", "zh_Hans": "思考模式"},
+    "help": {"en_US": "The upstream default is enabled.",
+             "zh_Hans": "上游默认开启。"},
+}
+GPT_EFFORT_RULE = {
+    "name": "reasoning_effort", "type": "string", "required": False,
+    "options": ["none", "low"],
+    "label": {"en_US": "Reasoning effort", "zh_Hans": "推理强度"},
+    "help": {"en_US": "Konjac overseas only. Only none and low were verified through this relay.",
+             "zh_Hans": "仅海外站开放；当前中转仅验证了 none 和 low。"},
+}
+THINKING_PARAMETER_RULES = {
+    **{model: THINKING_PARAMETER_RULE for model in DEFAULT_OFF_THINKING_MODELS},
+    "deepseek-v4-flash": {
+        **DEEPSEEK_THINKING_RULE,
+        "help": {"en_US": "Available with Moyu domestic credentials only. The upstream default is enabled.",
+                 "zh_Hans": "仅国内站开放；上游默认开启。"},
+    },
+    "deepseek-v4-pro": DEEPSEEK_THINKING_RULE,
+    "gpt-5.5": GPT_EFFORT_RULE,
+    "gpt-5.6-luna": GPT_EFFORT_RULE,
+}
+THINKING_MODELS = set(THINKING_PARAMETER_RULES)
 PUBLIC_FILES = {
     ".difyignore", "manifest.yaml", "main.py", "requirements.txt", "LICENSE", "PRIVACY.md",
     "README.md", "readme/README_zh_Hans.md", "icon.png", "_assets/icon.png",
@@ -92,6 +135,16 @@ def check_secrets(name, content):
     ensure(not any(re.search(pattern, content) for pattern in patterns), "Possible credential in " + name)
 
 
+def check_thinking_parameter(model):
+    model_id = model["model"]
+    rules = [rule for rule in model.get("parameter_rules", [])
+             if rule.get("name") in {"thinking_mode", "enable_thinking", "reasoning_effort"}]
+    expected = ([THINKING_PARAMETER_RULES[model_id]]
+                if model_id in THINKING_PARAMETER_RULES else [])
+    ensure(rules == expected, "Unexpected thinking parameter rule: " + model_id)
+    return bool(rules)
+
+
 def compare_baseline(files):
     ensure(sha256(BASELINE.read_bytes()) == BASELINE_SHA256, "Original 0.0.6 package hash changed")
     with zipfile.ZipFile(BASELINE) as archive:
@@ -106,15 +159,18 @@ def compare_baseline(files):
             if name.startswith("models/llm/") and name.endswith(".yaml")
         }
         ensure(set(registered_llms) >= TOOL_CALL_MODELS, "Approved model is not registered")
+        ensure(set(registered_llms) >= THINKING_MODELS, "Approved thinking model is not registered")
         for model_id, name in registered_llms.items():
             expected = yaml.safe_load(archive.read(name))
             if model_id in TOOL_CALL_MODELS:
                 expected["features"].append("tool-call")
             if model_id in STREAM_TOOL_CALL_MODELS:
                 expected["features"].append("stream-tool-call")
+            if model_id in THINKING_MODELS:
+                expected["parameter_rules"].append(THINKING_PARAMETER_RULES[model_id])
             ensure(yaml.safe_load((ROOT / name).read_bytes()) == expected,
                    "Model changed beyond approved capabilities: " + model_id)
-        expected_model_files = {registered_llms[model_id] for model_id in TOOL_CALL_MODELS}
+        expected_model_files = {registered_llms[model_id] for model_id in TOOL_CALL_MODELS | THINKING_MODELS}
         expected_changed = CHANGED_FILES | expected_model_files
         changed = {name for name in files if archive.read(name) != (ROOT / name).read_bytes()}
         ensure(changed == expected_changed,
@@ -160,6 +216,7 @@ def audit(package, unpack, report_path=None):
                and manifest["meta"]["runner"]["version"] == "3.12", "Wrong internal version")
         tool_count = stream_count = multi_count = 0
         approved_tool_models = {}
+        approved_thinking_models = []
         for name in files:
             if name.startswith("models/llm/") and name.endswith(".yaml"):
                 model = yaml.safe_load(archive.read(name))
@@ -174,8 +231,12 @@ def audit(package, unpack, report_path=None):
                 multi_count += "multi-tool-call" in expected
                 if expected:
                     approved_tool_models[model_id] = sorted(expected)
+                if check_thinking_parameter(model):
+                    approved_thinking_models.append(model_id)
         ensure((tool_count, stream_count, multi_count) == (41, 37, 0),
                "Unexpected packaged tool capability counts")
+        ensure(set(approved_thinking_models) == THINKING_MODELS,
+               "Unexpected packaged thinking model allowlist")
         # Extract only after verifying every member against the explicit safe list.
         unpack.mkdir()
         archive.extractall(unpack)
@@ -192,10 +253,16 @@ def audit(package, unpack, report_path=None):
         "tool_call_models": tool_count, "stream_tool_call_models": stream_count,
         "multi_tool_call_models": multi_count,
         "approved_tool_models": approved_tool_models,
+        "thinking_control_models": len(approved_thinking_models),
+        "approved_thinking_models": sorted(approved_thinking_models),
+        "default_off_thinking_models": sorted(DEFAULT_OFF_THINKING_MODELS),
+        "site_scoped_or_other_thinking_models": sorted(
+            THINKING_MODELS - DEFAULT_OFF_THINKING_MODELS
+        ),
         "changed_from_0_0_6": changed, "credential_pattern_scan": "passed",
         "internal_files_and_unregistered_models_absent": True, "file_sha256": hashes,
     }
-    report_path = Path(report_path).resolve() if report_path else ROOT / "scripts" / "local_package_audit_0.0.8.json"
+    report_path = Path(report_path).resolve() if report_path else ROOT / "scripts" / "local_package_audit_0.0.9.json"
     ensure(not report_path.exists(), "Audit report path already exists")
     with report_path.open("x", encoding="utf-8") as handle:
         json.dump(report, handle, ensure_ascii=False, indent=2)

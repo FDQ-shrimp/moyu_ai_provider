@@ -14,7 +14,7 @@ import zipfile
 import pytest
 import yaml
 
-from scripts import sync_models
+from scripts import local_package, sync_models
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -153,7 +153,7 @@ def test_manifest_is_well_formed():
     assert manifest["type"] == "plugin"
     assert manifest["name"] == "moyu_ai_provider"
     assert manifest["author"] == "fdq-shrimp"
-    assert manifest["version"] == "0.0.8"
+    assert manifest["version"] == "0.0.9"
     # Runtime metadata schema version is not the plugin release version.
     assert manifest["meta"]["version"] == "0.0.6"
     assert manifest["meta"]["runner"]["version"] == "3.12"
@@ -295,7 +295,7 @@ def test_registered_tool_capabilities_match_explicit_approved_allowlist():
         assert "multi-tool-call" not in model.get("features", []), model["model"]
 
 
-def test_approved_models_only_add_exact_flags_to_0_0_6_baseline():
+def test_approved_models_only_add_exact_capabilities_and_parameters_to_baseline():
     provider = _load("provider/moyu.yaml")
     paths = {
         _load(path)["model"]: path for path in provider["models"]["llm"]["predefined"]
@@ -310,6 +310,23 @@ def test_approved_models_only_add_exact_flags_to_0_0_6_baseline():
             expected["features"].append("tool-call")
             if model_id in STREAM_TOOL_CALL_MODELS:
                 expected["features"].append("stream-tool-call")
+            if model_id in {"qwen3.6-27b", "qwen3.6-plus", "qwen3.6-35b-a3b",
+                            "qwen3.6-flash", "qwen3.7-max", "qwen3.7-plus",
+                            "qwen3.8-max", "glm-5.1", "glm-5.2", "kimi-k2.6",
+                            "qwen-plus", "qwen3-max"}:
+                expected["parameter_rules"].append({
+                    "name": "thinking_mode", "type": "string", "required": True,
+                    "default": "关闭", "options": ["关闭", "开启"],
+                    "label": {"en_US": "Thinking mode", "zh_Hans": "思考模式"},
+                    "help": {
+                        "en_US": "Disabled by default. Select 开启 to enable thinking or 关闭 to disable it.",
+                        "zh_Hans": "默认关闭；选择开启后启用深度思考。",
+                    },
+                    })
+            if model_id in local_package.THINKING_PARAMETER_RULES and model_id not in local_package.DEFAULT_OFF_THINKING_MODELS:
+                expected["parameter_rules"].append(
+                    local_package.THINKING_PARAMETER_RULES[model_id]
+                )
             actual = _load(path)
             assert actual == expected, model_id
             assert len(actual["features"]) == len(set(actual["features"])), model_id

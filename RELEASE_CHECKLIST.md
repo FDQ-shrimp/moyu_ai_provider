@@ -1,8 +1,10 @@
 # Release Checklist — Moyu AI Dify Model Provider Plugin
 
-Current release: 0.0.8. Offline checks, package audit, dual-site Dify Agent
-Function Calling acceptance and ordinary-chat regression have completed. Marketplace
-submission was authorized on 2026-09-23. No additional real model requests are needed.
+Release candidate: 0.0.9. The 0.0.8 Function Calling allowlist is retained,
+and Thinking Control is exposed for 16 exact, site-verified LLMs. Twelve final
+candidates remain hidden after inconclusive live checks. This checklist is for
+local release preparation; GitHub and Marketplace submission require a later
+user confirmation. No additional real model requests are needed.
 
 Use this checklist before every `.difypkg` build that will be published to
 the Dify Marketplace or distributed to end users. Every item must be
@@ -20,9 +22,9 @@ ticked off in order.
 
 ## 1. Version & metadata
 
-- [ ] `manifest.yaml > version` bumped according to semver (patch / minor / major).
+- [ ] `manifest.yaml > version` is `0.0.9` (patch increment from published `0.0.8`).
 - [ ] `manifest.yaml > meta.version` is the independent manifest-format version;
-      preserve `0.0.6` in this build. Only top-level release version becomes `0.0.8`.
+      preserve `0.0.6` in this build. Only top-level release version becomes `0.0.9`.
 - [ ] `manifest.yaml > author` is the real publisher handle.
 - [ ] `manifest.yaml > privacy`, `repo`, and `contact` point to the current
       privacy document, public source repository, and support address.
@@ -131,9 +133,9 @@ ticked off in order.
 - [ ] Activate the project virtualenv.
 - [ ] Run:
       ```powershell
-      dify-plugin.exe plugin package <verified-allowlist-stage> -o <new-0.0.8-package>
+      dify-plugin.exe plugin package <verified-allowlist-stage> -o <new-0.0.9-package>
       ```
-- [ ] New 0.0.8 package is at the explicit output path; original 0.0.6 and 0.0.7 packages are unchanged.
+- [ ] New 0.0.9 package is at the explicit output path; original 0.0.6, 0.0.7 and 0.0.8 packages are unchanged.
 - [ ] Unpack and compare every file against current approved source; include only
       58 registered LLM YAMLs and 4 embeddings, no historical unregistered YAMLs.
 - [ ] Inspect the archive with a ZIP tool and confirm `.env` is absent.
@@ -146,12 +148,13 @@ Perform this on a Dify workspace that has **no prior installation** of
 this plugin.
 
 1. [ ] **Install plugin → Local file → upload
-       `moyu_ai_provider-0.0.6.difypkg`.**
+       `moyu_ai_provider-0.0.9.difypkg`.**
 2. [ ] In **Settings → Model providers**, confirm that `Moyu AI` appears
        with the correct icon and description in both English and 简体中文.
 3. [ ] Click **Set up**, paste a real Moyu AI API Key, click Save — the
        save succeeds and no error toast appears.
-4. [ ] Enable at least one registered model (e.g. `gpt-5.5`).
+4. [ ] Enable at least one registered model (e.g. `qwen3.6-plus`) and confirm
+       its site-eligible Thinking Control parameter appears.
 5. [ ] Create a simple Dify **Chatflow** or **LLM node** using that
        model. Send a test prompt ("ping"); confirm the response streams
        back and the run status is `SUCCESS`.
@@ -163,7 +166,7 @@ this plugin.
 
 1. [ ] In a separate workspace, install the published `0.0.5` package and
        save an existing domestic credential.
-2. [ ] Upgrade the plugin to `0.0.6` without deleting that credential.
+2. [ ] Upgrade the plugin to `0.0.9` without deleting that credential.
 3. [ ] Confirm the credential still works when the newly optional site field
        is absent; the adapter must fall back to the domestic API.
 4. [ ] Edit and save the credential, select each site with a matching test

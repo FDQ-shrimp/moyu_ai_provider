@@ -18,3 +18,16 @@ parameter_rules:
 - name: max_tokens
   use_template: max_tokens
   default: 4096
+- name: thinking_mode
+  type: string
+  required: true
+  default: 开启
+  options:
+  - 关闭
+  - 开启
+  label:
+    en_US: Thinking mode
+    zh_Hans: 思考模式
+  help:
+    en_US: The upstream default is enabled.
+    zh_Hans: 上游默认开启。
